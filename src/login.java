@@ -2,17 +2,17 @@ import javax.swing.*;
 
 
 public class login extends JFrame {
-    private JPanel login;
-    private JLabel dangnhap_label;
-    private JTextField textField1;
+    private JPanel
+            login;
+    private JLabel login_label;
+    private JTextField Email_tf;
     private JPasswordField passwordField1;
-    private JCheckBox ghiNhớTôiCheckBox;
-    private JButton đăngNhậpButton;
-    private JButton chưaĐăngKýTạoButton;
-    private JButton đăngNhậpVớiGoogleButton;
-    private JButton quênMậtKhẩuButton;
+    private JCheckBox rememberPass_cb;
+    private JButton login_btn;
+    private JButton registry_btn;
+    private JButton GoogleLogin_btn;
+    private JButton forgot_btn;
+    private JLabel email_label;
 
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
-    }
+
 }
