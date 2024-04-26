@@ -54,8 +54,8 @@ public class login extends JFrame {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{453, 453, 0};
-		gbl_contentPane.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{1.0, 1.0, 2.0, 1.0, 2.0, 1.0, 2.0, 1.0, 2.0, 1.0};
+		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 1.0, 2.0, 1.0, 2.0, 1.0, 2.0, 1.0, 2.0, 1.0};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel lblNewLabel_1 = new JLabel("Đăng nhập");
@@ -75,7 +75,9 @@ public class login extends JFrame {
 		gbc_lblNewLabel.gridy = 1;
 		contentPane.add(lblNewLabel, gbc_lblNewLabel);
 		
-		JButton loginGoogle = new JButton("Đăng nhập với Google");
+		ImageIcon icon_google = new ImageIcon("src/UI/google.png");
+		JButton loginGoogle = new JButton("Đăng nhập với Google", new ImageIcon(login.class.getResource("/resource/icon_google.png")));
+		loginGoogle.setBackground(new Color(238, 230, 224));
 		GridBagConstraints gbc_loginGoogle = new GridBagConstraints();
 		gbc_loginGoogle.fill = GridBagConstraints.BOTH;
 		gbc_loginGoogle.insets = new Insets(0, 0, 5, 5);
@@ -132,6 +134,8 @@ public class login extends JFrame {
 		password_panel.add(btn_forgot, BorderLayout.EAST);
 		
 		JButton btn_login = new JButton("Đăng nhập");
+		btn_login.setForeground(new Color(255, 255, 255));
+		btn_login.setBackground(new Color(16, 21, 64));
 		GridBagConstraints gbc_btn_login = new GridBagConstraints();
 		gbc_btn_login.fill = GridBagConstraints.BOTH;
 		gbc_btn_login.insets = new Insets(0, 0, 5, 5);
@@ -147,8 +151,8 @@ public class login extends JFrame {
 		gbc_btn_register.gridy = 9;
 		contentPane.add(btn_register, gbc_btn_register);
 		
-		ImageIcon icon = new ImageIcon("src/UI/logo.png");
-		icon.getImage().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
+		ImageIcon icon_background = new ImageIcon("src/UI/logo.png");
+		icon_background.getImage().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
 		JLabel label = new JLabel(new ImageIcon(login.class.getResource("/resource/login.png")));
 		label.setLabelFor(contentPane);
 		GridBagConstraints gbc_label = new GridBagConstraints();
