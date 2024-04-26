@@ -14,6 +14,9 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JCheckBox;
+import javax.swing.ImageIcon;
+import java.awt.Color;
+import java.awt.Font;
 
 public class login extends JFrame {
 
@@ -45,18 +48,20 @@ public class login extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 931, 554);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(238, 230, 224));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{453, 453, 0};
-		gbl_contentPane.rowHeights = new int[]{101, 101, 101, 101, 101, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{1.0, 1.0, 2.0, 1.0, 2.0, 1.0, 2.0, 1.0, 2.0, 1.0};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel lblNewLabel_1 = new JLabel("Đăng nhập");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+		gbc_lblNewLabel_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_1.gridx = 0;
 		gbc_lblNewLabel_1.gridy = 0;
@@ -142,11 +147,18 @@ public class login extends JFrame {
 		gbc_btn_register.gridy = 9;
 		contentPane.add(btn_register, gbc_btn_register);
 		
+		ImageIcon icon = new ImageIcon("src/UI/logo.png");
+		icon.getImage().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
+		JLabel label = new JLabel(new ImageIcon(login.class.getResource("/resource/login.png")));
+		label.setLabelFor(contentPane);
+		GridBagConstraints gbc_label = new GridBagConstraints();
+		gbc_label.fill = GridBagConstraints.BOTH;
+		gbc_label.insets = new Insets(0, 0, 5, 5);
+		gbc_label.gridx = 1;
+		gbc_label.gridy = 0;
+		gbc_label.gridheight = 10;
+		contentPane.add(label, gbc_label);
 		
-		
-		
-
-	
 	}
 
 }
