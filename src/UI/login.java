@@ -17,6 +17,7 @@ import javax.swing.JCheckBox;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Component;
 
 public class login extends JFrame {
 
@@ -77,6 +78,8 @@ public class login extends JFrame {
 		
 		ImageIcon icon_google = new ImageIcon("src/UI/google.png");
 		JButton loginGoogle = new JButton("Đăng nhập với Google", new ImageIcon(login.class.getResource("/resource/icon_google.png")));
+		loginGoogle.setBorder(null);
+		loginGoogle.setAlignmentY(Component.TOP_ALIGNMENT);
 		loginGoogle.setBackground(new Color(238, 230, 224));
 		GridBagConstraints gbc_loginGoogle = new GridBagConstraints();
 		gbc_loginGoogle.fill = GridBagConstraints.BOTH;
@@ -131,6 +134,7 @@ public class login extends JFrame {
 		JCheckBox chckbxNewCheckBox = new JCheckBox("Ghi nhớ mật khẩu");
 		password_panel.add(chckbxNewCheckBox, BorderLayout.WEST);
 		JButton btn_forgot = new JButton("Quên mật khẩu");
+		btn_forgot.setBackground(new Color(238, 230, 224));
 		password_panel.add(btn_forgot, BorderLayout.EAST);
 		
 		JButton btn_login = new JButton("Đăng nhập");
@@ -162,6 +166,7 @@ public class login extends JFrame {
 		gbc_label.gridy = 0;
 		gbc_label.gridheight = 10;
 		contentPane.add(label, gbc_label);
+		
 		
 	}
 
