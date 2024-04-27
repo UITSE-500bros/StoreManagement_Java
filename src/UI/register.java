@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -20,12 +21,12 @@ public class register extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
+	private JTextField textField_name;
+	private JTextField textField_email;
+	private JTextField textField_lastName;
+	private JTextField textField_phoneNumber;
+	private JTextField textField_password;
+	private JTextField textField_rePassWord;
 
 	/**
 	 * Launch the application.
@@ -34,6 +35,7 @@ public class register extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+		            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 					register frame = new register();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -79,7 +81,7 @@ public class register extends JFrame {
 		gbl_panel.columnWidths = new int[]{254, 254, 0};
 		gbl_panel.rowHeights = new int[]{60, 0, 60, 60, 60, 60, 60, 60, 60, };
 		gbl_panel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		panel.setLayout(gbl_panel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Đăng ký tài khoản");
@@ -116,23 +118,23 @@ public class register extends JFrame {
 		gbc_lblNewLabel_4.gridy = 2;
 		panel.add(lblNewLabel_4, gbc_lblNewLabel_4);
 		
-		textField_2 = new JTextField();
-		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
-		gbc_textField_2.fill = GridBagConstraints.BOTH;
-		gbc_textField_2.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_2.gridx = 0;
-		gbc_textField_2.gridy = 3;
-		panel.add(textField_2, gbc_textField_2);
-		textField_2.setColumns(10);
+		textField_lastName = new JTextField();
+		GridBagConstraints gbc_textField_lastName = new GridBagConstraints();
+		gbc_textField_lastName.fill = GridBagConstraints.BOTH;
+		gbc_textField_lastName.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_lastName.gridx = 0;
+		gbc_textField_lastName.gridy = 3;
+		panel.add(textField_lastName, gbc_textField_lastName);
+		textField_lastName.setColumns(10);
 		
-		textField = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.fill = GridBagConstraints.BOTH;
-		gbc_textField.insets = new Insets(0, 0, 5, 0);
-		gbc_textField.gridx = 1;
-		gbc_textField.gridy = 3;
-		panel.add(textField, gbc_textField);
-		textField.setColumns(10);
+		textField_name = new JTextField();
+		GridBagConstraints gbc_textField_name = new GridBagConstraints();
+		gbc_textField_name.fill = GridBagConstraints.BOTH;
+		gbc_textField_name.insets = new Insets(0, 0, 5, 0);
+		gbc_textField_name.gridx = 1;
+		gbc_textField_name.gridy = 3;
+		panel.add(textField_name, gbc_textField_name);
+		textField_name.setColumns(10);
 		
 		JLabel lblNewLabel_5 = new JLabel("Email");
 		GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
@@ -150,23 +152,23 @@ public class register extends JFrame {
 		gbc_lblNewLabel_6.gridy = 4;
 		panel.add(lblNewLabel_6, gbc_lblNewLabel_6);
 		
-		textField_1 = new JTextField();
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.fill = GridBagConstraints.BOTH;
-		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_1.gridx = 0;
-		gbc_textField_1.gridy = 5;
-		panel.add(textField_1, gbc_textField_1);
-		textField_1.setColumns(10);
+		textField_email = new JTextField();
+		GridBagConstraints gbc_textField_email = new GridBagConstraints();
+		gbc_textField_email.fill = GridBagConstraints.BOTH;
+		gbc_textField_email.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_email.gridx = 0;
+		gbc_textField_email.gridy = 5;
+		panel.add(textField_email, gbc_textField_email);
+		textField_email.setColumns(10);
 		
-		textField_3 = new JTextField();
-		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
-		gbc_textField_3.fill = GridBagConstraints.BOTH;
-		gbc_textField_3.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_3.gridx = 1;
-		gbc_textField_3.gridy = 5;
-		panel.add(textField_3, gbc_textField_3);
-		textField_3.setColumns(10);
+		textField_phoneNumber = new JTextField();
+		GridBagConstraints gbc_textField_phoneNumber = new GridBagConstraints();
+		gbc_textField_phoneNumber.fill = GridBagConstraints.BOTH;
+		gbc_textField_phoneNumber.insets = new Insets(0, 0, 5, 0);
+		gbc_textField_phoneNumber.gridx = 1;
+		gbc_textField_phoneNumber.gridy = 5;
+		panel.add(textField_phoneNumber, gbc_textField_phoneNumber);
+		textField_phoneNumber.setColumns(10);
 		
 		JLabel lblNewLabel_7 = new JLabel("Mật khẩu");
 		GridBagConstraints gbc_lblNewLabel_7 = new GridBagConstraints();
@@ -184,23 +186,23 @@ public class register extends JFrame {
 		gbc_lblNewLabel_8.gridy = 6;
 		panel.add(lblNewLabel_8, gbc_lblNewLabel_8);
 		
-		textField_4 = new JTextField();
-		GridBagConstraints gbc_textField_4 = new GridBagConstraints();
-		gbc_textField_4.fill = GridBagConstraints.BOTH;
-		gbc_textField_4.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_4.gridx = 0;
-		gbc_textField_4.gridy = 7;
-		panel.add(textField_4, gbc_textField_4);
-		textField_4.setColumns(10);
+		textField_password = new JTextField();
+		GridBagConstraints gbc_textField_password = new GridBagConstraints();
+		gbc_textField_password.fill = GridBagConstraints.BOTH;
+		gbc_textField_password.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_password.gridx = 0;
+		gbc_textField_password.gridy = 7;
+		panel.add(textField_password, gbc_textField_password);
+		textField_password.setColumns(10);
 		
-		textField_5 = new JTextField();
-		GridBagConstraints gbc_textField_5 = new GridBagConstraints();
-		gbc_textField_5.fill = GridBagConstraints.BOTH;
-		gbc_textField_5.insets = new Insets(0, 0, 5, 0);
-		gbc_textField_5.gridx = 1;
-		gbc_textField_5.gridy = 7;
-		panel.add(textField_5, gbc_textField_5);
-		textField_5.setColumns(10);
+		textField_rePassWord = new JTextField();
+		GridBagConstraints gbc_textField_rePassWord = new GridBagConstraints();
+		gbc_textField_rePassWord.fill = GridBagConstraints.BOTH;
+		gbc_textField_rePassWord.insets = new Insets(0, 0, 5, 0);
+		gbc_textField_rePassWord.gridx = 1;
+		gbc_textField_rePassWord.gridy = 7;
+		panel.add(textField_rePassWord, gbc_textField_rePassWord);
+		textField_rePassWord.setColumns(10);
 				
 				JButton btn_register = new JButton("Đăng ký");
 				GridBagConstraints gbc_btn_register = new GridBagConstraints();
@@ -213,6 +215,7 @@ public class register extends JFrame {
 				
 						
 						JButton btn_login = new JButton("Đã  có tài khoản? Đăng nhập");
+						btn_login.setBackground(new Color(241, 235, 229));
 						GridBagConstraints gbc_btn_login = new GridBagConstraints();
 						gbc_btn_login.insets = new Insets(0, 0, 0, 5);
 						gbc_btn_login.fill = GridBagConstraints.BOTH;
