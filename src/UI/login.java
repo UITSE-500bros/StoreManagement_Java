@@ -18,6 +18,7 @@ import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Component;
+import java.awt.ComponentOrientation;
 
 public class login extends JFrame {
 
@@ -78,6 +79,7 @@ public class login extends JFrame {
 		
 		ImageIcon icon_google = new ImageIcon("src/UI/google.png");
 		JButton loginGoogle = new JButton("Đăng nhập với Google", new ImageIcon(login.class.getResource("/resource/icon_google.png")));
+		loginGoogle.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		loginGoogle.setBorder(null);
 		loginGoogle.setAlignmentY(Component.TOP_ALIGNMENT);
 		loginGoogle.setBackground(new Color(238, 230, 224));
