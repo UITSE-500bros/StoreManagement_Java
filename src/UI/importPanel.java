@@ -93,7 +93,7 @@ public class importPanel extends JPanel {
 		JButton addButton = new JButton("Add");
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ne
+				
 			}
 		});
 		addButton.setBorder(BorderFactory.createEmptyBorder(0,30,0,30));
