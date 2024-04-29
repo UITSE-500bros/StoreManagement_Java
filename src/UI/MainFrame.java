@@ -62,7 +62,5 @@ public class MainFrame extends JFrame {
 		gbc.weightx = 0.85;
 		gbc.weighty = 1;
 		mainPanel.add(containerPanel, gbc);
-
-		this.add(new importPanel());
 	}
 }

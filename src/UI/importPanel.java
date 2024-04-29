@@ -7,13 +7,24 @@ import java.awt.GridBagLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import ReuseClass.DatePicker;
+
 public class importPanel extends JPanel {
+	public static void main(String[] args) {
+		importPanel panel = new importPanel();
+		panel.setVisible(true);
+		JFrame frame = new JFrame();
+		frame.add(panel);
+		frame.pack();
+		frame.setVisible(true);
+	}
 
 	private static final long serialVersionUID = 1L;
 
@@ -99,9 +110,10 @@ public class importPanel extends JPanel {
 		gbc1.weightx = 0.2;
 		contentPane.add(maSoPhieuTextField, gbc1);
 
+		DatePicker datePicker = new DatePicker();
 		gbc1 = new GridBagConstraints();
 		gbc1.anchor = GridBagConstraints.WEST;
-
+		gbc1.fill = GridBagConstraints.BOTH;
 		gbc1.gridx = 1;
 		gbc1.weightx = 0.8;
 		contentPane.add(datePicker, gbc1);
