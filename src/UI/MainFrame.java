@@ -1,6 +1,5 @@
 package UI;
 
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -77,16 +76,6 @@ public class MainFrame extends JFrame {
 		mainPanel.add(menuPanel, gbc_menuPanel);
 		// menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
 		initMenuPanel(menuPanel);
-
-		ContainerPanel containerPanel = new ContainerPanel();
-		gbc = new GridBagConstraints();
-		gbc.fill = GridBagConstraints.BOTH;
-		gbc.gridy = 0;
-		gbc.gridx = 1;
-		gbc.weightx = 0.85;
-		gbc.weighty = 1;
-		mainPanel.add(containerPanel, gbc);
-		containerPanel.setLayout(new CardLayout(0, 0));
 
 		JPanel storesPanel = new JPanel();
 		initStoresPanel(storesPanel);

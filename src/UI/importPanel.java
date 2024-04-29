@@ -20,9 +20,10 @@ import javax.swing.table.DefaultTableModel;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class importPanel extends JPanel {
-	
 
 	private static final long serialVersionUID = 1L;
 
@@ -90,6 +91,12 @@ public class importPanel extends JPanel {
 
 		gbc1 = new GridBagConstraints();
 		JButton addButton = new JButton("Add");
+		addButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ne
+			}
+		});
+		addButton.setBorder(BorderFactory.createEmptyBorder(0,30,0,30));
 		addButton.setBorderPainted(false);
 		addButton.setBackground(Color.BLACK);
 		addButton.setForeground(Color.ORANGE);
