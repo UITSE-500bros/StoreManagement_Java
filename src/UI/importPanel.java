@@ -4,9 +4,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.text.ParseException;
+import java.util.Properties;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,7 +17,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import ReuseClass.DatePicker;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
 
 public class importPanel extends JPanel {
 	public static void main(String[] args) {
@@ -110,10 +115,26 @@ public class importPanel extends JPanel {
 		gbc1.weightx = 0.2;
 		contentPane.add(maSoPhieuTextField, gbc1);
 
-		DatePicker datePicker = new DatePicker();
+		Properties p = new Properties();
+		p.put("text.today", "Today");
+		p.put("text.month", "Month");
+		p.put("text.year", "Year");
+		JDatePickerImpl datePicker = new JDatePickerImpl(new JDatePanelImpl(new UtilDateModel(), p),
+				new AbstractFormatter() {
+					@Override
+					public Object stringToValue(String text) throws ParseException {
+						String res = text.replaceAll("/", "-");
+						return res;
+					}
+
+					@Override
+					public String valueToString(Object value) throws ParseException {
+						return null;
+					}
+				});
+		datePicker.setFont(new Font("Roboto", Font.PLAIN, 20));
 		gbc1 = new GridBagConstraints();
 		gbc1.anchor = GridBagConstraints.WEST;
-		gbc1.fill = GridBagConstraints.BOTH;
 		gbc1.gridx = 1;
 		gbc1.weightx = 0.8;
 		contentPane.add(datePicker, gbc1);
