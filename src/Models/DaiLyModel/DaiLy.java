@@ -13,8 +13,7 @@ public class DaiLy {
     public DaiLy() {
     }
 
-    public DaiLy(int maDaiLy2, String tenDaiLy2, String dienThoai2, String diaChi2, int maLoaiDaiLy2, int maQuan2,
-            int soNo2, String ngayTiepNhan2) {
+    public DaiLy(int maDaiLy2, String tenDaiLy2, String dienThoai2, String diaChi2, int maLoaiDaiLy2, int maQuan2, int soNo2, String ngayTiepNhan2) {
         this.maDaiLy = maDaiLy2;
         this.tenDaiLy = tenDaiLy2;
         this.dienThoai = dienThoai2;
