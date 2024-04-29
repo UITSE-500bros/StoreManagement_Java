@@ -22,14 +22,7 @@ import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
 public class importPanel extends JPanel {
-	public static void main(String[] args) {
-		importPanel panel = new importPanel();
-		panel.setVisible(true);
-		JFrame frame = new JFrame();
-		frame.add(panel);
-		frame.pack();
-		frame.setVisible(true);
-	}
+	
 
 	private static final long serialVersionUID = 1L;
 
