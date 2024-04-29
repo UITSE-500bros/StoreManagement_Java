@@ -59,6 +59,7 @@ public class importPanel extends JPanel {
 
 		JPanel contentPane = new JPanel();
 		contentPane.setLayout(new GridBagLayout());
+		contentPane.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[] { 0, 0, 0 }; // 3 columns
 		gbl_contentPane.rowHeights = new int[] { 0, 0, 0, 0, 0 }; // 5 rows
@@ -135,8 +136,10 @@ public class importPanel extends JPanel {
 
 		gbc1 = new GridBagConstraints();
 		gbc1.anchor = GridBagConstraints.EAST;
-		JTextField tongTienTextField = new JTextField(10);
-		maSoPhieuTextField.setFont(new Font("Roboto", Font.PLAIN, 20));
+		JTextField tongTienTextField = new JTextField(15);
+		tongTienTextField.setEditable(false);
+		tongTienTextField.setText("Tổng tiền: 0 VND");
+		tongTienTextField.setFont(new Font("Roboto", Font.PLAIN, 20));
 		gbc1.gridy = 3;
 		gbc1.gridwidth = 2; // Span across 2 columns
 		contentPane.add(tongTienTextField, gbc1);
