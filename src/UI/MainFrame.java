@@ -1,13 +1,13 @@
 package UI;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.Color;
-import java.awt.GridBagConstraints;  
-import java.awt.GridBagLayout; 
+
 public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -39,28 +39,30 @@ public class MainFrame extends JFrame {
 		mainPanel = new JPanel();
 		setContentPane(mainPanel);
 		GridBagLayout mainGBL = new GridBagLayout();
-		
+
 		mainPanel.setLayout(mainGBL);
 		JPanel menuPanel = new JPanel();
-        menuPanel.setBackground(Color.BLACK);
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 1; // menuPanel will span 1 column
-        gbc.gridheight = GridBagConstraints.REMAINDER; // menuPanel will span all remaining rows
-        gbc.weightx = 0.15; // menuPanel will take up 20% of the available horizontal space
-        gbc.weighty = 1; // menuPanel will take up all available vertical space
+		menuPanel.setBackground(Color.BLACK);
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.gridwidth = 1; // menuPanel will span 1 column
+		gbc.gridheight = GridBagConstraints.REMAINDER; // menuPanel will span all remaining rows
+		gbc.weightx = 0.15; // menuPanel will take up 20% of the available horizontal space
+		gbc.weighty = 1; // menuPanel will take up all available vertical space
 
-        mainPanel.add(menuPanel, gbc);
-        JPanel containerPanel = new JPanel();
-        containerPanel.setBackground(Color.YELLOW);
-        gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.gridy = 0;
-        gbc.gridx = 1;
-        gbc.weightx = 0.85;
-        gbc.weighty = 1;
-        mainPanel.add(containerPanel, gbc);
+		mainPanel.add(menuPanel, gbc);
+		JPanel containerPanel = new JPanel();
+		containerPanel.setBackground(Color.YELLOW);
+		gbc = new GridBagConstraints();
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.gridy = 0;
+		gbc.gridx = 1;
+		gbc.weightx = 0.85;
+		gbc.weighty = 1;
+		mainPanel.add(containerPanel, gbc);
+
+		this.add(new importPanel());
 	}
 }
