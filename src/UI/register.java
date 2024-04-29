@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import java.awt.GridLayout;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.FlowLayout;
 
 public class register extends JFrame {
 
@@ -49,6 +50,8 @@ public class register extends JFrame {
 	 * Create the frame.
 	 */
 	public register() {
+		setResizable(false);
+		setBackground(new Color(255, 255, 255));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 931, 648);
 		contentPane = new JPanel();
@@ -58,17 +61,25 @@ public class register extends JFrame {
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new EmptyBorder(0, 0, 0, 0));
+		FlowLayout flowLayout = (FlowLayout) panel_1.getLayout();
+		flowLayout.setVgap(0);
+		flowLayout.setHgap(0);
+		panel_1.setBackground(new Color(255, 255, 255));
+		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+		gbc_panel_1.fill = GridBagConstraints.BOTH;
+		gbc_panel_1.gridx = 0;
+		gbc_panel_1.gridy = 0;
+		contentPane.add(panel_1, gbc_panel_1);
+		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(register.class.getResource("/resource/register.png")));
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.insets = new Insets(0, 0, 0, 5);
-		gbc_lblNewLabel.gridx = 0;
-		gbc_lblNewLabel.gridy = 0;
-		contentPane.add(lblNewLabel, gbc_lblNewLabel);
+		panel_1.add(lblNewLabel);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(241, 235, 229));
