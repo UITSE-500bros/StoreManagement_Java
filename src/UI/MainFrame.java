@@ -53,7 +53,7 @@ public class MainFrame extends JFrame {
 		mainPanel.setLayout(mainGBL);
 		menuPanel = new JPanel();
 		menuPanel.setBackground(Color.BLACK);
-		GridBagConstraints gbc;
+		GridBagConstraints gbc = null;
 		gbc_menuPanel = new GridBagConstraints();
 		gbc_menuPanel.fill = GridBagConstraints.BOTH;
 		gbc_menuPanel.gridx = 0;
