@@ -4,24 +4,20 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.text.ParseException;
-import java.util.Properties;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField.AbstractFormatter;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
 
-import org.jdatepicker.impl.JDatePanelImpl;
-import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.UtilDateModel;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import ReuseClass.DatePicker;
 
 public class importPanel extends JPanel {
 
@@ -40,6 +36,7 @@ public class importPanel extends JPanel {
 		GridBagConstraints gbc = new GridBagConstraints();
 
 		JPanel panelHeader = new JPanel();
+		panelHeader.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(0, 0, 0)));
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		gbc.weightx = 1;
@@ -55,7 +52,7 @@ public class importPanel extends JPanel {
 		gbcHeader.fill = GridBagConstraints.BOTH;
 		gbcHeader.anchor = GridBagConstraints.WEST;
 		JLabel headerLable = new JLabel("Nhập Hàng");
-		headerLable.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
+		headerLable.setBorder(new EmptyBorder(0, 20, 0, 0));
 		headerLable.setFont(new Font("Roboto", Font.BOLD, 44));
 		panelHeader.add(headerLable, gbcHeader);
 		this.add(panelHeader, gbc);
@@ -65,11 +62,12 @@ public class importPanel extends JPanel {
 		gbc.gridy = 1;
 		gbc.weighty = 0.8;
 		gbc.weightx = 1;
+		gbc.insets = new java.awt.Insets(30, 40, 40, 30);
 		gbc.fill = GridBagConstraints.BOTH;
 
-		JPanel contentPane = new JPanel();
+		CustomPanel contentPane = new CustomPanel();
 		contentPane.setLayout(new GridBagLayout());
-		contentPane.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+		contentPane.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[] { 0, 0, 0 }; // 3 columns
 		gbl_contentPane.rowHeights = new int[] { 0, 0, 0, 0, 0 }; // 5 rows
@@ -93,10 +91,9 @@ public class importPanel extends JPanel {
 		JButton addButton = new JButton("Add");
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ne
 			}
 		});
-		addButton.setBorder(BorderFactory.createEmptyBorder(0,30,0,30));
+		addButton.setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 30));
 		addButton.setBorderPainted(false);
 		addButton.setBackground(Color.BLACK);
 		addButton.setForeground(Color.ORANGE);
@@ -115,23 +112,7 @@ public class importPanel extends JPanel {
 		gbc1.weightx = 0.2;
 		contentPane.add(maSoPhieuTextField, gbc1);
 
-		Properties p = new Properties();
-		p.put("text.today", "Today");
-		p.put("text.month", "Month");
-		p.put("text.year", "Year");
-		JDatePickerImpl datePicker = new JDatePickerImpl(new JDatePanelImpl(new UtilDateModel(), p),
-				new AbstractFormatter() {
-					@Override
-					public Object stringToValue(String text) throws ParseException {
-						String res = text.replaceAll("/", "-");
-						return res;
-					}
-
-					@Override
-					public String valueToString(Object value) throws ParseException {
-						return null;
-					}
-				});
+		DatePicker datePicker = new DatePicker();
 		datePicker.setFont(new Font("Roboto", Font.PLAIN, 20));
 		gbc1 = new GridBagConstraints();
 		gbc1.anchor = GridBagConstraints.WEST;
@@ -165,6 +146,7 @@ public class importPanel extends JPanel {
 		gbc1.gridwidth = 2; // Span across 2 columns
 		gbc1.gridy = 2;
 		gbc1.weightx = 1.0;
+		gbc1.insets = new java.awt.Insets(10, 0, 0, 0);
 		contentPane.add(tableNhapHang, gbc1);
 
 		gbc1 = new GridBagConstraints();
@@ -175,6 +157,7 @@ public class importPanel extends JPanel {
 		tongTienTextField.setFont(new Font("Roboto", Font.PLAIN, 20));
 		gbc1.gridy = 3;
 		gbc1.gridwidth = 2; // Span across 2 columns
+		gbc1.insets = new java.awt.Insets(20, 0, 0, 0);
 		contentPane.add(tongTienTextField, gbc1);
 
 		this.add(contentPane, gbc);
