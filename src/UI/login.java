@@ -25,13 +25,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
+import javax.swing.JPasswordField;
 
 public class login extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField_password;
 	private JTextField textField_email;
+	private JPasswordField passwordField;
 
 	/**
 	 * Launch the application.
@@ -52,8 +53,15 @@ public class login extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @return 
+	 * 
+	 * 
 	 */
+	
+
+	
 	public login() {
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 931, 554);
 		contentPane = new JPanel();
@@ -85,17 +93,6 @@ public class login extends JFrame {
 		contentPane.add(lblNewLabel, gbc_lblNewLabel);
 		
 		ImageIcon icon_google = new ImageIcon("src/UI/google.png");
-		JButton loginGoogle = new JButton("Đăng nhập với Google", new ImageIcon(login.class.getResource("/resource/icon_google.png")));
-		loginGoogle.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-		loginGoogle.setBorder(null);
-		loginGoogle.setAlignmentY(Component.TOP_ALIGNMENT);
-		loginGoogle.setBackground(new Color(238, 230, 224));
-		GridBagConstraints gbc_loginGoogle = new GridBagConstraints();
-		gbc_loginGoogle.fill = GridBagConstraints.BOTH;
-		gbc_loginGoogle.insets = new Insets(0, 0, 5, 5);
-		gbc_loginGoogle.gridx = 0;
-		gbc_loginGoogle.gridy = 2;
-		contentPane.add(loginGoogle, gbc_loginGoogle);
 		
 		JLabel lblNewLabel_2 = new JLabel("Email");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
@@ -122,18 +119,17 @@ public class login extends JFrame {
 		gbc_lblNewLabel_3.gridy = 5;
 		contentPane.add(lblNewLabel_3, gbc_lblNewLabel_3);
 		
-		textField_password = new JTextField();
-		GridBagConstraints gbc_textField_password = new GridBagConstraints();
-		gbc_textField_password.fill = GridBagConstraints.BOTH;
-		gbc_textField_password.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_password.gridx = 0;
-		gbc_textField_password.gridy = 6;
-		contentPane.add(textField_password, gbc_textField_password);
-		textField_password.setColumns(10);
+		passwordField = new JPasswordField();
+		GridBagConstraints gbc_passwordField = new GridBagConstraints();
+		gbc_passwordField.insets = new Insets(0, 0, 5, 5);
+		gbc_passwordField.fill = GridBagConstraints.BOTH;
+		gbc_passwordField.gridx = 0;
+		gbc_passwordField.gridy = 6;
+		contentPane.add(passwordField, gbc_passwordField);
 		
 		JPanel password_panel = new JPanel();
 		GridBagConstraints gbc_password_panel = new GridBagConstraints();
-		gbc_password_panel.insets = new Insets(0, 0, 0, 5);
+		gbc_password_panel.insets = new Insets(0, 0, 5, 5);
 		gbc_password_panel.fill = GridBagConstraints.BOTH;
 		gbc_password_panel.gridx = 0;
 		gbc_password_panel.gridy = 7;
@@ -159,7 +155,7 @@ public class login extends JFrame {
 		JButton btn_register = new JButton("Chưa đăng ký? Đăng ký ngay");
 		GridBagConstraints gbc_btn_register = new GridBagConstraints();
 		gbc_btn_register.fill = GridBagConstraints.BOTH;
-		gbc_btn_register.insets = new Insets(0, 0, 5, 5);
+		gbc_btn_register.insets = new Insets(0, 0, 0, 5);
 		gbc_btn_register.gridx = 0;
 		gbc_btn_register.gridy = 9;
 		contentPane.add(btn_register, gbc_btn_register);
@@ -170,7 +166,6 @@ public class login extends JFrame {
 		label.setLabelFor(contentPane);
 		GridBagConstraints gbc_label = new GridBagConstraints();
 		gbc_label.fill = GridBagConstraints.BOTH;
-		gbc_label.insets = new Insets(0, 0, 5, 5);
 		gbc_label.gridx = 1;
 		gbc_label.gridy = 0;
 		gbc_label.gridheight = 10;
@@ -179,4 +174,12 @@ public class login extends JFrame {
 		
 	}
 
+
+	public String getTextField_email() {
+        return textField_email.getText();
+    }
+
+	public String getPasswordField() {
+		return passwordField.getPassword().toString();
+	}
 }
