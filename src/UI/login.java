@@ -12,6 +12,8 @@ import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.JLabel;
 import java.awt.GridLayout;
+import java.awt.Image;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
@@ -19,7 +21,12 @@ import javax.swing.UIManager;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 import javax.swing.JCheckBox;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Font;
@@ -63,15 +70,15 @@ public class login extends JFrame {
 	public login() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 931, 554);
+		setBounds(100, 100, 1000, 550);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(238, 230, 224));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{453, 453, 0};
-		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWidths = new int[]{453, 453};
+		gbl_contentPane.columnWeights = new double[]{1.0, 1.0};
 		gbl_contentPane.rowWeights = new double[]{0.0, 1.0, 2.0, 1.0, 2.0, 1.0, 2.0, 1.0, 2.0, 1.0};
 		contentPane.setLayout(gbl_contentPane);
 		
@@ -160,19 +167,30 @@ public class login extends JFrame {
 		gbc_btn_register.gridx = 0;
 		gbc_btn_register.gridy = 9;
 		contentPane.add(btn_register, gbc_btn_register);
+
 		
-		ImageIcon icon_background = new ImageIcon("src/UI/logo.png");
-		icon_background.getImage().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
-		JLabel label = new JLabel(new ImageIcon(login.class.getResource("/resource/login.png")));
+		JLabel label = new JLabel();
 		label.setLabelFor(contentPane);
 		GridBagConstraints gbc_label = new GridBagConstraints();
-		gbc_label.fill = GridBagConstraints.BOTH;
+		gbc_label.anchor = GridBagConstraints.EAST;
+		gbc_label.fill = GridBagConstraints.VERTICAL;
 		gbc_label.gridx = 1;
 		gbc_label.gridy = 0;
 		gbc_label.gridheight = 10;
 		contentPane.add(label, gbc_label);
+		label.setPreferredSize(new java.awt.Dimension(453, 550));
+		BufferedImage img = null;
 		
+		try {
+			 img = ImageIO.read(getClass().getResource("/resource/login.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+		Image icon_background = img.getScaledInstance(453,550, img.SCALE_SMOOTH);
+		ImageIcon icon = new ImageIcon(icon_background);
+		label.setIcon(icon);
 	}
 
 
