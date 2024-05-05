@@ -58,7 +58,7 @@ public class FormImport extends CustomPanel {
 		gbcContent.gridx = 0;
 		gbcContent.gridy = 0;
 		gbcContent.weightx = 0.5;
-		gbcContent.weighty = 0.2;
+		gbcContent.weighty = 0.1;
 		gbcContent.insets = new Insets(0, 20, 0, 0);
 		gbcContent.anchor = GridBagConstraints.LAST_LINE_START;
 		labelName.setFont(new Font("Roboto", Font.PLAIN, 12));
@@ -69,7 +69,7 @@ public class FormImport extends CustomPanel {
 		gbcContent.gridx = 0;
 		gbcContent.gridy = 1;
 		gbcContent.weightx = 0.5;
-		gbcContent.weighty = 0.2;
+		gbcContent.weighty = 0.4;
 		gbcContent.insets = new Insets(0, 20, 0, 0);
 		txtName.setFont(new Font("Roboto", Font.PLAIN, 15));
 		gbcContent.anchor = GridBagConstraints.FIRST_LINE_START;
@@ -80,7 +80,7 @@ public class FormImport extends CustomPanel {
 		gbcContent.gridx = 1;
 		gbcContent.gridy = 0;
 		gbcContent.weightx = 0.5;
-		gbcContent.weighty = 0.3;
+		gbcContent.weighty = 0.1;
 		gbcContent.insets = new Insets(0, 20, 0, 0);
 		gbcContent.anchor = GridBagConstraints.LAST_LINE_START;
 		labelDVT.setFont(new Font("Roboto", Font.PLAIN, 12));
@@ -91,7 +91,7 @@ public class FormImport extends CustomPanel {
 		gbcContent.gridx = 1;
 		gbcContent.gridy = 1;
 		gbcContent.weightx = 0.5;
-		gbcContent.weighty = 0.3;
+		gbcContent.weighty = 0.4;
 		gbcContent.insets = new Insets(0, 20, 0, 0);
 		txtDVT.setFont(new Font("Roboto", Font.PLAIN, 15));
 		gbcContent.anchor = GridBagConstraints.FIRST_LINE_START;
@@ -99,10 +99,10 @@ public class FormImport extends CustomPanel {
 
 		gbcContent = new GridBagConstraints();
 		JLabel labelSoLuong = new JLabel("Số lượng");
-		gbcContent.gridx = 2;
-		gbcContent.gridy = 0;
+		gbcContent.gridx = 0;
+		gbcContent.gridy = 2;
 		gbcContent.weightx = 0.5;
-		gbcContent.weighty = 0.3;
+		gbcContent.weighty = 0.1;
 		gbcContent.insets = new Insets(0, 20, 0, 0);
 		gbcContent.anchor = GridBagConstraints.LAST_LINE_START;
 		labelSoLuong.setFont(new Font("Roboto", Font.PLAIN, 12));
@@ -110,10 +110,10 @@ public class FormImport extends CustomPanel {
 
 		gbcContent = new GridBagConstraints();
 		JTextField txtSoLuong = new JTextField(15);
-		gbcContent.gridx = 2;
-		gbcContent.gridy = 1;
+		gbcContent.gridx = 0;
+		gbcContent.gridy = 3;
 		gbcContent.weightx = 0.5;
-		gbcContent.weighty = 0.3;
+		gbcContent.weighty = 0.4;
 		gbcContent.insets = new Insets(0, 20, 0, 0);
 		txtSoLuong.setFont(new Font("Roboto", Font.PLAIN, 15));
 		gbcContent.anchor = GridBagConstraints.FIRST_LINE_START;
@@ -121,10 +121,10 @@ public class FormImport extends CustomPanel {
 
 		gbcContent = new GridBagConstraints();
 		JLabel labelDonGia = new JLabel("Đơn giá");
-		gbcContent.gridx = 3;
-		gbcContent.gridy = 0;
+		gbcContent.gridx = 1;
+		gbcContent.gridy = 2;
 		gbcContent.weightx = 0.5;
-		gbcContent.weighty = 0.3;
+		gbcContent.weighty = 0.1;
 		gbcContent.insets = new Insets(0, 20, 0, 0);
 		gbcContent.anchor = GridBagConstraints.LAST_LINE_START;
 		labelDonGia.setFont(new Font("Roboto", Font.PLAIN, 12));
@@ -132,10 +132,10 @@ public class FormImport extends CustomPanel {
 
 		gbcContent = new GridBagConstraints();
 		JTextField txtDonGia = new JTextField(15);
-		gbcContent.gridx = 3;
-		gbcContent.gridy = 1;
+		gbcContent.gridx = 1;
+		gbcContent.gridy = 3;
 		gbcContent.weightx = 0.5;
-		gbcContent.weighty = 0.3;
+		gbcContent.weighty = 0.4;
 		gbcContent.insets = new Insets(0, 20, 0, 0);
 		txtDonGia.setFont(new Font("Roboto", Font.PLAIN, 15));
 		gbcContent.anchor = GridBagConstraints.FIRST_LINE_START;

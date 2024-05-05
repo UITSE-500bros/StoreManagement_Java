@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.Popup;
+import javax.swing.PopupFactory;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
@@ -91,10 +93,10 @@ public class importPanel extends JPanel {
 		JButton addButton = new JButton("Add");
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-<<<<<<< HEAD
-=======
-				
->>>>>>> e98db28d0fce55b56c21d1964df460ff7d9b94fb
+				Popup p;
+				PopupFactory pf = new PopupFactory();
+				p = pf.getPopup(addButton, new FormImport(), 600, 400);
+				p.show();
 			}
 		});
 		addButton.setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 30));
