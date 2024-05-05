@@ -17,6 +17,7 @@ import javax.swing.Popup;
 import javax.swing.PopupFactory;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import ReuseClass.DatePicker;
@@ -126,15 +127,16 @@ public class importPanel extends JPanel {
 		gbc1.weightx = 0.8;
 		contentPane.add(datePicker, gbc1);
 
-		JTable tableNhapHang = new JTable();
-		DefaultTableModel model = new DefaultTableModel();
-		model.addColumn("STT");
-		model.addColumn("Tên mặt hàng");
-		model.addColumn("Số lượng");
-		model.addColumn("Đơn giá(VND)");
-		model.addColumn("Thành tiền");
-		tableNhapHang.setModel(model);
-
+		String[] columnNames = { "STT", "Tên mặt hàng", "Số lượng", "Đơn giá(VND)", "Thành tiền" };
+		// Create data
+		Object[][] data = { { 1, "Mặt hàng 1", 3, 5000, 1000.0 }, { 2, "Mặt hàng 2", 2, 3000, 6000.0 },
+				// Add more rows as needed
+		};
+		DefaultTableModel model = new DefaultTableModel(data, columnNames);
+		JTable tableNhapHang = new JTable(model);
+		((DefaultTableCellRenderer) tableNhapHang.getDefaultRenderer(Object.class)).setOpaque(false);
+		table.setShowGrid(false);
+		tableNhapHang.setOpaque(false);
 		tableNhapHang.getColumnModel().getColumn(0).setPreferredWidth(40);
 		tableNhapHang.getColumnModel().getColumn(0).setResizable(true);
 		tableNhapHang.getColumnModel().getColumn(1).setPreferredWidth(90);
