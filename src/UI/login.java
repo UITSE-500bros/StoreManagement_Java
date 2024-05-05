@@ -99,7 +99,7 @@ public class login extends JFrame {
 		gbc_lblNewLabel_2.fill = GridBagConstraints.BOTH;
 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_2.gridx = 0;
-		gbc_lblNewLabel_2.gridy = 3;
+		gbc_lblNewLabel_2.gridy = 2;
 		contentPane.add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
 		textField_email = new JTextField();
@@ -107,7 +107,7 @@ public class login extends JFrame {
 		gbc_textField_email.fill = GridBagConstraints.BOTH;
 		gbc_textField_email.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_email.gridx = 0;
-		gbc_textField_email.gridy = 4;
+		gbc_textField_email.gridy = 3;
 		contentPane.add(textField_email, gbc_textField_email);
 		textField_email.setColumns(10);
 		
@@ -116,7 +116,7 @@ public class login extends JFrame {
 		gbc_lblNewLabel_3.fill = GridBagConstraints.BOTH;
 		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_3.gridx = 0;
-		gbc_lblNewLabel_3.gridy = 5;
+		gbc_lblNewLabel_3.gridy = 4;
 		contentPane.add(lblNewLabel_3, gbc_lblNewLabel_3);
 		
 		passwordField = new JPasswordField();
@@ -124,15 +124,16 @@ public class login extends JFrame {
 		gbc_passwordField.insets = new Insets(0, 0, 5, 5);
 		gbc_passwordField.fill = GridBagConstraints.BOTH;
 		gbc_passwordField.gridx = 0;
-		gbc_passwordField.gridy = 6;
+		gbc_passwordField.gridy = 5;
 		contentPane.add(passwordField, gbc_passwordField);
 		
 		JPanel password_panel = new JPanel();
+		password_panel.setBackground(new Color(238, 230, 224));
 		GridBagConstraints gbc_password_panel = new GridBagConstraints();
 		gbc_password_panel.insets = new Insets(0, 0, 5, 5);
 		gbc_password_panel.fill = GridBagConstraints.BOTH;
 		gbc_password_panel.gridx = 0;
-		gbc_password_panel.gridy = 7;
+		gbc_password_panel.gridy = 6;
 		contentPane.add(password_panel, gbc_password_panel);
 		password_panel.setLayout(new BorderLayout(0, 0));
 		
