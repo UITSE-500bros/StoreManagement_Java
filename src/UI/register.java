@@ -17,6 +17,8 @@ import java.awt.GridLayout;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class register extends JFrame {
 
@@ -248,6 +250,13 @@ public class register extends JFrame {
 				
 						
 						JButton btn_login = new JButton("Đã  có tài khoản? Đăng nhập");
+						btn_login.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								dispose();
+								login login = new login();
+								login.setVisible(true);
+							}
+						});
 						btn_login.setBackground(new Color(241, 235, 229));
 						GridBagConstraints gbc_btn_login = new GridBagConstraints();
 						gbc_btn_login.insets = new Insets(0, 0, 0, 5);
