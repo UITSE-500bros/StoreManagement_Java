@@ -46,9 +46,31 @@ public class register extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+
+	public String getTextField_name() {
+        return textField_name.getText();
+    }
+
+	public String getTextField_email() {
+		return textField_email.getText();
+	}
+
+	public String getTextField_lastName() {
+        return textField_lastName.getText();
+    }
+	
+	public String getTextField_phoneNumber() {
+		return textField_phoneNumber.getText();
+	}
+
+	public String getTextField_password() {
+		return textField_password.getText();
+	}
+
+	public String getTextField_rePassWord() {
+		return textField_rePassWord.getText();
+	}
+	
 	public register() {
 		setResizable(false);
 		setBackground(new Color(255, 255, 255));

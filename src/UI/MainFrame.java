@@ -236,6 +236,7 @@ public class MainFrame extends JFrame {
 	}
 
 	private void initStockPanel(JPanel stockPanel) {
+		
 		stockPanel.setOpaque(false);
 	}
 
