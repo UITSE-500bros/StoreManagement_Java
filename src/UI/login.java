@@ -33,6 +33,8 @@ import java.awt.Font;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
 import javax.swing.JPasswordField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class login extends JFrame {
 
@@ -151,6 +153,15 @@ public class login extends JFrame {
 		password_panel.add(btn_forgot, BorderLayout.EAST);
 		
 		JButton btn_login = new JButton("Đăng nhập");
+		btn_login.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MainFrame mainFrame = new MainFrame();
+				mainFrame.setVisible(true);
+				dispose();
+			}
+		});
+		
+		
 		btn_login.setForeground(new Color(255, 255, 255));
 		btn_login.setBackground(new Color(16, 21, 64));
 		GridBagConstraints gbc_btn_login = new GridBagConstraints();
@@ -161,6 +172,14 @@ public class login extends JFrame {
 		contentPane.add(btn_login, gbc_btn_login);
 		
 		JButton btn_register = new JButton("Chưa đăng ký? Đăng ký ngay");
+		btn_register.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				register register = new register();
+				register.setVisible(true);
+			
+			}
+		});
 		GridBagConstraints gbc_btn_register = new GridBagConstraints();
 		gbc_btn_register.fill = GridBagConstraints.BOTH;
 		gbc_btn_register.insets = new Insets(0, 0, 0, 5);
