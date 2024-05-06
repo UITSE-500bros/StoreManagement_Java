@@ -1,10 +1,22 @@
 package UI;
 
-import javax.swing.*;
-import java.awt.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.DefaultTableCellRenderer;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 public class MainFrame extends JFrame {
 
@@ -189,39 +201,38 @@ public class MainFrame extends JFrame {
 		gbc.gridwidth = 8;
 		gbc.gridheight = 1;
 		gbc.insets = new Insets(0, 20, 0, 20);
-		
-		String[] columnNames = {"Số thứ tự", "Tên đại lý", "Loại", "Quận", "Tiền nợ"};
 
-        // Create data
-        Object[][] data = {
-            {1, "Đại lý 1", "Loại 1", "Quận 1", 1000.0},
-            {2, "Đại lý 2", "Loại 2", "Quận 2", 2000.0},
-            // Add more rows as needed
-        };
+		String[] columnNames = { "Số thứ tự", "Tên đại lý", "Loại", "Quận", "Tiền nợ" };
 
-        // Create table model
-        DefaultTableModel model = new DefaultTableModel(data, columnNames);
+		// Create data
+		Object[][] data = { { 1, "Đại lý 1", "Loại 1", "Quận 1", 1000.0 },
+				{ 2, "Đại lý 2", "Loại 2", "Quận 2", 2000.0 },
+				// Add more rows as needed
+		};
 
-        // Create table
-        JTable table = new JTable(model);
+		// Create table model
+		DefaultTableModel model = new DefaultTableModel(data, columnNames);
 
-        table.setOpaque(false);
-        ((DefaultTableCellRenderer)table.getDefaultRenderer(Object.class)).setOpaque(false);
-        table.setShowGrid(false);
+		// Create table
+		JTable table = new JTable(model);
 
-        // Set font and alignment
-        table.setFont(new Font("Serif", Font.PLAIN, 20));
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        for (int i = 0; i < table.getColumnCount(); i++) {
-            table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
-        }
+		table.setOpaque(false);
+		((DefaultTableCellRenderer) table.getDefaultRenderer(Object.class)).setOpaque(false);
+		table.setShowGrid(false);
 
-        // Create scroll pane (to make the table scrollable)
-        JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setOpaque(false);
-        scrollPane.getViewport().setOpaque(false);
-        storesListPanel.add(scrollPane, gbc);
+		// Set font and alignment
+		table.setFont(new Font("Serif", Font.PLAIN, 20));
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+		for (int i = 0; i < table.getColumnCount(); i++) {
+			table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+		}
+
+		// Create scroll pane (to make the table scrollable)
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setOpaque(false);
+		scrollPane.getViewport().setOpaque(false);
+		storesListPanel.add(scrollPane, gbc);
 	}
 
 	private void initStockPanel(JPanel stockPanel) {

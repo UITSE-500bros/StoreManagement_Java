@@ -19,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 import ReuseClass.DatePicker;
 
@@ -100,7 +101,6 @@ public class importPanel extends JPanel {
 				p.show();
 			}
 		});
-		addButton.setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 30));
 		addButton.setBorderPainted(false);
 		addButton.setBackground(Color.BLACK);
 		addButton.setForeground(Color.ORANGE);
@@ -108,6 +108,7 @@ public class importPanel extends JPanel {
 		gbc1.gridx = 1;
 		gbc1.weightx = 0.2;
 		gbc1.anchor = GridBagConstraints.EAST;
+		gbc1.insets = new java.awt.Insets(0, 30, 0, 30);
 		contentPane.add(addButton, gbc1);
 
 		gbc1 = new GridBagConstraints();
@@ -116,7 +117,8 @@ public class importPanel extends JPanel {
 		maSoPhieuTextField.setFont(new Font("Roboto", Font.PLAIN, 20));
 		gbc1.gridx = 0;
 		gbc1.gridy = 1;
-		gbc1.weightx = 0.2;
+		gbc1.weightx = 0.1;
+		gbc1.anchor = GridBagConstraints.WEST;
 		contentPane.add(maSoPhieuTextField, gbc1);
 
 		DatePicker datePicker = new DatePicker();
@@ -124,7 +126,8 @@ public class importPanel extends JPanel {
 		gbc1 = new GridBagConstraints();
 		gbc1.anchor = GridBagConstraints.WEST;
 		gbc1.gridx = 1;
-		gbc1.weightx = 0.8;
+		gbc1.weightx = 0.9;
+		gbc1.insets = new java.awt.Insets(0, 0, 0, 100);
 		contentPane.add(datePicker, gbc1);
 
 		String[] columnNames = { "STT", "Tên mặt hàng", "Số lượng", "Đơn giá(VND)", "Thành tiền" };
@@ -135,24 +138,19 @@ public class importPanel extends JPanel {
 		DefaultTableModel model = new DefaultTableModel(data, columnNames);
 		JTable tableNhapHang = new JTable(model);
 		((DefaultTableCellRenderer) tableNhapHang.getDefaultRenderer(Object.class)).setOpaque(false);
-		table.setShowGrid(false);
-		tableNhapHang.setOpaque(false);
-		tableNhapHang.getColumnModel().getColumn(0).setPreferredWidth(40);
-		tableNhapHang.getColumnModel().getColumn(0).setResizable(true);
-		tableNhapHang.getColumnModel().getColumn(1).setPreferredWidth(90);
-		tableNhapHang.getColumnModel().getColumn(1).setResizable(true);
-		tableNhapHang.getColumnModel().getColumn(2).setPreferredWidth(80);
-		tableNhapHang.getColumnModel().getColumn(2).setResizable(true);
-		tableNhapHang.getColumnModel().getColumn(3).setPreferredWidth(80);
-		tableNhapHang.getColumnModel().getColumn(3).setResizable(false);
-		tableNhapHang.getColumnModel().getColumn(4).setPreferredWidth(90);
-		tableNhapHang.getColumnModel().getColumn(4).setResizable(false);
+		tableNhapHang.setFont(new Font("Roboto", Font.PLAIN, 10));
+		TableColumnModel columnModel = tableNhapHang.getColumnModel();
+		columnModel.getColumn(0).setPreferredWidth((int) (tableNhapHang.getWidth() * 0.1)); // 10%
+		columnModel.getColumn(1).setPreferredWidth((int) (tableNhapHang.getWidth() * 0.4)); // 40%
+		columnModel.getColumn(2).setPreferredWidth((int) (tableNhapHang.getWidth() * 0.1)); // 10%
+		columnModel.getColumn(3).setPreferredWidth((int) (tableNhapHang.getWidth() * 0.2)); // 20%
+		columnModel.getColumn(4).setPreferredWidth((int) (tableNhapHang.getWidth() * 0.2)); // 20%
 
 		gbc1 = new GridBagConstraints();
 		gbc1.fill = GridBagConstraints.BOTH;
 		gbc1.gridx = 0;
-		gbc1.gridwidth = 2; // Span across 2 columns
 		gbc1.gridy = 2;
+		gbc1.gridwidth = 2; // Span across 2 columns
 		gbc1.weightx = 1.0;
 		gbc1.insets = new java.awt.Insets(10, 0, 0, 0);
 		contentPane.add(tableNhapHang, gbc1);
