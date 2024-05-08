@@ -10,6 +10,8 @@ import javax.swing.border.EmptyBorder;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 
+import Controller.UserLoginController;
+
 import javax.swing.JLabel;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -66,7 +68,6 @@ public class login extends JFrame {
 	 * 
 	 * 
 	 */
-	
 
 	
 	public login() {
@@ -155,11 +156,22 @@ public class login extends JFrame {
 		JButton btn_login = new JButton("Đăng nhập");
 		btn_login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MainFrame mainFrame = new MainFrame();
-				mainFrame.setVisible(true);
-				dispose();
+//				MainFrame mainFrame = new MainFrame();
+//				mainFrame.setVisible(true);
+//				dispose();
+				
+				UserLoginController userLoginController;
+				try {
+					userLoginController = new UserLoginController(login.this);
+					userLoginController.getUserByEmail(getTextField_email());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}
 		});
+		
 		
 		
 		btn_login.setForeground(new Color(255, 255, 255));

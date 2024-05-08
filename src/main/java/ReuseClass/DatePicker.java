@@ -1,4 +1,4 @@
-package Util;
+package ReuseClass;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,6 +10,8 @@ import javax.swing.JFormattedTextField.AbstractFormatter;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
+
+
 
 public class DatePicker extends JDatePickerImpl {
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

@@ -268,5 +268,4 @@ public class register extends JFrame {
 		setLocationRelativeTo(null);
 		
 	}
-
 }

@@ -1,21 +1,22 @@
 package Models.User;
 
-public class User {
+public class person {
     private String userName;
     private String userFamilyName;
     private String password;
+    private String phoneNumber;
     private String email;
 
-    public User(){
+    public person(){
 
     }
 
-    public User(String userFamilyName,String userName, String password, String email) {
+    public person(String userFamilyName, String userName, String password, String phoneNumber, String email) {
         this.userFamilyName = userFamilyName;
         this.userName = userName;
         this.password = password;
+        this.phoneNumber = phoneNumber;
         this.email = email;
-
     }
 
     public String getUserFamilyName() {
