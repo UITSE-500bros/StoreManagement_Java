@@ -38,7 +38,7 @@ public class register extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-		            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		            UIManager.setLookAndFeel("com.formdev.flatlaf.FlatLightLaf");
 					register frame = new register();
 					frame.setVisible(true);
 				} catch (Exception e) {

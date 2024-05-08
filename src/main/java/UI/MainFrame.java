@@ -10,13 +10,17 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+
+import com.formdev.flatlaf.FlatLightLaf;
 
 public class MainFrame extends JFrame {
 
@@ -33,6 +37,7 @@ public class MainFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					UIManager.setLookAndFeel(new FlatLightLaf());
 					MainFrame frame = new MainFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -110,8 +115,8 @@ public class MainFrame extends JFrame {
 
 	private void initMenuPanel(JPanel menuPanel) {
 		menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
-		JLabel storesLabel = new JLabel("Đại Lý");
-		menuPanel.add(storesLabel);
+		JButton storesButton = new JButton("Đại lý");
+		menuPanel.add(storesButton);
 
 		JLabel stockLabel = new JLabel("Kho");
 		menuPanel.add(stockLabel);
