@@ -21,6 +21,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MainFrame extends JFrame {
 
@@ -95,14 +97,23 @@ public class MainFrame extends JFrame {
 		JPanel stockPanel = new JPanel();
 		initStockPanel(stockPanel);
 		containerPanel.add(stockPanel, "name_240836138693900");
+		
+		JLabel lblNewLabel = new JLabel("ton kho");
+		stockPanel.add(lblNewLabel);
 
 		JPanel reportPanel = new JPanel();
 		initReportPanel(reportPanel);
 		containerPanel.add(reportPanel, "name_240836198139600");
+		
+		JLabel lblNewLabel_1 = new JLabel("report");
+		reportPanel.add(lblNewLabel_1);
 
 		JPanel importPanel = new JPanel();
 		initImportPanel(importPanel);
 		containerPanel.add(importPanel, "name_240836231205200");
+		
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		importPanel.add(lblNewLabel_2);
 
 		JPanel exportPanel = new JPanel();
 		initExportPanel(exportPanel);
@@ -116,22 +127,33 @@ public class MainFrame extends JFrame {
 	private void initMenuPanel(JPanel menuPanel) {
 		menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
 		JButton storesButton = new JButton("Đại lý");
+		storesButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				storesPanel.setVisible(true);
+				
+			}
+		});
+		
+
 		menuPanel.add(storesButton);
 
-		JLabel stockLabel = new JLabel("Kho");
-		menuPanel.add(stockLabel);
-
-		JLabel reportLabel = new JLabel("Báo cáo");
-		menuPanel.add(reportLabel);
-
-		JLabel importLabel = new JLabel("Nhập hàng");
-		menuPanel.add(importLabel);
-
-		JLabel exportLabel = new JLabel("Xuất hàng");
-		menuPanel.add(exportLabel);
-
-		JLabel settingLabel = new JLabel("Cài đặt");
-		menuPanel.add(settingLabel);
+		JButton stockButton = new JButton("Kho");
+		menuPanel.add(stockButton);
+		
+		JButton reportButton = new JButton("Báo cáo");
+		menuPanel.add(reportButton);
+		
+		JButton importButton = new JButton("Nhập hàng");
+		menuPanel.add(importButton);
+		
+		JButton exportButton = new JButton("Xuất hàng");
+		menuPanel.add(exportButton);
+		
+		JButton settingButton = new JButton("Cài đặt");
+		menuPanel.add(settingButton);
+		
+		JButton logoutButton = new JButton("Đăng xuất");
+		menuPanel.add(logoutButton);
 	}
 
 	private void initStoresPanel(JPanel storesPanel) {
