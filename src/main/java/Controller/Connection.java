@@ -2,23 +2,23 @@ package Controller;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class Connection {
     private URL url;
-    public HttpsURLConnection con;
+    public HttpURLConnection con;
 
-    public void openGetConnection(){
-        try {
-            con = (HttpsURLConnection) url.openConnection();
-            con.setRequestMethod("GET");
-            con.setRequestProperty("Content-Type", "application/json");
-            con.setConnectTimeout(5000);
-            con.setReadTimeout(5000);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void openGetConnection() {
+    try {
+        con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+        con.setConnectTimeout(5000);
+        con.setReadTimeout(5000);
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+}
 
     public URL getUrl() {
         return url;
@@ -28,11 +28,11 @@ public class Connection {
         this.url = url;
     }
 
-    public HttpsURLConnection getCon() {
+    public HttpURLConnection getCon() {
         return con;
     }
 
-    public void setCon(HttpsURLConnection con) {
+    public void setCon(HttpURLConnection con) {
         this.con = con;
     }
 
