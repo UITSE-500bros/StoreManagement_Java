@@ -129,7 +129,7 @@ public class MainFrame extends JFrame {
 		JButton storesButton = new JButton("Đại lý");
 		storesButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				storesPanel.setVisible(true);
+
 				
 			}
 		});

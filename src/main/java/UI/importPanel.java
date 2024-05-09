@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
-import Util.DatePicker;
+
 
 public class importPanel extends JPanel {
 
@@ -121,14 +121,14 @@ public class importPanel extends JPanel {
 		gbc1.anchor = GridBagConstraints.WEST;
 		contentPane.add(maSoPhieuTextField, gbc1);
 
-		DatePicker datePicker = new DatePicker();
-		datePicker.setFont(new Font("Roboto", Font.PLAIN, 20));
+//		DatePicker datePicker = new DatePicker();
+//		datePicker.setFont(new Font("Roboto", Font.PLAIN, 20));
 		gbc1 = new GridBagConstraints();
 		gbc1.anchor = GridBagConstraints.WEST;
 		gbc1.gridx = 1;
 		gbc1.weightx = 0.9;
 		gbc1.insets = new java.awt.Insets(0, 0, 0, 100);
-		contentPane.add(datePicker, gbc1);
+//		contentPane.add(datePicker, gbc1);
 
 		String[] columnNames = { "STT", "Tên mặt hàng", "Số lượng", "Đơn giá(VND)", "Thành tiền" };
 		// Create data
