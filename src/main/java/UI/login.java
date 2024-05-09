@@ -159,25 +159,23 @@ public class login extends JFrame {
 					return;
 				}
 				// check if email is valid
-				if (!email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
-					JOptionPane.showMessageDialog(login.this, "Please enter a valid email address.", "Input Error", JOptionPane.ERROR_MESSAGE);
+				if(!email.contains("@")) {
+					JOptionPane.showMessageDialog(	login.this,"Email không hợp lệ");
 					return;
 				}
 				// check if password is valid
-				if(password.length() < 6) {
-					JOptionPane.showMessageDialog(	login.this,"Mật khẩu phải có ít nhất 6 ký tự");
+				if(password.length() < 8) {
+					JOptionPane.showMessageDialog(	login.this,"Mật khẩu phải có ít nhất 8 ký tự");
 					return;
 				}
-//				UserLoginController userLoginController;
-//				try {
-//					userLoginController = new UserLoginController(login.this);
-//					userLoginController.getUserByEmail(getTextField_email());
-//				} catch (IOException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
-				JOptionPane.showMessageDialog(login.this, "Đăng nhập thành công");
-				
+				UserLoginController userLoginController;
+				try {
+					userLoginController = new UserLoginController(login.this);
+					userLoginController.getUserByEmail(getTextField_email());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		

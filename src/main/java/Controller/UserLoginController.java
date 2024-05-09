@@ -42,6 +42,7 @@ public class UserLoginController {
 		Gson gson = new Gson();
 		person person = gson.fromJson(content.toString(), person.class);
 		System.out.println(person);
+
     }
 
     
