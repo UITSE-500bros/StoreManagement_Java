@@ -3,22 +3,17 @@ package UI;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import Controller.UserLoginController;
 
-import javax.swing.JLabel;
 import java.awt.GridLayout;
 import java.awt.Image;
-
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -27,14 +22,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import javax.swing.JCheckBox;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
-import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -52,7 +44,7 @@ public class login extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UIManager.setLookAndFeel(new FlatLightLaf());
+					FlatIntelliJLaf.setup();
 					login frame = new login();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -159,15 +151,32 @@ public class login extends JFrame {
 //				MainFrame mainFrame = new MainFrame();
 //				mainFrame.setVisible(true);
 //				dispose();
-				
-				UserLoginController userLoginController;
-				try {
-					userLoginController = new UserLoginController(login.this);
-					userLoginController.getUserByEmail(getTextField_email());
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				String email = getTextField_email();
+				String password = getPasswordField();
+				// check if email or password is empty
+				if(email.isEmpty() || password.isEmpty()) {
+					JOptionPane.showMessageDialog(	login.this,"Email hoặc mật khẩu không được để trống");
+					return;
 				}
+				// check if email is valid
+				if (!email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+					JOptionPane.showMessageDialog(login.this, "Please enter a valid email address.", "Input Error", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				// check if password is valid
+				if(password.length() < 6) {
+					JOptionPane.showMessageDialog(	login.this,"Mật khẩu phải có ít nhất 6 ký tự");
+					return;
+				}
+//				UserLoginController userLoginController;
+//				try {
+//					userLoginController = new UserLoginController(login.this);
+//					userLoginController.getUserByEmail(getTextField_email());
+//				} catch (IOException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
+				JOptionPane.showMessageDialog(login.this, "Đăng nhập thành công");
 				
 			}
 		});
@@ -210,17 +219,10 @@ public class login extends JFrame {
 		gbc_label.gridheight = 10;
 		contentPane.add(label, gbc_label);
 		label.setPreferredSize(new java.awt.Dimension(453, 550));
-		BufferedImage img = null;
-		
-		try {
-			 img = ImageIO.read(getClass().getResource("/resource/login.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		Image icon_background = img.getScaledInstance(453,550, img.SCALE_SMOOTH);
-		ImageIcon icon = new ImageIcon(icon_background);
+		// Tạo ImageIcon từ đường dẫn của ảnh
+		Image scaledImage = new ImageIcon("src/main/java/resource/login.png").getImage().getScaledInstance(453, 550, Image.SCALE_SMOOTH);
+		ImageIcon icon = new ImageIcon(scaledImage);
+		// Đặt ImageIcon cho JLabel
 		label.setIcon(icon);
 	}
 
