@@ -23,6 +23,9 @@ import javax.swing.table.DefaultTableModel;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 public class MainFrame extends JFrame {
 
@@ -55,6 +58,15 @@ public class MainFrame extends JFrame {
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1024, 600);
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu MainMenu = new JMenu("Cài đặt");
+		menuBar.add(MainMenu);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("New menu item");
+		MainMenu.add(mntmNewMenuItem);
 		mainPanel = new JPanel();
 		setContentPane(mainPanel);
 		initComponents();
