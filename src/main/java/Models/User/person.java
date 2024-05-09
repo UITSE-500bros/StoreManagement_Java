@@ -35,5 +35,23 @@ public class person {
         return email;
     }
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
+    public void setUserFamilyName(String userFamilyName) {
+        this.userFamilyName = userFamilyName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

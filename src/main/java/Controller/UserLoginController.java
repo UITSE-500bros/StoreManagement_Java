@@ -4,8 +4,7 @@ import Models.User.person;
 
 import UI.login;
 
-import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -14,19 +13,21 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import com.google.gson.Gson;
 import javax.net.ssl.HttpsURLConnection;
-import java.io.InputStreamReader;
 
 public class UserLoginController {
 	private final Connection connection;
     public UserLoginController(login login) throws IOException {
 		connection = new Connection();
     }
-    public void getUserByEmail(String email) throws IOException {
+    public void getUserByEmail(String email,String pass) throws IOException {
         String encodedEmail = URLEncoder.encode(email, StandardCharsets.UTF_8);
-        connection.setUrl(new URL("http://localhost:8080/user/allUser?personemail=" + encodedEmail));
+        String encodedPassword = URLEncoder.encode(pass, StandardCharsets.UTF_8);
+        String url = "http://localhost:8080/user/getLoginUser?email=" + email + "&password=" + encodedPassword;
+        connection.setUrl(new URL(url));
+
         connection.openGetConnection();
 
-        //int status = connection.con.getResponseCode();
+        int status = connection.con.getResponseCode();
 
         BufferedReader in = new BufferedReader(new InputStreamReader(connection.con.getInputStream()));
         String inputLine;
@@ -39,9 +40,8 @@ public class UserLoginController {
         connection.closeConnection();
 
         // convert json to object
-		Gson gson = new Gson();
-		person person = gson.fromJson(content.toString(), person.class);
-		System.out.println(person);
+
+		System.out.println(content);
 
     }
 

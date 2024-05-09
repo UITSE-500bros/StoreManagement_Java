@@ -171,7 +171,7 @@ public class login extends JFrame {
 				UserLoginController userLoginController;
 				try {
 					userLoginController = new UserLoginController(login.this);
-					userLoginController.getUserByEmail(getTextField_email());
+					userLoginController.getUserByEmail(getTextField_email(),getPasswordField());
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -230,6 +230,6 @@ public class login extends JFrame {
     }
 
 	public String getPasswordField() {
-		return passwordField.getPassword().toString();
+		return new String(passwordField.getPassword());
 	}
 }
