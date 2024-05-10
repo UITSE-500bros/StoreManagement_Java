@@ -1,5 +1,7 @@
 package UI;
 
+import Controller.UserRegisterController;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -19,6 +21,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.net.MalformedURLException;
 
 public class register extends JFrame {
 
@@ -239,31 +242,44 @@ public class register extends JFrame {
 		panel.add(textField_rePassWord, gbc_textField_rePassWord);
 		textField_rePassWord.setColumns(10);
 				
-				JButton btn_register = new JButton("Đăng ký");
-				GridBagConstraints gbc_btn_register = new GridBagConstraints();
-				gbc_btn_register.fill = GridBagConstraints.BOTH;
-				gbc_btn_register.insets = new Insets(0, 0, 5, 5);
-				gbc_btn_register.gridx = 0;
-				gbc_btn_register.gridy = 8;
-				gbc_btn_register.gridwidth = 2;
-				panel.add(btn_register, gbc_btn_register);
-				
-						
-						JButton btn_login = new JButton("Đã  có tài khoản? Đăng nhập");
-						btn_login.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-								dispose();
-								login login = new login();
-								login.setVisible(true);
-							}
-						});
-						btn_login.setBackground(new Color(241, 235, 229));
-						GridBagConstraints gbc_btn_login = new GridBagConstraints();
-						gbc_btn_login.insets = new Insets(0, 0, 0, 5);
-						gbc_btn_login.fill = GridBagConstraints.BOTH;
-						gbc_btn_login.gridx = 0;
-						gbc_btn_login.gridy = 9;
-						panel.add(btn_login, gbc_btn_login);
+		JButton btn_register = new JButton("Đăng ký");
+		GridBagConstraints gbc_btn_register = new GridBagConstraints();
+		gbc_btn_register.fill = GridBagConstraints.BOTH;
+		gbc_btn_register.insets = new Insets(0, 0, 5, 5);
+		gbc_btn_register.gridx = 0;
+		gbc_btn_register.gridy = 8;
+		gbc_btn_register.gridwidth = 2;
+		panel.add(btn_register, gbc_btn_register);
+
+		btn_register.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				UserRegisterController userRegisterController = new UserRegisterController(register.this);
+                try {
+                    userRegisterController.registerUser();
+                } catch (MalformedURLException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+            }
+		});
+
+
+
+		JButton btn_login = new JButton("Đã  có tài khoản? Đăng nhập");
+		btn_login.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				login login = new login();
+				login.setVisible(true);
+			}
+		});
+		btn_login.setBackground(new Color(241, 235, 229));
+		GridBagConstraints gbc_btn_login = new GridBagConstraints();
+		gbc_btn_login.insets = new Insets(0, 0, 0, 5);
+		gbc_btn_login.fill = GridBagConstraints.BOTH;
+		gbc_btn_login.gridx = 0;
+		gbc_btn_login.gridy = 9;
+		panel.add(btn_login, gbc_btn_login);
 		
 		setLocationRelativeTo(null);
 		

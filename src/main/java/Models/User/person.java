@@ -1,57 +1,63 @@
 package Models.User;
 
 public class person {
-    private String userName;
-    private String userFamilyName;
-    private String password;
-    private String phoneNumber;
-    private String email;
+
+
+    private String personlastname;
+    private String personname;
+    private String personsdt;
+    private String personemail;
+    private String personpassword;
 
     public person(){
 
     }
 
-    public person(String userFamilyName, String userName, String password, String phoneNumber, String email) {
-        this.userFamilyName = userFamilyName;
-        this.userName = userName;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
+    public person(String personlastname, String personname, String personsdt, String personemail, String personpassword) {
+        this.personlastname = personlastname;
+        this.personname = personname;
+        this.personsdt = personsdt;
+        this.personemail = personemail;
+        this.personpassword = personpassword;
     }
 
-    public String getUserFamilyName() {
-        return userFamilyName;
+    public String getPersonlastname() {
+        return personlastname;
     }
 
-    public String getUserName() {
-        return userName;
+    public void setPersonlastname(String personlastname) {
+        this.personlastname = personlastname;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPersonname() {
+        return personname;
     }
 
-    public String getEmail() {
-        return email;
+    public void setPersonname(String personname) {
+        this.personname = personname;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public String getPersonsdt() {
+        return personsdt;
     }
 
-    public void setUserFamilyName(String userFamilyName) {
-        this.userFamilyName = userFamilyName;
+    public void setPersonsdt(String personsdt) {
+        this.personsdt = personsdt;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public String getPersonemail() {
+        return personemail;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPersonemail(String personemail) {
+        this.personemail = personemail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getPersonpassword() {
+        return personpassword;
+    }
+
+    public void setPersonpassword(String personpassword) {
+        this.personpassword = personpassword;
     }
 }
