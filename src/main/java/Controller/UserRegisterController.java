@@ -1,18 +1,14 @@
 package Controller;
 
-import Models.User.person;
-import Models.User.PersonBulder;
-import Models.User.PersonConcreteBuilder;
+import Models.person;
 import UI.register;
-
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Objects;
 
 public class UserRegisterController {
 
     public register register;
-    private Connection connection;
+    private final Connection connection;
 
     public UserRegisterController(register register) {
 

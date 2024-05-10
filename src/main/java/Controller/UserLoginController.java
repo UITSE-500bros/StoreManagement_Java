@@ -1,6 +1,6 @@
 package Controller;
 
-import Models.User.person;
+import Models.person;
 
 import UI.login;
 

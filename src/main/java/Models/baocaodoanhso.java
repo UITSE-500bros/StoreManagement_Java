@@ -1,6 +1,6 @@
-package Models.BaoCaoDoanhSo;
+package Models;
 
-public class BaoCaoDoanhSo {
+public class baocaodoanhso {
     private String maBaoCaoDoanhSo;
     private String thang;
     private String nam;
@@ -8,11 +8,11 @@ public class BaoCaoDoanhSo {
     private String tongDoanhSo;
     private Double tyLe;
 
-    public BaoCaoDoanhSo() {
+    public baocaodoanhso() {
 
     }
 
-    public BaoCaoDoanhSo(String maBaoCaoDoanhSo, String thang, String nam, String maDaiLy, String tongDoanhSo, Double tyLe) {
+    public baocaodoanhso(String maBaoCaoDoanhSo, String thang, String nam, String maDaiLy, String tongDoanhSo, Double tyLe) {
         this.maBaoCaoDoanhSo = maBaoCaoDoanhSo;
         this.thang = thang;
         this.nam = nam;

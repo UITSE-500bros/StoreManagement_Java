@@ -1,20 +1,16 @@
 package Controller;
 
-import Models.DaiLyModel.DaiLy;
-import UI.MainFrame;
-import com.google.gson.Gson;
-import UI.*;
-import com.google.gson.reflect.TypeToken;
 
-import java.io.BufferedReader;
+import Models.daily;
+import UI.MainFrame;
+
+import UI.*;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.lang.reflect.Type;
-import java.net.URL;
-import java.util.List;
+
 
 public class DaiLyController {
-    private DaiLy daiLy;
+    private daily daiLy;
     private MainFrame mainFrame;
     private login login;
     private Connection connection;

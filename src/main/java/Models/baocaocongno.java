@@ -1,6 +1,6 @@
-package Models.BaoCaoCongNo;
+package Models;
 
-public class BaoCaoCongNo {
+public class baocaocongno {
     private String maBaoCaoCongNo;
     private String thang;
     private String nam;
@@ -10,11 +10,11 @@ public class BaoCaoCongNo {
     private String phatSinh;
 
 
-    public BaoCaoCongNo() {
+    public baocaocongno() {
 
     }
 
-    public BaoCaoCongNo(String maBaoCaoCongNo, String thang, String nam, String maDaiLy, String noDau, String noCuoi, String phatSinh) {
+    public baocaocongno(String maBaoCaoCongNo, String thang, String nam, String maDaiLy, String noDau, String noCuoi, String phatSinh) {
         this.maBaoCaoCongNo = maBaoCaoCongNo;
         this.thang = thang;
         this.nam = nam;

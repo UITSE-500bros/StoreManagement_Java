@@ -1,6 +1,6 @@
 package Controller;
 
-import Models.User.person;
+import Models.person;
 import com.google.gson.Gson;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -46,9 +46,9 @@ public class Connection {
         con.disconnect();
     }
 
-    public void openPostConnection() {
+    public void openPostConnection(String link) {
         try {
-            URL url = new URL("http://localhost:8080/user/createPerson");
+            URL url = new URL(link);
             con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
             con.setRequestProperty("Content-Type", "application/json; utf-8");
@@ -62,7 +62,7 @@ public class Connection {
         Gson gson = new Gson();
         String json = gson.toJson(person);
 
-        openPostConnection();
+        openPostConnection("http://localhost:8080/user/createPerson");
 
         String response = "";
         try {
