@@ -79,24 +79,82 @@ public class MainFrame extends JFrame {
 		menuBar.add(MainMenu);
 		// Create menu items
 		JMenuItem mntm_userinfo = new JMenuItem("Thông tin cá nhân");
+		mntm_userinfo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GeneralSetting generalSetting = new GeneralSetting();
+				generalSetting.setVisible(true);
+				generalSetting.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				generalSetting.setLocationRelativeTo(null);
+			}
+		});
 		MainMenu.add(mntm_userinfo);
 		
 		JMenuItem mntm_NewStore = new JMenuItem("Thêm loại đại lý mới\r\n");
+		mntm_NewStore.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addNewStoreType addNewStoreType = new addNewStoreType();
+				addNewStoreType.setVisible(true);
+				addNewStoreType.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				addNewStoreType.setLocationRelativeTo(null);
+				
+			}
+		});
 		MainMenu.add(mntm_NewStore);
 		
 		JMenuItem mntm_MaxStore = new JMenuItem("Số lượng đại lý tối đa");
+		mntm_MaxStore.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				maxStorelimit maxStorelimit = new maxStorelimit();
+				maxStorelimit.setVisible(true);
+				maxStorelimit.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				maxStorelimit.setLocationRelativeTo(null);
+			}
+		});
 		MainMenu.add(mntm_MaxStore);
 		
 		JMenuItem mntm_StoreType = new JMenuItem("Cài đặt loại đại lý");
+		mntm_StoreType.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				StoreTypeSetting storeTypeSetting = new StoreTypeSetting();
+				storeTypeSetting.setVisible(true);
+				storeTypeSetting.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				storeTypeSetting.setLocationRelativeTo(null);
+			}
+		});
 		MainMenu.add(mntm_StoreType);
 		
 		JMenuItem mntm_ItemQuantity = new JMenuItem("Số lượng mặt hàng tối đa");
+		mntm_ItemQuantity.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Items items = new Items();
+				items.setVisible(true);
+				items.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				items.setLocationRelativeTo(null);
+				
+			}
+		});
 		MainMenu.add(mntm_ItemQuantity);
 		
 		JMenuItem mntm_Unit = new JMenuItem("Đơn vị tính");
+		mntm_Unit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Unit unit = new Unit();
+				unit.setVisible(true);
+				unit.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				unit.setLocationRelativeTo(null);
+			}
+		});
 		MainMenu.add(mntm_Unit);
 		
 		JMenuItem mntm_Ratio = new JMenuItem("Tỉ lệ tính đơn vị xuất");
+		mntm_Ratio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				exportRatio ratio = new exportRatio();
+				ratio.setVisible(true);
+				ratio.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				ratio.setLocationRelativeTo(null);
+			}
+		});
 		MainMenu.add(mntm_Ratio);
 		
 		mainPanel = new JPanel();
