@@ -78,10 +78,11 @@ public class report extends JFrame {
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setPreferredSize(new Dimension(150, 30));
-		String[] reportType = {"Báo cáo công nợ", "Báo cáo hàng tồn"};
+		String[] reportType = {"Báo cáo công nợ", "Báo cáo doanh số"};
 		for (String type : reportType) {
 			comboBox.addItem(type);
 		}
+
 		
 		panel.add(comboBox, BorderLayout.EAST);
 		
@@ -104,5 +105,26 @@ public class report extends JFrame {
 			}
 		});
 		scrollPane.setViewportView(table);
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String selectedReportType = (String) comboBox.getSelectedItem();
+				DefaultTableModel model = (DefaultTableModel) table.getModel();
+				model.setRowCount(0); // Xóa tất cả các hàng hiện tại
+
+				if (selectedReportType.equals("Báo cáo công nợ")) {
+					model.setColumnIdentifiers(new String[] {"STT", "Đại lý", "Số phiếu xuất", "Tổng giá trị", "Tỷ lệ"});
+					// Thêm dữ liệu cho báo cáo công nợ
+				} else if (selectedReportType.equals("Báo cáo doanh số")) {
+					model.setColumnIdentifiers(new String[] {"STT", "Đại lý", "Số phiếu xuất", "Tổng giá trị", "Tỷ lệ"});
+					// Thêm dữ liệu cho báo cáo hàng tồn
+				}
+			}
+		});
+
+
+
+
+
+		
 	}
 }
