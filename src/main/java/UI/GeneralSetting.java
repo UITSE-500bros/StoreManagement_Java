@@ -34,6 +34,7 @@ public class GeneralSetting extends JFrame {
 	 * Create the frame.
 	 */
 	public GeneralSetting() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 410, 266);
 		contentPane = new JPanel();
