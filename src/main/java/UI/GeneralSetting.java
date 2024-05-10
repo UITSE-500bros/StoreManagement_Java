@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class setting extends JFrame {
+public class GeneralSetting extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -18,7 +18,7 @@ public class setting extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					setting frame = new setting();
+					GeneralSetting frame = new GeneralSetting();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -30,9 +30,9 @@ public class setting extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public setting() {
+	public GeneralSetting() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 410, 266);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 

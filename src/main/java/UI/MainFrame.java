@@ -26,6 +26,10 @@ import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 
 public class MainFrame extends JFrame {
 
@@ -34,6 +38,13 @@ public class MainFrame extends JFrame {
 	private JPanel menuPanel;
 	private GridBagConstraints gbc_menuPanel;
 	private GridBagConstraints gbc_storesListPanel;
+	private JButton storesButton;
+	private JButton stockButton;
+	private JButton reportButton;
+	private JButton importButton;
+	private JButton exportButton;
+	private JButton settingButton;
+	private JButton logoutButton;
 
 	/**
 	 * Launch the application.
@@ -59,14 +70,35 @@ public class MainFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1024, 600);
 		
+		// Create menu bar
+		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-		
+		// Create menu
 		JMenu MainMenu = new JMenu("Cài đặt");
 		menuBar.add(MainMenu);
+		// Create menu items
+		JMenuItem mntm_userinfo = new JMenuItem("Thông tin cá nhân");
+		MainMenu.add(mntm_userinfo);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("New menu item");
-		MainMenu.add(mntmNewMenuItem);
+		JMenuItem mntm_NewStore = new JMenuItem("Thêm loại đại lý mới\r\n");
+		MainMenu.add(mntm_NewStore);
+		
+		JMenuItem mntm_MaxStore = new JMenuItem("Số lượng đại lý tối đa");
+		MainMenu.add(mntm_MaxStore);
+		
+		JMenuItem mntm_StoreType = new JMenuItem("Cài đặt loại đại lý");
+		MainMenu.add(mntm_StoreType);
+		
+		JMenuItem mntm_ItemQuantity = new JMenuItem("Số lượng mặt hàng tối đa");
+		MainMenu.add(mntm_ItemQuantity);
+		
+		JMenuItem mntm_Unit = new JMenuItem("Đơn vị tính");
+		MainMenu.add(mntm_Unit);
+		
+		JMenuItem mntm_Ratio = new JMenuItem("Tỉ lệ tính đơn vị xuất");
+		MainMenu.add(mntm_Ratio);
+		
 		mainPanel = new JPanel();
 		setContentPane(mainPanel);
 		initComponents();
@@ -100,6 +132,14 @@ public class MainFrame extends JFrame {
 		mainPanel.add(menuPanel, gbc_menuPanel);
 		// menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
 		initMenuPanel(menuPanel);
+		menuPanel.setLayout(new GridLayout(15, 1, 0, 0));
+		menuPanel.add(storesButton);
+		menuPanel.add(stockButton);
+		menuPanel.add(reportButton);
+		menuPanel.add(importButton);
+		menuPanel.add(exportButton);
+		menuPanel.add(settingButton);
+		menuPanel.add(logoutButton);
 		containerPanel.setLayout(new CardLayout(0, 0));
 
 		JPanel storesPanel = new JPanel();
@@ -137,35 +177,19 @@ public class MainFrame extends JFrame {
 	}
 
 	private void initMenuPanel(JPanel menuPanel) {
-		menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
-		JButton storesButton = new JButton("Đại lý");
-		storesButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		storesButton = new JButton("Đại lý");
 
-				
-			}
-		});
+		stockButton = new JButton("Kho");
 		
-
-		menuPanel.add(storesButton);
-
-		JButton stockButton = new JButton("Kho");
-		menuPanel.add(stockButton);
+		reportButton = new JButton("Báo cáo");
 		
-		JButton reportButton = new JButton("Báo cáo");
-		menuPanel.add(reportButton);
+		importButton = new JButton("Nhập hàng");
 		
-		JButton importButton = new JButton("Nhập hàng");
-		menuPanel.add(importButton);
+		exportButton = new JButton("Xuất hàng");
 		
-		JButton exportButton = new JButton("Xuất hàng");
-		menuPanel.add(exportButton);
+		settingButton = new JButton("Cài đặt");
 		
-		JButton settingButton = new JButton("Cài đặt");
-		menuPanel.add(settingButton);
-		
-		JButton logoutButton = new JButton("Đăng xuất");
-		menuPanel.add(logoutButton);
+		logoutButton = new JButton("Đăng xuất");
 	}
 
 	private void initStoresPanel(JPanel storesPanel) {
