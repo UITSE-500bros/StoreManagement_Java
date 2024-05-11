@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 
 import java.awt.Dimension;
+import java.util.Objects;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -63,9 +64,10 @@ public class reportPanel extends JPanel {
 		panel.setLayout(new BorderLayout(0, 0));
 		
 		JButton btnNewButton = new JButton("");
-		btnNewButton.setPreferredSize(new Dimension(30, 30));
 		btnNewButton.setIcon(new ImageIcon(reportPanel.class.getResource("/resource/searchStoreIcon 1.png")));
-	
+		btnNewButton.setPreferredSize(new Dimension(30, 30));
+
+
 		panel.add(btnNewButton, BorderLayout.WEST);
 		
 		textField = new JTextField();
