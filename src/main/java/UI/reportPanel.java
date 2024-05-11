@@ -12,11 +12,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
 import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.util.Objects;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,10 +23,10 @@ import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.JScrollPane;
 
-public class report extends JFrame {
+public class reportPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
+
 	private JTextField textField;
 	private JTable table;
 
@@ -39,7 +38,7 @@ public class report extends JFrame {
 			public void run() {
 				try {
 					UIManager.setLookAndFeel(new FlatLightLaf());
-					report frame = new report();
+					reportPanel frame = new reportPanel();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,23 +50,24 @@ public class report extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public report() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 731, 538);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+	public reportPanel() {
 
-		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));
+
+
+		this.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+;
+		this.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.NORTH);
+		this.add(panel, BorderLayout.NORTH);
 		panel.setLayout(new BorderLayout(0, 0));
 		
 		JButton btnNewButton = new JButton("");
+		btnNewButton.setIcon(new ImageIcon(reportPanel.class.getResource("/resource/searchStoreIcon 1.png")));
 		btnNewButton.setPreferredSize(new Dimension(30, 30));
-		btnNewButton.setIcon(new ImageIcon(report.class.getResource("/resource/searchStoreIcon 1.png")));
-	
+
+
 		panel.add(btnNewButton, BorderLayout.WEST);
 		
 		textField = new JTextField();
@@ -87,7 +87,7 @@ public class report extends JFrame {
 		panel.add(comboBox, BorderLayout.EAST);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		contentPane.add(scrollPane, BorderLayout.CENTER);
+		this.add(scrollPane, BorderLayout.CENTER);
 		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
@@ -112,18 +112,14 @@ public class report extends JFrame {
 				model.setRowCount(0); // Xóa tất cả các hàng hiện tại
 
 				if (selectedReportType.equals("Báo cáo công nợ")) {
-					model.setColumnIdentifiers(new String[] {"STT", "Đại lý", "Số phiếu xuất", "Tổng giá trị", "Tỷ lệ"});
+					model.setColumnIdentifiers(new String[] {"STT", "Đại lý", "Nợ đầu", "Phát sinh", "Nợ cuối"});
 					// Thêm dữ liệu cho báo cáo công nợ
 				} else if (selectedReportType.equals("Báo cáo doanh số")) {
-					model.setColumnIdentifiers(new String[] {"STT", "Đại lý", "Số phiếu xuất", "Tổng giá trị", "Tỷ lệ"});
+					model.setColumnIdentifiers(new String[] {"STT", "Đại lý", "Số phiếu xuất", "Tổng trị giá", "Tỷ lệ"});
 					// Thêm dữ liệu cho báo cáo hàng tồn
 				}
 			}
 		});
-
-
-
-
 
 
 	}
