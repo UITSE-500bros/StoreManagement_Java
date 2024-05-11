@@ -16,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.Popup;
+import javax.swing.PopupFactory;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -198,34 +200,70 @@ public class MainFrame extends JFrame {
 		menuPanel.add(exportButton);
 		menuPanel.add(settingButton);
 		menuPanel.add(logoutButton);
-		containerPanel.setLayout(new CardLayout(0, 0));
+		
+		CardLayout cardLayout = new CardLayout(0,0);
+		containerPanel.setLayout(cardLayout);
+		
+		
 
 		JPanel storesPanel = new StoresPanel();
 		containerPanel.add(storesPanel, "name_240836109219200");
 
 		JPanel stockPanel = new JPanel();
 		containerPanel.add(stockPanel, "name_240836138693900");
-		
-		JLabel lblNewLabel = new JLabel("ton kho");
-		stockPanel.add(lblNewLabel);
 
+		// thay new JPanel() bang Panel do ae tao
 		JPanel reportPanel = new JPanel();
 		containerPanel.add(reportPanel, "name_240836198139600");
-		
-		JLabel lblNewLabel_1 = new JLabel("report");
-		reportPanel.add(lblNewLabel_1);
 
-		JPanel importPanel = new JPanel();
+		// thay new JPanel() bang Panel do ae tao
+		JPanel importPanel = new importPanel();
 		containerPanel.add(importPanel, "name_240836231205200");
-		
-		JLabel lblNewLabel_2 = new JLabel("New label");
-		importPanel.add(lblNewLabel_2);
 
+		// thay new JPanel() bang Panel do ae tao
 		JPanel exportPanel = new JPanel();
 		containerPanel.add(exportPanel, "name_240836258641200");
-
+		
+		// thay new JPanel() bang Panel do ae tao
 		JPanel settingPanel = new JPanel();
 		containerPanel.add(settingPanel, "name_240836285379400");
+		
+		storesButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cardLayout.show(containerPanel, "name_240836109219200");
+			}
+		});
+		
+		stockButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cardLayout.show(containerPanel, "name_240836138693900");
+			}
+		});
+		
+		reportButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cardLayout.show(containerPanel, "name_240836198139600");
+			}
+		});
+		
+		
+		importButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(containerPanel, "name_240836231205200");
+            }
+        });
+		exportButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cardLayout.show(containerPanel, "name_240836258641200");
+			}
+		});
+		settingButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cardLayout.show(containerPanel, "name_240836285379400");
+			}
+		});
+		
+		
 	}
 
 	private void initMenuPanel(JPanel menuPanel) {
