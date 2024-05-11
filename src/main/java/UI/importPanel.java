@@ -44,7 +44,7 @@ public class importPanel extends JPanel {
 	 */
 	public importPanel() {
 		this.setLayout(new GridBagLayout());
-
+        
 		GridBagConstraints gbc = new GridBagConstraints();
 
 		JPanel panelHeader = new JPanel();

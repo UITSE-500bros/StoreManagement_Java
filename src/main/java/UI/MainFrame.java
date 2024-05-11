@@ -207,25 +207,31 @@ public class MainFrame extends JFrame {
 		
 
 		JPanel storesPanel = new StoresPanel();
+		storesPanel.setOpaque(false);
 		containerPanel.add(storesPanel, "name_240836109219200");
 
 		JPanel stockPanel = new JPanel();
+		stockPanel.setOpaque(false);
 		containerPanel.add(stockPanel, "name_240836138693900");
 
 		// thay new JPanel() bang Panel do ae tao
 		JPanel reportPanel = new JPanel();
+		reportPanel.setOpaque(false);
 		containerPanel.add(reportPanel, "name_240836198139600");
 
 		// thay new JPanel() bang Panel do ae tao
 		JPanel importPanel = new importPanel();
+		importPanel.setOpaque(false);
 		containerPanel.add(importPanel, "name_240836231205200");
 
 		// thay new JPanel() bang Panel do ae tao
 		JPanel exportPanel = new JPanel();
+		exportPanel.setOpaque(false);
 		containerPanel.add(exportPanel, "name_240836258641200");
 		
 		// thay new JPanel() bang Panel do ae tao
 		JPanel settingPanel = new JPanel();
+		settingPanel.setOpaque(false);
 		containerPanel.add(settingPanel, "name_240836285379400");
 		
 		storesButton.addActionListener(new ActionListener() {
