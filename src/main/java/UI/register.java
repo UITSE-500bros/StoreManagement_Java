@@ -4,17 +4,11 @@ import Controller.UserRegisterController;
 
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridBagLayout;
-import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import java.awt.GridLayout;
 import java.awt.Font;
 import java.awt.Color;
@@ -280,6 +274,47 @@ public class register extends JFrame {
 		gbc_btn_login.gridx = 0;
 		gbc_btn_login.gridy = 9;
 		panel.add(btn_login, gbc_btn_login);
+
+		btn_register.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Check if any field is empty
+				if (textField_name.getText().isEmpty() || textField_lastName.getText().isEmpty() ||
+						textField_email.getText().isEmpty() || textField_phoneNumber.getText().isEmpty() ||
+						textField_password.getText().isEmpty() || textField_rePassWord.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Vui lòng không để trống bất kỳ trường nào.");
+					return;
+				}
+
+				// Check if email contains '@'
+				if (!textField_email.getText().contains("@")) {
+					JOptionPane.showMessageDialog(null, "Email không hợp lệ. Vui lòng kiểm tra lại.");
+					return;
+				}
+
+				// Check if password matches re-entered password
+				if (!textField_password.getText().equals(textField_rePassWord.getText())) {
+					JOptionPane.showMessageDialog(null, "Mật khẩu không khớp. Vui lòng kiểm tra lại.");
+					return;
+				}
+				if(textField_phoneNumber.getText().length() != 10){
+					JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ. Vui lòng kiểm tra lại.");
+					return;
+				}
+
+				if(textField_password.getText().length()<8){
+					JOptionPane.showMessageDialog(null, "Mật khẩu phải có ít nhất 8 ký tự.");
+					return;
+				}
+
+				// If all checks pass, proceed with user registration
+				UserRegisterController userRegisterController = new UserRegisterController(register.this);
+				try {
+					userRegisterController.registerUser();
+				} catch (MalformedURLException ex) {
+					throw new RuntimeException(ex);
+				}
+			}
+		});
 		
 		setLocationRelativeTo(null);
 		

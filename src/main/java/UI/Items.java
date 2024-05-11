@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 import java.awt.BorderLayout;
 import javax.swing.JRadioButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Items extends JFrame {
 
@@ -56,20 +58,39 @@ public class Items extends JFrame {
 			new String[] {
 				"STT", "M\u1EB7t h\u00E0ng"
 			}
-		));
+		) {
+			Class[] columnTypes = new Class[] {
+				Object.class, String.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+			boolean[] columnEditables = new boolean[] {
+				false, true
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
 		scrollPane.setViewportView(table);
 		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.SOUTH);
 		
 		JButton btnAdd = new JButton("Thêm");
+
 		panel.add(btnAdd);
 		
 		JButton btnOk = new JButton("Ok");
+		btnOk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+			
+		});
 		panel.add(btnOk);
 		
-		JButton btnCancel = new JButton("Hủy");
-		panel.add(btnCancel);
+		
 	}
 
 }
