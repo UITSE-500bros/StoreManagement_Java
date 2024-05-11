@@ -215,8 +215,10 @@ public class MainFrame extends JFrame {
 		containerPanel.add(stockPanel, "name_240836138693900");
 
 		// thay new JPanel() bang Panel do ae tao
-		JPanel reportPanel = new JPanel();
+		JPanel reportPanel = new reportPanel();
+
 		reportPanel.setOpaque(false);
+
 		containerPanel.add(reportPanel, "name_240836198139600");
 
 		// thay new JPanel() bang Panel do ae tao
