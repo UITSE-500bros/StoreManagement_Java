@@ -2,6 +2,7 @@ package ReuseClass;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 
@@ -26,6 +27,12 @@ public class DatePicker extends JDatePickerImpl {
 
 			@Override
 			public String valueToString(Object value) throws ParseException {
+				if (value != null) {
+					Calendar calendar = (Calendar) value;
+					Date date = calendar.getTime();
+					SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+					return sdf.format(date);
+				}
 				return null;
 			}
 		});

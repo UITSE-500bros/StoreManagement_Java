@@ -11,9 +11,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
 
-public class FormImport extends CustomPanel {
+public class FormImport extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private JTextField txtName;
+	private JTextField txtSoLuong;
+	private JTextField txtDonGia;
+	private JTextField txtDVT;
 
 	/**
 	 * Create the panel.
@@ -40,7 +44,6 @@ public class FormImport extends CustomPanel {
 		gbcHeader.insets = new Insets(0, 20, 0, 0);
 		JLabel headerLable = new JLabel("Nhập Hàng");
 		headerLable.setFont(new Font("Roboto", Font.BOLD, 30));
-		panelHeader.add(headerLable, gbcHeader);
 
 		this.add(panelHeader, gbc);
 
@@ -65,7 +68,7 @@ public class FormImport extends CustomPanel {
 		panelContent.add(labelName, gbcContent);
 
 		gbcContent = new GridBagConstraints();
-		JTextField txtName = new JTextField(15);
+		txtName = new JTextField(15);
 		gbcContent.gridx = 0;
 		gbcContent.gridy = 1;
 		gbcContent.weightx = 0.5;
@@ -87,7 +90,7 @@ public class FormImport extends CustomPanel {
 		panelContent.add(labelDVT, gbcContent);
 
 		gbcContent = new GridBagConstraints();
-		JTextField txtDVT = new JTextField(15);
+		txtDVT = new JTextField(15);
 		gbcContent.gridx = 1;
 		gbcContent.gridy = 1;
 		gbcContent.weightx = 0.5;
@@ -109,7 +112,8 @@ public class FormImport extends CustomPanel {
 		panelContent.add(labelSoLuong, gbcContent);
 
 		gbcContent = new GridBagConstraints();
-		JTextField txtSoLuong = new JTextField(15);
+		txtSoLuong = new JTextField(15);
+		txtSoLuong.setEditable(true);
 		gbcContent.gridx = 0;
 		gbcContent.gridy = 3;
 		gbcContent.weightx = 0.5;
@@ -131,7 +135,7 @@ public class FormImport extends CustomPanel {
 		panelContent.add(labelDonGia, gbcContent);
 
 		gbcContent = new GridBagConstraints();
-		JTextField txtDonGia = new JTextField(15);
+		txtDonGia = new JTextField(15);
 		gbcContent.gridx = 1;
 		gbcContent.gridy = 3;
 		gbcContent.weightx = 0.5;
@@ -142,6 +146,38 @@ public class FormImport extends CustomPanel {
 		panelContent.add(txtDonGia, gbcContent);
 
 		this.add(panelContent, gbc);
+	}
+
+	public String getTxtName() {
+		return txtName.getText();
+	}
+
+	public String getTxtSoLuong() {
+		return txtSoLuong.getText();
+	}
+
+	public String getTxtDonGia() {
+		return txtDonGia.getText();
+	}
+
+	public String getTxtDVT() {
+		return txtDVT.getText();
+	}
+
+	public void setTxtName(String name) {
+		txtName.setText(name);
+	}
+
+	public void setTxtSoLuong(String soLuong) {
+		txtSoLuong.setText(soLuong);
+	}
+
+	public void setTxtDonGia(String donGia) {
+		txtDonGia.setText(donGia);
+	}
+
+	public void setTxtDVT(String dvt) {
+		txtDVT.setText(dvt);
 	}
 
 }

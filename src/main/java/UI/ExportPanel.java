@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -18,12 +19,28 @@ import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import javax.swing.text.JTextComponent;
 
 import ReuseClass.DatePicker;
 
 public class ExportPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private JTextField tienConLaiTextField;
+	private JTextComponent tienTraTextField;
+	private JTextField tongTienTextField;
+	private JTable tableXuatHang;
+	private JTextField maSoPhieuTextField;
+	private DatePicker datePicker;
+
+	public static void main(String[] args) {
+		JFrame frame = new JFrame();
+		frame.setSize(1000, 800);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		ExportPanel ex = new ExportPanel();
+		frame.getContentPane().add(ex);
+		frame.setVisible(true);
+	}
 
 	/**
 	 * Create the panel.
@@ -86,7 +103,7 @@ public class ExportPanel extends JPanel {
 		contentPane.add(pnhLable, gbc1);
 
 		gbc1 = new GridBagConstraints();
-		JButton addButton = new JButton("Add");
+		JButton addButton = new JButton("Thêm");
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -104,7 +121,7 @@ public class ExportPanel extends JPanel {
 
 		gbc1 = new GridBagConstraints();
 		gbc1.anchor = GridBagConstraints.WEST;
-		JTextField maSoPhieuTextField = new JTextField(10);
+		maSoPhieuTextField = new JTextField(10);
 		maSoPhieuTextField.setFont(new Font("Roboto", Font.PLAIN, 20));
 		gbc1.gridx = 0;
 		gbc1.gridy = 1;
@@ -112,7 +129,7 @@ public class ExportPanel extends JPanel {
 		gbc1.anchor = GridBagConstraints.WEST;
 		contentPane.add(maSoPhieuTextField, gbc1);
 
-		DatePicker datePicker = new DatePicker();
+		datePicker = new DatePicker();
 		datePicker.setFont(new Font("Roboto", Font.PLAIN, 20));
 		gbc1 = new GridBagConstraints();
 		gbc1.anchor = GridBagConstraints.WEST;
@@ -127,15 +144,15 @@ public class ExportPanel extends JPanel {
 				// Add more rows as needed
 		};
 		DefaultTableModel model = new DefaultTableModel(data, columnNames);
-		JTable tableNhapHang = new JTable(model);
-		((DefaultTableCellRenderer) tableNhapHang.getDefaultRenderer(Object.class)).setOpaque(false);
-		tableNhapHang.setFont(new Font("Roboto", Font.PLAIN, 10));
-		TableColumnModel columnModel = tableNhapHang.getColumnModel();
-		columnModel.getColumn(0).setPreferredWidth((int) (tableNhapHang.getWidth() * 0.1)); // 10%
-		columnModel.getColumn(1).setPreferredWidth((int) (tableNhapHang.getWidth() * 0.4)); // 40%
-		columnModel.getColumn(2).setPreferredWidth((int) (tableNhapHang.getWidth() * 0.1)); // 10%
-		columnModel.getColumn(3).setPreferredWidth((int) (tableNhapHang.getWidth() * 0.2)); // 20%
-		columnModel.getColumn(4).setPreferredWidth((int) (tableNhapHang.getWidth() * 0.2)); // 20%
+		tableXuatHang = new JTable(model);
+		((DefaultTableCellRenderer) tableXuatHang.getDefaultRenderer(Object.class)).setOpaque(false);
+		tableXuatHang.setFont(new Font("Roboto", Font.PLAIN, 10));
+		TableColumnModel columnModel = tableXuatHang.getColumnModel();
+		columnModel.getColumn(0).setPreferredWidth((int) (tableXuatHang.getWidth() * 0.1)); // 10%
+		columnModel.getColumn(1).setPreferredWidth((int) (tableXuatHang.getWidth() * 0.4)); // 40%
+		columnModel.getColumn(2).setPreferredWidth((int) (tableXuatHang.getWidth() * 0.1)); // 10%
+		columnModel.getColumn(3).setPreferredWidth((int) (tableXuatHang.getWidth() * 0.2)); // 20%
+		columnModel.getColumn(4).setPreferredWidth((int) (tableXuatHang.getWidth() * 0.2)); // 20%
 
 		gbc1 = new GridBagConstraints();
 		gbc1.fill = GridBagConstraints.BOTH;
@@ -144,7 +161,7 @@ public class ExportPanel extends JPanel {
 		gbc1.gridwidth = 2; // Span across 2 columns
 		gbc1.weightx = 1.0;
 		gbc1.insets = new java.awt.Insets(10, 0, 0, 0);
-		contentPane.add(tableNhapHang, gbc1);
+		contentPane.add(tableXuatHang, gbc1);
 
 		// For tienTraTextField
 		JPanel panel2Tien = new JPanel();
@@ -159,7 +176,7 @@ public class ExportPanel extends JPanel {
 
 		GridBagConstraints gbc2 = new GridBagConstraints();
 		gbc2.anchor = GridBagConstraints.WEST;
-		JTextField tongTienTextField = new JTextField(15);
+		tongTienTextField = new JTextField(15);
 		tongTienTextField.setEditable(false);
 		tongTienTextField.setText("Tổng tiền: 0 VND");
 		tongTienTextField.setFont(new Font("Roboto", Font.PLAIN, 15));
@@ -169,7 +186,7 @@ public class ExportPanel extends JPanel {
 
 		gbc2 = new GridBagConstraints();
 		gbc2.anchor = GridBagConstraints.CENTER;
-		JTextField tienTraTextField = new JTextField(15);
+		tienTraTextField = new JTextField(15);
 		tienTraTextField.setEditable(false);
 		tienTraTextField.setText("Số tiền trả: 0 VND");
 		tienTraTextField.setFont(new Font("Roboto", Font.PLAIN, 15));
@@ -180,7 +197,7 @@ public class ExportPanel extends JPanel {
 		// For tienConLaiTextField
 		gbc2 = new GridBagConstraints();
 		gbc2.anchor = GridBagConstraints.EAST;
-		JTextField tienConLaiTextField = new JTextField(15);
+		tienConLaiTextField = new JTextField(15);
 		tienConLaiTextField.setEditable(false);
 		tienConLaiTextField.setText("Còn lại: 0 VND");
 		tienConLaiTextField.setFont(new Font("Roboto", Font.PLAIN, 15));

@@ -1,31 +1,39 @@
 package UI;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.Popup;
-import javax.swing.PopupFactory;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
-
+import ReuseClass.DatePicker;
 
 public class importPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private final JTextField tongTienTextField;
+	private GridBagConstraints gbc1_1;
+	private GridBagConstraints gbc1_2;
+	private GridBagConstraints gbc1_3;
+	private GridBagConstraints gbc1_4;
+	private JButton addButton;
+	private DatePicker datePicker;
+	private JTable tableNhapHang;
+	private DefaultTableModel model;
+
+	public static void main(String[] args) {
+		JFrame frame = new JFrame();
+		frame.setSize(1000, 800);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		importPanel im = new importPanel();
+		frame.getContentPane().add(im);
+		frame.setVisible(true);
+	}
 
 	/**
 	 * @wbp.nonvisual location=-70,284
@@ -66,7 +74,7 @@ public class importPanel extends JPanel {
 		gbc.gridy = 1;
 		gbc.weighty = 0.8;
 		gbc.weightx = 1;
-		gbc.insets = new java.awt.Insets(30, 40, 40, 30);
+		gbc.insets = new java.awt.Insets(30, 50, 30, 50);
 		gbc.fill = GridBagConstraints.BOTH;
 
 		CustomPanel contentPane = new CustomPanel();
@@ -82,6 +90,7 @@ public class importPanel extends JPanel {
 		// For components in row 1 and 2, you need to set GridBagConstraints for each
 		// component
 		GridBagConstraints gbc1 = new GridBagConstraints();
+		gbc1.insets = new Insets(0, 0, 5, 5);
 
 		JLabel pnhLable = new JLabel("Phiếu Nhập Hàng");
 		pnhLable.setFont(new Font("Roboto", Font.BOLD, 30));
@@ -91,52 +100,88 @@ public class importPanel extends JPanel {
 		gbc1.anchor = GridBagConstraints.WEST;
 		contentPane.add(pnhLable, gbc1);
 
-		gbc1 = new GridBagConstraints();
-		JButton addButton = new JButton("Add");
-		addButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Popup p;
-				PopupFactory pf = new PopupFactory();
-				p = pf.getPopup(addButton, new FormImport(), 600, 400);
-				p.show();
-			}
-		});
+		gbc1_1 = new GridBagConstraints();
+		gbc1_1.gridy = 0;
+		addButton = new JButton("Lập phiếu");
+		ImageIcon lapPhieuIcon = new ImageIcon("src/main/java/resource/lapPhieuIcon.png");
+		addButton.setIcon(lapPhieuIcon);
 		addButton.setBorderPainted(false);
 		addButton.setBackground(Color.BLACK);
 		addButton.setForeground(Color.ORANGE);
 		addButton.setFont(new Font("Roboto", Font.BOLD, 20));
-		gbc1.gridx = 1;
-		gbc1.weightx = 0.2;
-		gbc1.anchor = GridBagConstraints.EAST;
-		gbc1.insets = new java.awt.Insets(0, 30, 0, 30);
-		contentPane.add(addButton, gbc1);
+		addButton.setPreferredSize(new Dimension(150, 40));
+		gbc1_1.gridx = 1;
+		gbc1_1.weightx = 0.2;
+		gbc1_1.anchor = GridBagConstraints.EAST;
+		gbc1_1.insets = new Insets(0, 30, 5, 30);
+		contentPane.add(addButton, gbc1_1);
 
-		gbc1 = new GridBagConstraints();
-		gbc1.anchor = GridBagConstraints.WEST;
-		JTextField maSoPhieuTextField = new JTextField(10);
-		maSoPhieuTextField.setFont(new Font("Roboto", Font.PLAIN, 20));
-		gbc1.gridx = 0;
-		gbc1.gridy = 1;
-		gbc1.weightx = 0.1;
-		gbc1.anchor = GridBagConstraints.WEST;
-		contentPane.add(maSoPhieuTextField, gbc1);
+		gbc1_4 = new GridBagConstraints();
+		gbc1_4.insets = new Insets(0, 0, 5, 5);
+		gbc1_4.anchor = GridBagConstraints.WEST;
+		datePicker = new DatePicker();
+		datePicker.setFont(new Font("Roboto", Font.PLAIN, 20));
+		gbc1_4.gridx = 0;
+		gbc1_4.gridy = 1;
+		gbc1_4.weightx = 0.1;
+		gbc1_4.anchor = GridBagConstraints.WEST;
+		contentPane.add(datePicker, gbc1_4);
 
-//		DatePicker datePicker = new DatePicker();
-//		datePicker.setFont(new Font("Roboto", Font.PLAIN, 20));
-		gbc1 = new GridBagConstraints();
-		gbc1.anchor = GridBagConstraints.WEST;
-		gbc1.gridx = 1;
-		gbc1.weightx = 0.9;
-		gbc1.insets = new java.awt.Insets(0, 0, 0, 100);
-//		contentPane.add(datePicker, gbc1);
+		JButton themMatHangButton = new JButton("Thêm mặt hàng");
+		themMatHangButton.setPreferredSize(new Dimension(150, 40));
+		ImageIcon themMatHang = new ImageIcon("src/main/java/resource/themMatHangIcon.png");
+		themMatHangButton.setIcon(themMatHang);
+		themMatHangButton.setFont(new Font("Roboto", Font.BOLD, 12));
+		themMatHangButton.setForeground(Color.WHITE);
+		themMatHangButton.setBackground(Color.BLACK);
+		themMatHangButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FormImport temp = new FormImport();
+				temp.setSize(600, 600);
+				int response = JOptionPane.showConfirmDialog(null, temp, "Nhập mặt hàng", JOptionPane.YES_NO_OPTION);
+				if (response == JOptionPane.YES_OPTION) {
+					int sum= Integer.parseInt(temp.getTxtSoLuong()) * Integer.parseInt(temp.getTxtDonGia());
+					int num = Integer.parseInt(model.getValueAt(model.getRowCount() - 1, 0).toString());
+					model.addRow(new Object[] { num + 1, temp.getTxtName(), temp.getTxtDVT(), temp.getTxtSoLuong(),
+							temp.getTxtDonGia(), sum});
+					String tongTienText = tongTienTextField.getText();
+					tongTienText = tongTienText.replace("Tổng tiền: ", "").replace(" VND", "");
+					int res = Integer.parseInt(tongTienText) + sum;
+					tongTienTextField.setText("Tổng tiền: " + res + " VND");
 
-		String[] columnNames = { "STT", "Tên mặt hàng", "Số lượng", "Đơn giá(VND)", "Thành tiền" };
+				} else if (response == JOptionPane.NO_OPTION) {
+
+				}
+			}
+		});
+		gbc1_2 = new GridBagConstraints();
+		gbc1_2.gridy = 1;
+		gbc1_2.anchor = GridBagConstraints.WEST;
+		gbc1_2.gridx = 1;
+		gbc1_2.weightx = 0.9;
+		gbc1_2.insets = new Insets(0, 0, 5, 100);
+		contentPane.add(themMatHangButton, gbc1_2);
+
+		String[] columnNames = { "STT", "Tên mặt hàng", "Đơn vị tính", "Số lượng", "Đơn giá(VND)", "Thành tiền" };
 		// Create data
-		Object[][] data = { { 1, "Mặt hàng 1", 3, 5000, 1000.0 }, { 2, "Mặt hàng 2", 2, 3000, 6000.0 },
+		Object[][] data = { { 1, "Mặt hàng 1", "Chai", 3, 5000, 1000.0 }, { 2, "Mặt hàng 2", "lon", 2, 3000, 6000.0 },
 				// Add more rows as needed
 		};
-		DefaultTableModel model = new DefaultTableModel(data, columnNames);
-		JTable tableNhapHang = new JTable(model);
+
+		// this mode handles data in table
+		model = new DefaultTableModel(data, columnNames);
+
+		JScrollPane scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridwidth = 2;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.gridx = 0;
+		gbc_scrollPane.gridy = 2;
+		contentPane.add(scrollPane, gbc_scrollPane);
+		tableNhapHang = new JTable(model);
+		scrollPane.setViewportView(tableNhapHang);
+		tableNhapHang.setRowSelectionAllowed(true);
 		((DefaultTableCellRenderer) tableNhapHang.getDefaultRenderer(Object.class)).setOpaque(false);
 		tableNhapHang.setFont(new Font("Roboto", Font.PLAIN, 10));
 		TableColumnModel columnModel = tableNhapHang.getColumnModel();
@@ -146,25 +191,17 @@ public class importPanel extends JPanel {
 		columnModel.getColumn(3).setPreferredWidth((int) (tableNhapHang.getWidth() * 0.2)); // 20%
 		columnModel.getColumn(4).setPreferredWidth((int) (tableNhapHang.getWidth() * 0.2)); // 20%
 
-		gbc1 = new GridBagConstraints();
-		gbc1.fill = GridBagConstraints.BOTH;
-		gbc1.gridx = 0;
-		gbc1.gridy = 2;
-		gbc1.gridwidth = 2; // Span across 2 columns
-		gbc1.weightx = 1.0;
-		gbc1.insets = new java.awt.Insets(10, 0, 0, 0);
-		contentPane.add(tableNhapHang, gbc1);
-
-		gbc1 = new GridBagConstraints();
-		gbc1.anchor = GridBagConstraints.EAST;
-		JTextField tongTienTextField = new JTextField(15);
+		gbc1_3 = new GridBagConstraints();
+		gbc1_3.gridx = 0;
+		gbc1_3.anchor = GridBagConstraints.EAST;
+		tongTienTextField = new JTextField(15);
 		tongTienTextField.setEditable(false);
 		tongTienTextField.setText("Tổng tiền: 0 VND");
 		tongTienTextField.setFont(new Font("Roboto", Font.PLAIN, 20));
-		gbc1.gridy = 3;
-		gbc1.gridwidth = 2; // Span across 2 columns
-		gbc1.insets = new java.awt.Insets(20, 0, 0, 0);
-		contentPane.add(tongTienTextField, gbc1);
+		gbc1_3.gridy = 3;
+		gbc1_3.gridwidth = 2; // Span across 2 columns
+		gbc1_3.insets = new java.awt.Insets(20, 0, 0, 0);
+		contentPane.add(tongTienTextField, gbc1_3);
 
 		this.add(contentPane, gbc);
 
