@@ -2,26 +2,20 @@ package UI;
 
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
-import javax.swing.JTextField;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JComboBox;
-import javax.swing.ImageIcon;
-import javax.swing.UIManager;
 
 import java.awt.Dimension;
 import java.util.Objects;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import com.formdev.flatlaf.FlatLightLaf;
 
-import javax.swing.JScrollPane;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 public class reportPanel extends JPanel {
 
@@ -64,7 +58,7 @@ public class reportPanel extends JPanel {
 		panel.setLayout(new BorderLayout(0, 0));
 		
 		JButton btnNewButton = new JButton("");
-		btnNewButton.setIcon(new ImageIcon(reportPanel.class.getResource("/resource/searchStoreIcon 1.png")));
+		btnNewButton.setIcon(new ImageIcon(reportPanel.class.getResource("/resource/searchStoreIcon.png")));
 		btnNewButton.setPreferredSize(new Dimension(30, 30));
 
 
@@ -118,6 +112,15 @@ public class reportPanel extends JPanel {
 					model.setColumnIdentifiers(new String[] {"STT", "Đại lý", "Số phiếu xuất", "Tổng trị giá", "Tỷ lệ"});
 					// Thêm dữ liệu cho báo cáo hàng tồn
 				}
+			}
+		});
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String searchText = textField.getText().toLowerCase();
+				TableRowSorter<TableModel> sorter = new TableRowSorter<>(table.getModel());
+				table.setRowSorter(sorter);
+
+				sorter.setRowFilter(RowFilter.regexFilter("(?i)" + searchText, 1)); // 1 is the column index for "Đại lý"
 			}
 		});
 

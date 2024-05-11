@@ -57,6 +57,7 @@ public class MainFrame extends JFrame {
 				try {
 					UIManager.setLookAndFeel(new FlatLightLaf());
 					MainFrame frame = new MainFrame();
+					frame.setTitle("Store Management ");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -210,7 +211,7 @@ public class MainFrame extends JFrame {
 		storesPanel.setOpaque(false);
 		containerPanel.add(storesPanel, "name_240836109219200");
 
-		JPanel stockPanel = new JPanel();
+		JPanel stockPanel = new StockPanel();
 		stockPanel.setOpaque(false);
 		containerPanel.add(stockPanel, "name_240836138693900");
 
