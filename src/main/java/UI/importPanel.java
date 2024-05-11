@@ -108,6 +108,8 @@ public class importPanel extends JPanel {
 		addButton.setBorderPainted(false);
 		addButton.setBackground(Color.BLACK);
 		addButton.setForeground(Color.ORANGE);
+		addButton.setHorizontalAlignment(addButton.LEFT);
+		addButton.setHorizontalTextPosition(addButton.RIGHT);
 		addButton.setFont(new Font("Roboto", Font.BOLD, 20));
 		addButton.setPreferredSize(new Dimension(150, 40));
 		gbc1_1.gridx = 1;
@@ -134,6 +136,8 @@ public class importPanel extends JPanel {
 		themMatHangButton.setFont(new Font("Roboto", Font.BOLD, 12));
 		themMatHangButton.setForeground(Color.WHITE);
 		themMatHangButton.setBackground(Color.BLACK);
+		themMatHangButton.setHorizontalAlignment(SwingConstants.LEFT);
+		themMatHangButton.setHorizontalTextPosition(SwingConstants.RIGHT);
 		themMatHangButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FormImport temp = new FormImport();
@@ -178,7 +182,6 @@ public class importPanel extends JPanel {
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPane.gridx = 0;
 		gbc_scrollPane.gridy = 2;
-		contentPane.add(scrollPane, gbc_scrollPane);
 		tableNhapHang = new JTable(model);
 		scrollPane.setViewportView(tableNhapHang);
 		tableNhapHang.setRowSelectionAllowed(true);
@@ -190,6 +193,7 @@ public class importPanel extends JPanel {
 		columnModel.getColumn(2).setPreferredWidth((int) (tableNhapHang.getWidth() * 0.1)); // 10%
 		columnModel.getColumn(3).setPreferredWidth((int) (tableNhapHang.getWidth() * 0.2)); // 20%
 		columnModel.getColumn(4).setPreferredWidth((int) (tableNhapHang.getWidth() * 0.2)); // 20%
+		contentPane.add(scrollPane, gbc_scrollPane);
 
 		gbc1_3 = new GridBagConstraints();
 		gbc1_3.gridx = 0;
