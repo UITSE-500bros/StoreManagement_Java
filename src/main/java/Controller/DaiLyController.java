@@ -1,50 +1,53 @@
 package Controller;
 
-
 import Models.daily;
 import UI.MainFrame;
-
-import UI.*;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 
 import java.io.IOException;
-
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
+import java.net.URL;
+import java.util.List;
 
 public class DaiLyController {
-    private daily daiLy;
-    private MainFrame mainFrame;
-    private login login;
-    private Connection connection;
+    private final MainFrame mainFrame;
+    private final Connection connection;
 
-    public DaiLyController(login login) {
-        this.login = login;
+    public DaiLyController(MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
 
         connection = new Connection();
     }
 
-    public void showDaiLy(int personid) throws IOException {
-//        //String encodedEmail = URLEncoder.encode(String, StandardCharsets.UTF_8);
-//        connection.setUrl(new URL("http://localhost:8080/daily/getAllDaiLyByPersonId?person_id=" + personid));
-//        connection.openGetConnection();
-//
-//        //int status = connection.con.getResponseCode();
-//
-//        BufferedReader in = new BufferedReader(new InputStreamReader(connection.con.getInputStream()));
-//        String inputLine;
-//        StringBuilder content = new StringBuilder();
-//        while ((inputLine = in.readLine()) != null) {
-//            content.append(inputLine);
-//        }
-//        // close connections
-//        in.close();
-//        connection.closeConnection();
-//
-//        // convert json to object
-//        Gson gson = new Gson();
-//        Type listType = new TypeToken<List<DaiLy>>(){}.getType();
-//        List<DaiLy> dailyList = gson.fromJson(content.toString(), listType);
-//        for (DaiLy daily : dailyList){
-//            System.out.println(daily.toString());
-//        }
+    public List<daily> showDaiLy(int personid) throws IOException {
+        connection.setUrl(new URL("http://localhost:8080/daily/getAllDaiLyByPersonId?person_id=" + personid));
+        connection.openGetConnection();
+        connection.getCon().setRequestProperty("Content-Type", "application/json");
+        connection.getCon().setRequestProperty("Accept", "application/json");
+        connection.getCon().setRequestMethod("GET");
+        connection.getCon().setDoOutput(true);
+        connection.getCon().setDoInput(true);
+        connection.getCon().connect();
 
+        // Read from the input stream before disconnecting
+        Gson gson = new Gson();
+        JsonReader reader = new JsonReader(new InputStreamReader(connection.getCon().getInputStream()));
+        Type listType = new TypeToken<List<daily>>(){}.getType();
+        List<daily> dailies = gson.fromJson(reader, listType);
+        connection.getCon().disconnect();
+        return dailies;
+    }
+
+    public String addNewDaiLy(){
+        daily daily = new daily();
+//        daily.setDailyname(mainFrame.getDailyName());
+//        daily.setDailyaddress(mainFrame.getDailyAddress());
+//        daily.setDailysdt(mainFrame.getDailySdt());
+//        daily.setPersonid(mainFrame.getPersonid());
+        connection.insertDaiLy(daily);
+        return "DaiLy added successfully";
     }
 }
