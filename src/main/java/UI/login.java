@@ -69,6 +69,7 @@ public class login extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(238, 230, 224));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		
 
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
