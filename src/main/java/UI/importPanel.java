@@ -61,7 +61,7 @@ public class importPanel extends JPanel {
 		gbcHeader.gridy = 0;
 		gbcHeader.weightx = 0.9;
 		gbcHeader.weighty = 1;
-		gbcHeader.fill = GridBagConstraints.BOTH;
+		gbcHeader.fill = GridBagConstraints.HORIZONTAL;
 		gbcHeader.anchor = GridBagConstraints.WEST;
 		JLabel headerLable = new JLabel("Nhập Hàng");
 		headerLable.setBorder(new EmptyBorder(0, 20, 0, 0));
@@ -180,6 +180,7 @@ public class importPanel extends JPanel {
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridwidth = 2;
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbcHeader.fill = GridBagConstraints.HORIZONTAL;
 		gbc_scrollPane.gridx = 0;
 		gbc_scrollPane.gridy = 2;
 		tableNhapHang = new JTable(model);

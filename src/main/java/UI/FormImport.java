@@ -1,23 +1,17 @@
 package UI;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.*;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.border.MatteBorder;
 
 public class FormImport extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JTextField txtName;
+	private JComboBox<String> txtName;
 	private JTextField txtSoLuong;
 	private JTextField txtDonGia;
-	private JTextField txtDVT;
+	private JComboBox<String> txtDVT;
 
 	/**
 	 * Create the panel.
@@ -68,7 +62,9 @@ public class FormImport extends JPanel {
 		panelContent.add(labelName, gbcContent);
 
 		gbcContent = new GridBagConstraints();
-		txtName = new JTextField(15);
+		String [] cacMatHang = new String[] {"Cà phê", "Đường", "Hạt nêm", "Mì", "Sữa"};
+		txtName = new JComboBox<String>(cacMatHang);
+		gbcContent.fill = GridBagConstraints.HORIZONTAL;
 		gbcContent.gridx = 0;
 		gbcContent.gridy = 1;
 		gbcContent.weightx = 0.5;
@@ -90,9 +86,11 @@ public class FormImport extends JPanel {
 		panelContent.add(labelDVT, gbcContent);
 
 		gbcContent = new GridBagConstraints();
-		txtDVT = new JTextField(15);
+		String[] cacDVT = new String[] {"Gói", "Hộp", "Thùng"};
+		txtDVT = new JComboBox<String>(cacDVT);
 		gbcContent.gridx = 1;
 		gbcContent.gridy = 1;
+		gbcContent.fill = GridBagConstraints.HORIZONTAL;
 		gbcContent.weightx = 0.5;
 		gbcContent.weighty = 0.4;
 		gbcContent.insets = new Insets(0, 20, 0, 0);
@@ -149,7 +147,7 @@ public class FormImport extends JPanel {
 	}
 
 	public String getTxtName() {
-		return txtName.getText();
+		return txtName.getSelectedItem().toString();
 	}
 
 	public String getTxtSoLuong() {
@@ -161,11 +159,11 @@ public class FormImport extends JPanel {
 	}
 
 	public String getTxtDVT() {
-		return txtDVT.getText();
+		return txtDVT.getSelectedItem().toString();
 	}
 
 	public void setTxtName(String name) {
-		txtName.setText(name);
+		txtName.setSelectedItem(name);
 	}
 
 	public void setTxtSoLuong(String soLuong) {
@@ -177,7 +175,7 @@ public class FormImport extends JPanel {
 	}
 
 	public void setTxtDVT(String dvt) {
-		txtDVT.setText(dvt);
+		txtDVT.setSelectedItem(dvt);
 	}
 
 }
