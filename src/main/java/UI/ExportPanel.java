@@ -1,19 +1,10 @@
 package UI;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -26,6 +17,8 @@ import ReuseClass.DatePicker;
 public class ExportPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private final JButton addButton;
+	private final DefaultTableModel model;
 	private JTextField tienConLaiTextField;
 	private JTextComponent tienTraTextField;
 	private JTextField tongTienTextField;
@@ -103,57 +96,105 @@ public class ExportPanel extends JPanel {
 		contentPane.add(pnhLable, gbc1);
 
 		gbc1 = new GridBagConstraints();
-		JButton addButton = new JButton("Thêm");
-		addButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
+		addButton = new JButton("Lập phiếu");
+		ImageIcon lapPhieuIcon = new ImageIcon("src/main/java/resource/lapPhieuIcon.png");
+		addButton.setIcon(lapPhieuIcon);
 		addButton.setBorderPainted(false);
 		addButton.setBackground(Color.BLACK);
 		addButton.setForeground(Color.ORANGE);
+		addButton.setHorizontalAlignment(addButton.LEFT);
+		addButton.setHorizontalTextPosition(addButton.RIGHT);
 		addButton.setFont(new Font("Roboto", Font.BOLD, 20));
+		addButton.setPreferredSize(new Dimension(150, 40));
 		gbc1.gridx = 1;
 		gbc1.weightx = 0.2;
 		gbc1.anchor = GridBagConstraints.EAST;
-		gbc1.insets = new java.awt.Insets(0, 30, 0, 30);
+		gbc1.insets = new Insets(0, 30, 5, 30);
 		contentPane.add(addButton, gbc1);
 
+		JPanel pnaelHang2 = new JPanel();
+		pnaelHang2.setBackground(new Color(255, 249, 243, 180));
+		pnaelHang2.setBorder(new EmptyBorder(0, 0, 0, 0));
+		pnaelHang2.setLayout(new GridBagLayout());
 		gbc1 = new GridBagConstraints();
-		gbc1.anchor = GridBagConstraints.WEST;
+		gbc1.fill = GridBagConstraints.BOTH;
+		gbc1.gridy = 1;
+		gbc1.gridx = 0;
+		gbc1.gridwidth = 2;
+		gbc1.insets = new Insets(10, 0, 0, 0);
+
+		GridBagConstraints gbc3 = new GridBagConstraints();
+		gbc3.anchor = GridBagConstraints.WEST;
 		maSoPhieuTextField = new JTextField(10);
 		maSoPhieuTextField.setFont(new Font("Roboto", Font.PLAIN, 20));
-		gbc1.gridx = 0;
-		gbc1.gridy = 1;
-		gbc1.weightx = 0.1;
-		gbc1.anchor = GridBagConstraints.WEST;
-		contentPane.add(maSoPhieuTextField, gbc1);
+		gbc3.gridx = 0;
+		gbc3.weightx = 0.33; // Adjusted weight
+		pnaelHang2.add(maSoPhieuTextField, gbc3);
 
+		gbc3 = new GridBagConstraints();
+		gbc3.anchor = GridBagConstraints.CENTER;
 		datePicker = new DatePicker();
 		datePicker.setFont(new Font("Roboto", Font.PLAIN, 20));
-		gbc1 = new GridBagConstraints();
-		gbc1.anchor = GridBagConstraints.WEST;
-		gbc1.gridx = 1;
-		gbc1.weightx = 0.9;
-		gbc1.insets = new java.awt.Insets(0, 0, 0, 100);
-		contentPane.add(datePicker, gbc1);
+		gbc3.gridx = 1;
+		gbc3.weightx = 0.33; // Adjusted weight
+		pnaelHang2.add(datePicker, gbc3);
 
-		String[] columnNames = { "STT", "Tên mặt hàng", "Số lượng", "Đơn giá(VND)", "Thành tiền" };
+		// For tienConLaiTextField
+		gbc3 = new GridBagConstraints();
+		gbc3.anchor = GridBagConstraints.EAST;
+		JButton themMatHangButton = new JButton("Thêm mặt hàng");
+		themMatHangButton.setPreferredSize(new Dimension(150, 40));
+		ImageIcon themMatHang = new ImageIcon("src/main/java/resource/themMatHangIcon.png");
+		themMatHangButton.setIcon(themMatHang);
+		themMatHangButton.setFont(new Font("Roboto", Font.BOLD, 12));
+		themMatHangButton.setForeground(Color.WHITE);
+		themMatHangButton.setBackground(Color.BLACK);
+		themMatHangButton.setHorizontalAlignment(SwingConstants.LEFT);
+		themMatHangButton.setHorizontalTextPosition(SwingConstants.RIGHT);
+		themMatHangButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FormImport temp = new FormImport();
+				temp.setSize(600, 600);
+				int response = JOptionPane.showConfirmDialog(null, temp, "Nhập mặt hàng", JOptionPane.YES_NO_OPTION);
+				if (response == JOptionPane.YES_OPTION) {
+					int sum= Integer.parseInt(temp.getTxtSoLuong()) * Integer.parseInt(temp.getTxtDonGia());
+					int num = Integer.parseInt(model.getValueAt(model.getRowCount() - 1, 0).toString());
+					model.addRow(new Object[] { num + 1, temp.getTxtName(), temp.getTxtDVT(), temp.getTxtSoLuong(),
+							temp.getTxtDonGia(), sum});
+					String tongTienText = tongTienTextField.getText();
+					tongTienText = tongTienText.replace("Tổng tiền: ", "").replace(" VND", "");
+					int res = Integer.parseInt(tongTienText) + sum;
+					tongTienTextField.setText("Tổng tiền: " + res + " VND");
+
+				} else if (response == JOptionPane.NO_OPTION) {
+
+				}
+			}
+		});
+		gbc3.gridx = 2;
+		gbc3.weightx = 0.33;
+		pnaelHang2.add(themMatHangButton, gbc3);
+
+		contentPane.add(pnaelHang2, gbc1);
+
+		String[] columnNames = { "STT", "Tên mặt hàng", "Đơn vị tính", "Số lượng", "Đơn giá(VND)", "Thành tiền" };
 		// Create data
-		Object[][] data = { { 1, "Mặt hàng 1", 3, 5000, 1000.0 }, { 2, "Mặt hàng 2", 2, 3000, 6000.0 },
+		Object[][] data = { { 1, "Mặt hàng 1", "lon", 3, 5000, 1000.0 }, { 2, "Mặt hàng 2", "chai", 2, 3000, 6000.0 },
 				// Add more rows as needed
 		};
-		DefaultTableModel model = new DefaultTableModel(data, columnNames);
+		model = new DefaultTableModel(data, columnNames);
 		tableXuatHang = new JTable(model);
 		((DefaultTableCellRenderer) tableXuatHang.getDefaultRenderer(Object.class)).setOpaque(false);
 		tableXuatHang.setFont(new Font("Roboto", Font.PLAIN, 10));
+		tableXuatHang.setRowSelectionAllowed(true);
 		TableColumnModel columnModel = tableXuatHang.getColumnModel();
 		columnModel.getColumn(0).setPreferredWidth((int) (tableXuatHang.getWidth() * 0.1)); // 10%
 		columnModel.getColumn(1).setPreferredWidth((int) (tableXuatHang.getWidth() * 0.4)); // 40%
 		columnModel.getColumn(2).setPreferredWidth((int) (tableXuatHang.getWidth() * 0.1)); // 10%
 		columnModel.getColumn(3).setPreferredWidth((int) (tableXuatHang.getWidth() * 0.2)); // 20%
 		columnModel.getColumn(4).setPreferredWidth((int) (tableXuatHang.getWidth() * 0.2)); // 20%
-
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setViewportView(tableXuatHang);
 		gbc1 = new GridBagConstraints();
 		gbc1.fill = GridBagConstraints.BOTH;
 		gbc1.gridx = 0;
@@ -161,7 +202,7 @@ public class ExportPanel extends JPanel {
 		gbc1.gridwidth = 2; // Span across 2 columns
 		gbc1.weightx = 1.0;
 		gbc1.insets = new java.awt.Insets(10, 0, 0, 0);
-		contentPane.add(tableXuatHang, gbc1);
+		contentPane.add(scrollPane, gbc1);
 
 		// For tienTraTextField
 		JPanel panel2Tien = new JPanel();
@@ -173,6 +214,7 @@ public class ExportPanel extends JPanel {
 		gbc1.gridy = 3;
 		gbc1.gridx = 0;
 		gbc1.gridwidth = 2;
+		gbc1.insets = new Insets(10, 0, 0, 0);
 
 		GridBagConstraints gbc2 = new GridBagConstraints();
 		gbc2.anchor = GridBagConstraints.WEST;
