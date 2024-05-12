@@ -3,9 +3,7 @@ package Controller;
 import Models.*;
 import com.google.gson.Gson;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -87,9 +85,11 @@ public class Connection {
         }
 
         closeConnection();
-
+        System.out.println(response);
         return response;
     }
+
+
     public String insertDaiLy(daily daily) {
         gson = new Gson();
         String json = gson.toJson(daily);

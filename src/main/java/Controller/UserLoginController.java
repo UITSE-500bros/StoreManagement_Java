@@ -1,6 +1,9 @@
 package Controller;
 
+import Models.UserInstance;
+import Models.person;
 import UI.login;
+import com.google.gson.Gson;
 
 import java.io.*;
 import java.net.URL;
@@ -15,7 +18,7 @@ public class UserLoginController {
     public void getUserByEmail(String email,String pass) throws IOException {
         String encodedEmail = URLEncoder.encode(email, StandardCharsets.UTF_8);
         String encodedPassword = URLEncoder.encode(pass, StandardCharsets.UTF_8);
-        String url = "http://localhost:8080/user/getLoginUser?email=" + email + "&password=" + encodedPassword;
+        String url = "http://localhost:8080/user/getLoginUser?personemail=" + email + "&personpassword=" + encodedPassword;
         connection.setUrl(new URL(url));
 
         connection.openGetConnection();
@@ -32,10 +35,12 @@ public class UserLoginController {
         in.close();
         connection.closeConnection();
 
-        // convert json to object
-
-		System.out.println(content);
-
+        Gson gson = new Gson();
+        person person = gson.fromJson(content.toString(), person.class);
+        UserInstance.getInstance().setUser_id(person.getPPersonid());
+        UserInstance.getInstance().setUser_name(person.getPersonname());
+        UserInstance.getInstance().setUser_email(person.getPersonemail());
+        System.out.println(UserInstance.getInstance().getUser_name() + " logged in");
     }
 
     

@@ -1,5 +1,6 @@
 package Controller;
 
+import Models.UserInstance;
 import Models.person;
 import UI.register;
 import java.net.MalformedURLException;
@@ -32,15 +33,22 @@ public class UserRegisterController {
         person.setPersonsdt(register.getTextField_phoneNumber());
 
 
-        if (!Objects.equals(connection.insertUser(person), "BAD_REQUEST")) {
-            System.out.println("User created successfully");
-        } else {
-            System.out.println("User creation failed");
-        }
-
-
+        String response = connection.insertUser(person);
+        System.out.println(response);
+//        if (!response.equals("Create failed") && !response.equals("Email already exists")) {
+//            if (!response.isEmpty()) {
+//                int id = Integer.parseInt(response);
+//                UserInstance.getInstance().setUser_id(id);
+//                UserInstance.getInstance().setUser_name(person.getPersonname());
+//                UserInstance.getInstance().setUser_email(person.getPersonemail());
+//                System.out.println("User registered with id: " + id);
+//            } else {
+//                System.out.println(response);
+//                System.out.println("User registered successfully, but no user ID was returned by the server.");
+//            }
+//        } else {
+//            System.out.println("Error: " + response);
+//        }
     }
-
-
 
 }
