@@ -1,7 +1,5 @@
 package Controller;
 
-import Models.quan;
-
 public class QuanController {
     private final Connection connection ;
     public QuanController() {

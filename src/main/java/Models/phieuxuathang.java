@@ -1,8 +1,6 @@
 package Models;
 
 
-
-
 public class phieuxuathang {
 
     private int maPhieuXuat;

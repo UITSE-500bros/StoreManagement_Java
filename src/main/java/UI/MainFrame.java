@@ -9,26 +9,15 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.Popup;
-import javax.swing.PopupFactory;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -55,9 +44,9 @@ public class MainFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UIManager.setLookAndFeel(new FlatLightLaf());
+					FlatLightLaf.setup();
+
 					MainFrame frame = new MainFrame();
-					frame.setTitle("Store Management ");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -70,6 +59,7 @@ public class MainFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public MainFrame() {
+		setTitle("Store Management");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1024, 600);
 		
@@ -152,10 +142,19 @@ public class MainFrame extends JFrame {
 		JMenuItem mntm_Ratio = new JMenuItem("Tỉ lệ tính đơn vị xuất");
 		mntm_Ratio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				exportRatio ratio = new exportRatio();
-				ratio.setVisible(true);
-				ratio.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				ratio.setLocationRelativeTo(null);
+				double ratioValue = 0;
+				boolean validInput = false;
+				do {
+					String ratio = JOptionPane.showInputDialog("Nhập tỷ giá đơn giá xuất:");
+					try {
+						ratioValue = Double.parseDouble(ratio);
+						validInput = true;
+					} catch (NumberFormatException ex) {
+						JOptionPane.showMessageDialog(null, "Vui lòng nhập số");
+					}
+				} while (!validInput);
+				JOptionPane.showMessageDialog(null, "Tỉ lệ đã được cập nhật");
+
 			}
 		});
 		MainMenu.add(mntm_Ratio);

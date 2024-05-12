@@ -1,6 +1,5 @@
 package Controller;
 
-import Models.person;
 import UI.register;
 import java.net.MalformedURLException;
 import java.util.Objects;

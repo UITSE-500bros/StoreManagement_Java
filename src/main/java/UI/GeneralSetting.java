@@ -49,6 +49,7 @@ public class GeneralSetting extends JFrame {
 		JLabel lblPhone = new JLabel("Số điện thoại");
 		JTextField txtPhone = new JTextField();
 		JButton btnSave = new JButton("Lưu");
+
 		
 		contentPane.setLayout(new GridLayout(0, 2, 0, 0));
 		contentPane.add(lblLastName);
@@ -60,15 +61,18 @@ public class GeneralSetting extends JFrame {
 		contentPane.add(lblPhone);
 		contentPane.add(txtPhone);
 		contentPane.add(btnSave);
-		
-		
-		
-		
-
 		setContentPane(contentPane);
-		
+
 		JButton btnCancel = new JButton("Hủy");
 		contentPane.add(btnCancel);
+
+		btnSave.addActionListener(e -> {
+			if(txtLastName.getText().isEmpty() || txtFirstName.getText().isEmpty() || txtEmail.getText().isEmpty() || txtPhone.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin");
+				return;
+			}
+			JOptionPane.showMessageDialog(null, "Lưu thành công");
+		});
 	}
 
 }
