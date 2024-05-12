@@ -140,22 +140,169 @@ public class importPanel extends JPanel {
 		themMatHangButton.setHorizontalTextPosition(SwingConstants.RIGHT);
 		themMatHangButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FormImport temp = new FormImport();
-				temp.setSize(600, 600);
-				int response = JOptionPane.showConfirmDialog(null, temp, "Nhập mặt hàng", JOptionPane.YES_NO_OPTION);
-				if (response == JOptionPane.YES_OPTION) {
-					int sum= Integer.parseInt(temp.getTxtSoLuong()) * Integer.parseInt(temp.getTxtDonGia());
-					int num = Integer.parseInt(model.getValueAt(model.getRowCount() - 1, 0).toString());
-					model.addRow(new Object[] { num + 1, temp.getTxtName(), temp.getTxtDVT(), temp.getTxtSoLuong(),
-							temp.getTxtDonGia(), sum});
-					String tongTienText = tongTienTextField.getText();
-					tongTienText = tongTienText.replace("Tổng tiền: ", "").replace(" VND", "");
-					int res = Integer.parseInt(tongTienText) + sum;
-					tongTienTextField.setText("Tổng tiền: " + res + " VND");
+				JPanel panel = new JPanel();
+				panel.setSize(600, 900);
+				GridBagConstraints gbc = new GridBagConstraints();
 
-				} else if (response == JOptionPane.NO_OPTION) {
+				JPanel panelHeader = new JPanel();
+				panelHeader.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
+				gbc.gridx = 0;
+				gbc.gridy = 0;
+				gbc.fill = GridBagConstraints.BOTH;
+				gbc.weightx = 1;
+				gbc.weighty = 0.1;
+				panelHeader.setLayout(new GridBagLayout());
+				GridBagConstraints gbcHeader = new GridBagConstraints();
+				gbcHeader.gridx = 0;
+				gbcHeader.gridy = 0;
+				gbcHeader.weightx = 1;
+				gbcHeader.weighty = 1;
+				gbcHeader.fill = GridBagConstraints.BOTH;
+				gbcHeader.anchor = GridBagConstraints.WEST;
+				gbcHeader.insets = new Insets(0, 20, 0, 0);
+				JLabel headerLable = new JLabel("Mặt hàng mới");
+				headerLable.setFont(new Font("Roboto", Font.BOLD, 20));
+				panelHeader.add(headerLable, gbcHeader);
+				panel.add(panelHeader, gbc);
 
-				}
+				JPanel panelContent = new JPanel();
+				gbc = new GridBagConstraints();
+				gbc.gridx = 0;
+				gbc.gridy = 1;
+				gbc.weightx = 1;
+				gbc.weighty = 0.9;
+				gbc.fill = GridBagConstraints.BOTH;
+				panelContent.setLayout(new GridBagLayout());
+				GridBagConstraints gbcContent = new GridBagConstraints();
+
+				JLabel labelName = new JLabel("Tên mặt hàng");
+				gbcContent.gridx = 0;
+				gbcContent.gridy = 0;
+				gbcContent.weightx = 0.5;
+				gbcContent.weighty = 0.1;
+				gbcContent.insets = new Insets(0, 20, 0, 0);
+				gbcContent.anchor = GridBagConstraints.LAST_LINE_START;
+				labelName.setFont(new Font("Roboto", Font.PLAIN, 12));
+				panelContent.add(labelName, gbcContent);
+
+				gbcContent = new GridBagConstraints();
+				String [] cacMatHang = new String[] {"Cà phê", "Đường", "Hạt nêm", "Mì", "Sữa"};
+				CustomComboBox txtName = new CustomComboBox(cacMatHang);
+				gbcContent.fill = GridBagConstraints.HORIZONTAL;
+				gbcContent.gridx = 0;
+				gbcContent.gridy = 1;
+				gbcContent.weightx = 0.5;
+				gbcContent.weighty = 0.4;
+				gbcContent.insets = new Insets(0, 20, 20, 0);
+				txtName.setFont(new Font("Roboto", Font.PLAIN, 15));
+				gbcContent.anchor = GridBagConstraints.FIRST_LINE_START;
+				panelContent.add(txtName, gbcContent);
+
+				gbcContent = new GridBagConstraints();
+				JLabel labelDVT = new JLabel("Đơn vị tính");
+				gbcContent.gridx = 1;
+				gbcContent.gridy = 0;
+				gbcContent.weightx = 0.5;
+				gbcContent.weighty = 0.1;
+				gbcContent.insets = new Insets(0, 20, 0, 0);
+				gbcContent.anchor = GridBagConstraints.LAST_LINE_START;
+				labelDVT.setFont(new Font("Roboto", Font.PLAIN, 12));
+				panelContent.add(labelDVT, gbcContent);
+
+				gbcContent = new GridBagConstraints();
+				String[] cacDVT = new String[] {"Gói", "Hộp", "Thùng"};
+				CustomComboBox txtDVT = new CustomComboBox(cacDVT);
+				gbcContent.gridx = 1;
+				gbcContent.gridy = 1;
+				gbcContent.fill = GridBagConstraints.HORIZONTAL;
+				gbcContent.weightx = 0.5;
+				gbcContent.weighty = 0.4;
+				gbcContent.insets = new Insets(0, 20, 20, 0);
+				txtDVT.setFont(new Font("Roboto", Font.PLAIN, 15));
+				gbcContent.anchor = GridBagConstraints.FIRST_LINE_START;
+				panelContent.add(txtDVT, gbcContent);
+
+				gbcContent = new GridBagConstraints();
+				JLabel labelSoLuong = new JLabel("Số lượng");
+				gbcContent.gridx = 0;
+				gbcContent.gridy = 2;
+				gbcContent.weightx = 0.5;
+				gbcContent.weighty = 0.1;
+				gbcContent.insets = new Insets(0, 20, 0, 0);
+				gbcContent.anchor = GridBagConstraints.LAST_LINE_START;
+				labelSoLuong.setFont(new Font("Roboto", Font.PLAIN, 12));
+				panelContent.add(labelSoLuong, gbcContent);
+
+				gbcContent = new GridBagConstraints();
+				CustomTextField txtSoLuong = new CustomTextField(15);
+				txtSoLuong.setEditable(true);
+				gbcContent.gridx = 0;
+				gbcContent.gridy = 3;
+				gbcContent.weightx = 0.5;
+				gbcContent.weighty = 0.4;
+				gbcContent.insets = new Insets(0, 20, 0, 0);
+				txtSoLuong.setFont(new Font("Roboto", Font.PLAIN, 15));
+				gbcContent.anchor = GridBagConstraints.FIRST_LINE_START;
+				panelContent.add(txtSoLuong, gbcContent);
+
+				gbcContent = new GridBagConstraints();
+				JLabel labelDonGia = new JLabel("Đơn giá");
+				gbcContent.gridx = 1;
+				gbcContent.gridy = 2;
+				gbcContent.weightx = 0.5;
+				gbcContent.weighty = 0.1;
+				gbcContent.insets = new Insets(0, 20, 0, 0);
+				gbcContent.anchor = GridBagConstraints.LAST_LINE_START;
+				labelDonGia.setFont(new Font("Roboto", Font.PLAIN, 12));
+				panelContent.add(labelDonGia, gbcContent);
+
+				gbcContent = new GridBagConstraints();
+				CustomTextField txtDonGia = new CustomTextField(15);
+				gbcContent.gridx = 1;
+				gbcContent.gridy = 3;
+				gbcContent.weightx = 0.5;
+				gbcContent.weighty = 0.4;
+				gbcContent.insets = new Insets(0, 20, 0, 0);
+				txtDonGia.setFont(new Font("Roboto", Font.PLAIN, 15));
+				gbcContent.anchor = GridBagConstraints.FIRST_LINE_START;
+				panelContent.add(txtDonGia, gbcContent);
+
+				gbcContent = new GridBagConstraints();
+				JButton newGoodButton = new JButton("Thêm mới");
+				JButton cancelButton = new JButton("Hủy bỏ");
+				newGoodButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						int sum= Integer.parseInt(txtSoLuong.getText()) * Integer.parseInt(txtDonGia.getText());
+						int num = Integer.parseInt(model.getValueAt(model.getRowCount() - 1, 0).toString());
+						model.addRow(new Object[] { num + 1, txtName.getSelectedItem(), txtDVT.getSelectedItem(),
+								txtSoLuong.getText(), txtDonGia.getText(), sum});
+						String tongTienText = tongTienTextField.getText();
+						tongTienText = tongTienText.replace("Tổng tiền: ", "").replace(" VND", "");
+						int res = Integer.parseInt(tongTienText) + sum;
+						tongTienTextField.setText("Tổng tiền: " + res + " VND");
+						((Window) SwingUtilities.getRoot(panel)).dispose();
+					}
+				});
+				gbcContent.gridx = 0;
+				gbcContent.gridy = 4; // Adjust this to the last row
+				gbcContent.anchor = GridBagConstraints.CENTER;
+				gbcContent.insets = new Insets(20, 0, 0, 0); // Add some padding
+				panelContent.add(newGoodButton, gbcContent);
+
+				gbcContent = new GridBagConstraints();
+				gbcContent.gridx = 1;
+				gbcContent.gridy = 4; // Adjust this to the last row
+				gbcContent.anchor = GridBagConstraints.CENTER;
+				gbcContent.insets = new Insets(20, 0, 0, 0); // Add some padding
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						((Window) SwingUtilities.getRoot(panel)).dispose();
+					}
+				});
+				panelContent.add(cancelButton, gbcContent);
+
+				panel.add(panelContent, gbc);
+				JOptionPane.showOptionDialog(null, panel, "Thêm mặt hàng", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
 			}
 		});
 		gbc1_2 = new GridBagConstraints();

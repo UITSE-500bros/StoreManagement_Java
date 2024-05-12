@@ -36,9 +36,9 @@ public class FormImport extends JPanel {
 		gbcHeader.fill = GridBagConstraints.BOTH;
 		gbcHeader.anchor = GridBagConstraints.WEST;
 		gbcHeader.insets = new Insets(0, 20, 0, 0);
-		JLabel headerLable = new JLabel("Nhập Hàng");
-		headerLable.setFont(new Font("Roboto", Font.BOLD, 30));
-
+		JLabel headerLable = new JLabel("Thêm mặt hàng");
+		headerLable.setFont(new Font("Roboto", Font.BOLD, 20));
+		panelHeader.add(headerLable, gbcHeader);
 		this.add(panelHeader, gbc);
 
 		JPanel panelContent = new JPanel();
@@ -142,6 +142,20 @@ public class FormImport extends JPanel {
 		txtDonGia.setFont(new Font("Roboto", Font.PLAIN, 15));
 		gbcContent.anchor = GridBagConstraints.FIRST_LINE_START;
 		panelContent.add(txtDonGia, gbcContent);
+
+		gbcContent = new GridBagConstraints();
+		JButton addButton = new JButton("Thêm mới");
+		gbcContent.gridx = 0;
+		gbcContent.gridy = 4; // Adjust this to the last row
+		gbcContent.insets = new Insets(20, 0, 0, 0); // Add some padding
+		panelContent.add(addButton, gbcContent);
+
+		gbcContent = new GridBagConstraints();
+		JButton cancelButton = new JButton("Hủy bỏ");
+		gbcContent.gridx = 1;
+		gbcContent.gridy = 4; // Adjust this to the last row
+		gbcContent.insets = new Insets(20, 0, 0, 0); // Add some padding
+		panelContent.add(cancelButton, gbcContent);
 
 		this.add(panelContent, gbc);
 	}
