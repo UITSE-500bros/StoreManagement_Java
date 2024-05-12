@@ -23,9 +23,12 @@ public class StoresPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public StoresPanel() {
+        String[] labels = {"Tên đại lý", "Loại đại lý", "Số điện thoại", "Địa chỉ", "Quận", "Ngày tiếp nhận"};
+        String[] districtItems = {"1", "2", "3", "Tân Phú", "Bình Tân"};
+        String[] categoryItems = {"1", "2"};
+		
 		setOpaque(false);
 		this.setLayout(new GridBagLayout());
-
 		GridBagConstraints gbc = new GridBagConstraints();
 
 		JPanel panelHeader = new JPanel();
@@ -142,8 +145,8 @@ public class StoresPanel extends JPanel {
 
         // Create data
         Object[][] data = {
-            {1, "Đại lý 1", "Loại 1", "Quận 1", 1000.0},
-            {2, "Đại lý 2", "Loại 2", "Quận 2", 2000.0},
+            {1, "Đại lý 1", "1", "10", 1000.0},
+            {2, "Đại lý 2", "2", "11", 2000.0},
             // Add more rows as needed
         };
 
@@ -222,7 +225,7 @@ public class StoresPanel extends JPanel {
         	   
 
         	        // Add the text fields and combo boxes
-        	        String[] labels = {"Tên đại lý", "Loại đại lý", "Số điện thoại", "Địa chỉ", "Quận", "Ngày tiếp nhận"};
+        	        JComponent[] inputs = new JComponent[labels.length];
         	        for (int i = 0; i < labels.length; i++) {
         	            gbc.gridwidth = 1;
         	            gbc.gridx = i % 2;
@@ -233,23 +236,59 @@ public class StoresPanel extends JPanel {
         	            popupPanel.add(label, gbc);
 
         	            gbc.gridy++;
-        	            if (labels[i].equals("Loại đại lý") || labels[i].equals("Quận")) {
-        	                // Add a combo box for "Loại đại lý" and "Quận"
-        	                popupPanel.add(new CustomComboBox(), gbc);
+        	            if (labels[i].equals("Loại đại lý")) {
+        	                // Add a combo box for "Loại đại lý"
+        	                inputs[i] = new CustomComboBox(categoryItems);
+        	            } else if (labels[i].equals("Quận")) {
+        	                // Add a combo box for "Quận"
+        	                inputs[i] = new CustomComboBox(districtItems);
         	            } else {
         	                // Add a text field for the other fields
-        	                popupPanel.add(new CustomTextField(20), gbc);
+        	                inputs[i] = new CustomTextField(20);
         	            }
+        	            popupPanel.add(inputs[i], gbc);
         	        }
         	        // Add the buttons
         	        JButton cancelButton = new JButton("Hủy bỏ");
-        	        JButton addButton = new JButton("Thêm mới");
+        	        JButton confirmButton = new JButton("Thêm mới");
+					confirmButton.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							// Get the values from the text fields and combo boxes
+							String[] values = new String[labels.length];
+		
+							for (int i = 0; i < labels.length; i++) {
+								if (labels[i].equals("Loại đại lý") || labels[i].equals("Quận")) {
+									values[i] = (String)((CustomComboBox) inputs[i]).getSelectedItem();
+								} else {
+									values[i] = ((CustomTextField) inputs[i]).getText();
+								}
+							}
+							// use the values array to pass to the database
+							// dung ham gi do cua Nam
+							
+							// Add the new row to the table
+							model.addRow(
+									new Object[] { model.getRowCount() + 1, values[0], values[1], values[4], 0.0 });
+							// Hide the popup
+							((Window) SwingUtilities.getRoot(popupPanel)).dispose();
+						}
+					});
+        	        
+					cancelButton.addActionListener(new ActionListener() {
+						@Override
+                        public void actionPerformed(ActionEvent e) {
+                            // Hide the popup
+                            ((Window) SwingUtilities.getRoot(popupPanel)).dispose();
+                        }
+					});
+					
         	        gbc.gridy++;
         	        gbc.gridwidth = 1;
         	        gbc.gridx = 0;
         	        popupPanel.add(cancelButton, gbc);
         	        gbc.gridx++;
-        	        popupPanel.add(addButton, gbc);
+        	        popupPanel.add(confirmButton, gbc);
         	        popupPanel.revalidate();
         	        popupPanel.repaint();
         	        // Show the popup
