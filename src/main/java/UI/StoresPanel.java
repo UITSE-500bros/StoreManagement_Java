@@ -1,29 +1,15 @@
 package UI;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import java.awt.*;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-
+import javax.swing.table.*;
+import java.awt.event.*;
 import ReuseClass.DatePicker;
 import javax.swing.table.*;
+import UI.CustomTextField;
+import UI.CustomComboBox;
 public class StoresPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -204,6 +190,72 @@ public class StoresPanel extends JPanel {
     scrollPane.getViewport().setOpaque(false);
 
          contentPane.add(scrollPane, gbc1_3);
+         
+         
+         addButton.addActionListener(new ActionListener() {
+        	    @Override
+        	    public void actionPerformed(ActionEvent e) {
+        	        // Create a panel for the popup
+        	        JPanel popupPanel = new JPanel(new GridBagLayout());
+        	        GridBagConstraints gbc = new GridBagConstraints();
+        	        gbc.fill = GridBagConstraints.HORIZONTAL;
+        	        gbc.weightx = 1.0;
+        	        gbc.weighty = 1.0;
+        	        gbc.insets = new Insets(5, 5, 5, 5);
+
+        	        // Add the title
+        	        JLabel title = new JLabel("Hồ sơ đại lý");
+        	        title.setFont(new Font("Roboto", Font.BOLD, 22));
+        	        gbc.gridx = 0;
+        	        gbc.gridy = 0;
+        	        gbc.gridwidth = 2;
+        	        popupPanel.add(title, gbc);
+
+        	        // Add the line separator
+        	        gbc.gridy++;
+        	        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        	        gbc.fill = GridBagConstraints.HORIZONTAL;
+        	        JSeparator separator = new JSeparator();
+        	        separator.setForeground(Color.BLACK);
+        	        popupPanel.add(separator, gbc);
+        	        
+        	   
+
+        	        // Add the text fields and combo boxes
+        	        String[] labels = {"Tên đại lý", "Loại đại lý", "Số điện thoại", "Địa chỉ", "Quận", "Ngày tiếp nhận"};
+        	        for (int i = 0; i < labels.length; i++) {
+        	            gbc.gridwidth = 1;
+        	            gbc.gridx = i % 2;
+        	            gbc.gridy = 2 + 2*(i/2);
+
+        	            JLabel label = new JLabel(labels[i]);
+        	            label.setFont(new Font("Roboto", Font.PLAIN, 10));
+        	            popupPanel.add(label, gbc);
+
+        	            gbc.gridy++;
+        	            if (labels[i].equals("Loại đại lý") || labels[i].equals("Quận")) {
+        	                // Add a combo box for "Loại đại lý" and "Quận"
+        	                popupPanel.add(new CustomComboBox(), gbc);
+        	            } else {
+        	                // Add a text field for the other fields
+        	                popupPanel.add(new CustomTextField(20), gbc);
+        	            }
+        	        }
+        	        // Add the buttons
+        	        JButton cancelButton = new JButton("Hủy bỏ");
+        	        JButton addButton = new JButton("Thêm mới");
+        	        gbc.gridy++;
+        	        gbc.gridwidth = 1;
+        	        gbc.gridx = 0;
+        	        popupPanel.add(cancelButton, gbc);
+        	        gbc.gridx++;
+        	        popupPanel.add(addButton, gbc);
+        	        popupPanel.revalidate();
+        	        popupPanel.repaint();
+        	        // Show the popup
+        	        JOptionPane.showOptionDialog(null, popupPanel, "Thêm đại lý", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
+        	    }
+        	});
 	}
 
 }
