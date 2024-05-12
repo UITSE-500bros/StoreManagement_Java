@@ -2,12 +2,12 @@ package UI;
 import java.awt.*;
 import javax.swing.*;
 public class CustomComboBox extends JComboBox{
-	public CustomComboBox() {
-		super();
-		setPreferredSize(new Dimension(getPreferredSize().width, 40)); // Increase height
-		setBorder(BorderFactory.createLineBorder(new Color(72, 71, 71), 1));
-		setBackground(Color.WHITE);
-	}
+	public CustomComboBox(Object[] items) {
+        super(items);
+        setPreferredSize(new Dimension(getPreferredSize().width, 40)); // Increase height
+        setBorder(BorderFactory.createLineBorder(new Color(72, 71, 71), 1));
+        setBackground(Color.WHITE);
+    }
 
 	@Override
 	protected void paintComponent(Graphics g) {
