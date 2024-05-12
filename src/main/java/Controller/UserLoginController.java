@@ -1,18 +1,11 @@
 package Controller;
 
-import Models.person;
-
 import UI.login;
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import com.google.gson.Gson;
-import javax.net.ssl.HttpsURLConnection;
 
 public class UserLoginController {
 	private final Connection connection;

@@ -1,6 +1,9 @@
 package Controller;
 
 import Models.daily;
+import Models.loaidaily;
+import Models.person;
+import Models.quan;
 import UI.MainFrame;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -41,12 +44,7 @@ public class DaiLyController {
         return dailies;
     }
 
-    public String addNewDaiLy(){
-        daily daily = new daily();
-//        daily.setDailyname(mainFrame.getDailyName());
-//        daily.setDailyaddress(mainFrame.getDailyAddress());
-//        daily.setDailysdt(mainFrame.getDailySdt());
-//        daily.setPersonid(mainFrame.getPersonid());
+    public String addNewDaiLy(daily daily, quan quan, loaidaily loaidaily, person person){
         connection.insertDaiLy(daily);
         return "DaiLy added successfully";
     }

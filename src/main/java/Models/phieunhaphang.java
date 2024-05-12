@@ -1,6 +1,5 @@
 package Models;
 
-
 public class phieunhaphang {
 
     private int maphieunhap;
