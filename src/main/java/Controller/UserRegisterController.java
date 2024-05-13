@@ -45,9 +45,10 @@ public class UserRegisterController {
 
         String response = connection.insertUser(person);
         if (response.contains("201")){
+            check = true;
             try {
                 getUserByEmail(register.getTextField_email(),register.getTextField_password());
-                check = true;
+
             
             } catch (IOException e) {
                 e.printStackTrace();

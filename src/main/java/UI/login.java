@@ -152,31 +152,50 @@ public class login extends JFrame {
 //				MainFrame mainFrame = new MainFrame();
 //				mainFrame.setVisible(true);
 //				dispose();
+				boolean flag = true;
 				String email = getTextField_email();
 				String password = getPasswordField();
 				// check if email or password is empty
 				if(email.isEmpty() || password.isEmpty()) {
 					JOptionPane.showMessageDialog(	login.this,"Email hoặc mật khẩu không được để trống");
+					flag = false;
 					return;
 				}
 				// check if email is valid
 				if(!email.contains("@")) {
 					JOptionPane.showMessageDialog(	login.this,"Email không hợp lệ");
+					flag = false;
 					return;
 				}
 				// check if password is valid
 				if(password.length() < 8) {
 					JOptionPane.showMessageDialog(	login.this,"Mật khẩu phải có ít nhất 8 ký tự");
+					flag = false;
 					return;
 				}
-				UserLoginController userLoginController;
-				try {
-					userLoginController = new UserLoginController(login.this);
-					userLoginController.getUserByEmail(getTextField_email(),getPasswordField());
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				if(flag) {
+					 // call controller to get user by email
+					UserLoginController userLoginController;
+					try {
+						userLoginController = new UserLoginController(login.this);
+						userLoginController.getUserByEmail(getTextField_email(),getPasswordField());
+						if(userLoginController.isLoginSuccess()) {
+							MainFrame mainFrame = new MainFrame();
+							mainFrame.setVisible(true);
+							mainFrame.setLocationRelativeTo(null);
+							mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+							
+							
+							dispose();
+							
+						}
+                           
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
+                   
 			}
 		});
 		

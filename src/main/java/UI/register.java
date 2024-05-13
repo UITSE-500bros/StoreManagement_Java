@@ -317,8 +317,12 @@ public class register extends JFrame {
 					try {
 						if(userRegisterController.registerUser())
 						{
-						
-						JOptionPane.showMessageDialog(null, "Đăng ký thành công");
+							JOptionPane.showMessageDialog(null, "Đăng ký thành công");
+							dispose();
+							MainFrame mainframe = new MainFrame();
+							mainframe.setVisible(true);
+							setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+							setLocationRelativeTo(null);
 						}
 						else {
 							JOptionPane.showMessageDialog(null, "Đăng ký thất bại");
