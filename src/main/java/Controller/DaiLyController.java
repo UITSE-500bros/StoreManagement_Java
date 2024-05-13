@@ -16,11 +16,9 @@ import java.net.URL;
 import java.util.List;
 
 public class DaiLyController {
-    private final MainFrame mainFrame;
     private final Connection connection;
 
-    public DaiLyController(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
+    public DaiLyController() {
 
         connection = new Connection();
     }
