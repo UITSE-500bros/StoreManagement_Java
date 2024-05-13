@@ -317,8 +317,7 @@ public class register extends JFrame {
 					try {
 						if(userRegisterController.registerUser())
 						{
-						
-						JOptionPane.showMessageDialog(null, "Đăng ký thành công");
+							JOptionPane.showMessageDialog(null, "Đăng ký thành công");
 						}
 						else {
 							JOptionPane.showMessageDialog(null, "Đăng ký thất bại");
