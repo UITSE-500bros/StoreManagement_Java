@@ -31,7 +31,7 @@ public class StockPanel extends JPanel {
 		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.X_AXIS));
 		
 		JButton btnSearch = new JButton("");
-		btnSearch.setIcon(new ImageIcon(StockPanel.class.getResource("/resource/searchStoreIcon.png")));
+		btnSearch.setIcon(new ImageIcon("src/main/java/resource/searchStoreIcon.png"));
 		btnSearch.setPreferredSize(new Dimension(30, 30));
 		panel_1.add(btnSearch);
 		

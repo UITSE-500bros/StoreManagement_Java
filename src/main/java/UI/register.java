@@ -315,7 +315,19 @@ public class register extends JFrame {
 				if(flag){
 					UserRegisterController userRegisterController = new UserRegisterController(register.this);
 					try {
-						userRegisterController.registerUser();
+						if(userRegisterController.registerUser())
+						{
+							JOptionPane.showMessageDialog(null, "Đăng ký thành công");
+							dispose();
+							MainFrame mainframe = new MainFrame();
+							mainframe.setVisible(true);
+							setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+							setLocationRelativeTo(null);
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "Đăng ký thất bại");
+						}
+						
 					} catch (MalformedURLException ex) {
 						throw new RuntimeException(ex);
 					}

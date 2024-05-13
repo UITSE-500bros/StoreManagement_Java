@@ -102,8 +102,9 @@ public class StoresPanel extends JPanel {
 		contentPane.add(addButton, gbc1_1);
 
 		gbc1_4 = new GridBagConstraints();
-		gbc1_4.insets = new Insets(0, 0, 5, 5);
+		gbc1_4.insets = new Insets(0, 0, 5, 300);
 		gbc1_4.anchor = GridBagConstraints.WEST;
+		gbc1_4.fill = GridBagConstraints.HORIZONTAL;
 		datePicker = new DatePicker();
 		datePicker.setFont(new Font("Roboto", Font.PLAIN, 20));
 		gbc1_4.gridx = 0;

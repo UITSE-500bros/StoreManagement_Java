@@ -15,6 +15,11 @@ public class UserLoginController {
     public UserLoginController(login login) throws IOException {
 		connection = new Connection();
     }
+
+    public boolean isLoginSuccess(){
+        return UserInstance.getInstance().getUser_id() != 0;
+    }
+
     public void getUserByEmail(String email,String pass) throws IOException {
         String encodedEmail = URLEncoder.encode(email, StandardCharsets.UTF_8);
         String encodedPassword = URLEncoder.encode(pass, StandardCharsets.UTF_8);
@@ -40,7 +45,7 @@ public class UserLoginController {
         UserInstance.getInstance().setUser_id(person.getPPersonid());
         UserInstance.getInstance().setUser_name(person.getPersonname());
         UserInstance.getInstance().setUser_email(person.getPersonemail());
-        System.out.println(UserInstance.getInstance().getUser_name() + " logged in");
+
     }
 
     

@@ -26,10 +26,12 @@ public class UserRegisterController {
     }
 
 
-    public void registerUser() throws MalformedURLException {
+    public boolean registerUser() throws MalformedURLException {
+    	boolean check = false;
+    	
         if (!register.getTextField_password().equals(register.getTextField_rePassWord())) {
             System.out.println("Password is not the same");
-            return;
+            return false;
         }
 
 
@@ -43,13 +45,17 @@ public class UserRegisterController {
 
         String response = connection.insertUser(person);
         if (response.contains("201")){
+            check = true;
             try {
                 getUserByEmail(register.getTextField_email(),register.getTextField_password());
+
+            
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
         }
+        return check;
 
     }
 
