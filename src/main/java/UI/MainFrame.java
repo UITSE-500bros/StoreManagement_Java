@@ -227,7 +227,7 @@ public class MainFrame extends JFrame {
 		containerPanel.add(importPanel, "name_240836231205200");
 
 		// thay new JPanel() bang Panel do ae tao
-		JPanel exportPanel = new JPanel();
+		JPanel exportPanel = new ExportPanel();
 		exportPanel.setOpaque(false);
 		containerPanel.add(exportPanel, "name_240836258641200");
 		

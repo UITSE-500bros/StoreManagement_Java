@@ -52,6 +52,7 @@ public class ExportPanel extends JPanel {
 		gbc.fill = GridBagConstraints.BOTH;
 
 		panelHeader.setLayout(new GridBagLayout());
+		panelHeader.setOpaque(false);
 		GridBagConstraints gbcHeader = new GridBagConstraints();
 		gbcHeader.gridx = 0;
 		gbcHeader.gridy = 0;
@@ -113,6 +114,7 @@ public class ExportPanel extends JPanel {
 		contentPane.add(addButton, gbc1);
 
 		JPanel pnaelHang2 = new JPanel();
+		pnaelHang2.setOpaque(false);
 		pnaelHang2.setBackground(new Color(255, 249, 243, 180));
 		pnaelHang2.setBorder(new EmptyBorder(0, 0, 0, 0));
 		pnaelHang2.setLayout(new GridBagLayout());
@@ -265,6 +267,17 @@ public class ExportPanel extends JPanel {
 				CustomButton cancelButton = new CustomButton("Hủy bỏ");
 				newGoodButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						if (txtName.getSelectedItem() == null || txtDVT.getSelectedItem() == null
+								|| txtSoLuong.getText().equals("") || txtDonGia.getText().equals("")) {
+							JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin", "Lỗi",
+									JOptionPane.ERROR_MESSAGE);
+							return;
+						}
+						if(!txtSoLuong.getText().matches("[0-9]+") || !txtDonGia.getText().matches("[0-9]+")) {
+							JOptionPane.showMessageDialog(null, "Số lượng và đơn giá phải là số nguyên", "Lỗi",
+									JOptionPane.ERROR_MESSAGE);
+							return;
+						}
 						int sum= Integer.parseInt(txtSoLuong.getText()) * Integer.parseInt(txtDonGia.getText());
 						int num = Integer.parseInt(model.getValueAt(model.getRowCount() - 1, 0).toString());
 						model.addRow(new Object[] { num + 1, txtName.getSelectedItem(), txtDVT.getSelectedItem(),
@@ -333,6 +346,7 @@ public class ExportPanel extends JPanel {
 
 		// For tienTraTextField
 		JPanel panel2Tien = new JPanel();
+		panel2Tien.setOpaque(false);
 		panel2Tien.setBackground(new Color(255, 249, 243, 180));
 		panel2Tien.setBorder(new EmptyBorder(0, 0, 0, 0));
 		panel2Tien.setLayout(new GridBagLayout());

@@ -56,6 +56,7 @@ public class importPanel extends JPanel {
 		gbc.fill = GridBagConstraints.BOTH;
 
 		panelHeader.setLayout(new GridBagLayout());
+		panelHeader.setOpaque(false);
 		GridBagConstraints gbcHeader = new GridBagConstraints();
 		gbcHeader.gridx = 0;
 		gbcHeader.gridy = 0;
@@ -255,6 +256,11 @@ public class importPanel extends JPanel {
 						if (txtName.getSelectedItem() == null || txtDVT.getSelectedItem() == null
 								|| txtSoLuong.getText().equals("") || txtDonGia.getText().equals("")) {
 							JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin", "Lỗi",
+									JOptionPane.ERROR_MESSAGE);
+							return;
+						}
+						if(!txtSoLuong.getText().matches("[0-9]+") || !txtDonGia.getText().matches("[0-9]+")) {
+							JOptionPane.showMessageDialog(null, "Số lượng và đơn giá phải là số nguyên", "Lỗi",
 									JOptionPane.ERROR_MESSAGE);
 							return;
 						}
