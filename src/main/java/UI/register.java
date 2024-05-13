@@ -277,41 +277,56 @@ public class register extends JFrame {
 
 		btn_register.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Boolean flag = true;
 				// Check if any field is empty
 				if (textField_name.getText().isEmpty() || textField_lastName.getText().isEmpty() ||
 						textField_email.getText().isEmpty() || textField_phoneNumber.getText().isEmpty() ||
 						textField_password.getText().isEmpty() || textField_rePassWord.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Vui lòng không để trống bất kỳ trường nào.");
+					flag = false;
 					return;
 				}
 
 				// Check if email contains '@'
 				if (!textField_email.getText().contains("@")) {
 					JOptionPane.showMessageDialog(null, "Email không hợp lệ. Vui lòng kiểm tra lại.");
+					flag = false;
 					return;
 				}
 
 				// Check if password matches re-entered password
 				if (!textField_password.getText().equals(textField_rePassWord.getText())) {
 					JOptionPane.showMessageDialog(null, "Mật khẩu không khớp. Vui lòng kiểm tra lại.");
+					flag = false;
 					return;
 				}
 				if(textField_phoneNumber.getText().length() != 10){
 					JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ. Vui lòng kiểm tra lại.");
+					flag = false;
 					return;
 				}
 
 				if(textField_password.getText().length()<8){
 					JOptionPane.showMessageDialog(null, "Mật khẩu phải có ít nhất 8 ký tự.");
+					flag = false;
 					return;
 				}
 
-				// If all checks pass, proceed with user registration
-				UserRegisterController userRegisterController = new UserRegisterController(register.this);
-				try {
-					userRegisterController.registerUser();
-				} catch (MalformedURLException ex) {
-					throw new RuntimeException(ex);
+				if(flag){
+					UserRegisterController userRegisterController = new UserRegisterController(register.this);
+					try {
+						if(userRegisterController.registerUser())
+						{
+						
+						JOptionPane.showMessageDialog(null, "Đăng ký thành công");
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "Đăng ký thất bại");
+						}
+						
+					} catch (MalformedURLException ex) {
+						throw new RuntimeException(ex);
+					}
 				}
 			}
 		});
