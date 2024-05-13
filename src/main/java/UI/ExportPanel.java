@@ -23,7 +23,7 @@ public class ExportPanel extends JPanel {
 	private JTextComponent tienTraTextField;
 	private JTextField tongTienTextField;
 	private JTable tableXuatHang;
-	private JTextField maSoPhieuTextField;
+	private JComboBox<String> maSoPhieuTextField;
 	private DatePicker datePicker;
 
 	public static void main(String[] args) {
@@ -127,7 +127,8 @@ public class ExportPanel extends JPanel {
 
 		GridBagConstraints gbc3 = new GridBagConstraints();
 		gbc3.anchor = GridBagConstraints.WEST;
-		maSoPhieuTextField = new JTextField(10);
+		maSoPhieuTextField = new JComboBox<String>(new String[] { "Mã số phiếu 1", "Mã số phiếu 2", "Mã số phiếu 3" });
+		maSoPhieuTextField.setPreferredSize(new Dimension(200, 33));
 		maSoPhieuTextField.setFont(new Font("Roboto", Font.PLAIN, 20));
 		gbc3.gridx = 0;
 		gbc3.weightx = 0.33; // Adjusted weight
@@ -322,9 +323,24 @@ public class ExportPanel extends JPanel {
 		Object[][] data = { { 1, "Mặt hàng 1", "lon", 3, 5000, 1000.0 }, { 2, "Mặt hàng 2", "chai", 2, 3000, 6000.0 },
 				// Add more rows as needed
 		};
-		model = new DefaultTableModel(data, columnNames);
+		model = new DefaultTableModel(data, columnNames){
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
 		tableXuatHang = new JTable(model);
-		((DefaultTableCellRenderer) tableXuatHang.getDefaultRenderer(Object.class)).setOpaque(false);
+		tableXuatHang.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		((DefaultTableCellRenderer)tableXuatHang.getTableHeader().getDefaultRenderer()).setOpaque(false);
+		tableXuatHang.getTableHeader().setOpaque(false);
+		tableXuatHang.setShowVerticalLines(false);
+
+		// Set font and alignment for table
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+		for (int i = 0; i < tableXuatHang.getColumnCount(); i++) {
+			tableXuatHang.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+		}
 		tableXuatHang.setFont(new Font("Roboto", Font.PLAIN, 10));
 		tableXuatHang.setRowSelectionAllowed(true);
 		TableColumnModel columnModel = tableXuatHang.getColumnModel();
