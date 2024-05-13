@@ -58,7 +58,8 @@ public class reportPanel extends JPanel {
 		panel.setLayout(new BorderLayout(0, 0));
 		
 		JButton btnNewButton = new JButton("");
-		btnNewButton.setIcon(new ImageIcon(reportPanel.class.getResource("/resource/searchStoreIcon.png")));
+		ImageIcon icon = new ImageIcon("/resource/searchStoreIcon.png");
+		btnNewButton.setIcon(icon);
 		btnNewButton.setPreferredSize(new Dimension(30, 30));
 
 
@@ -70,12 +71,10 @@ public class reportPanel extends JPanel {
 		panel.add(textField, BorderLayout.CENTER);
 		textField.setColumns(10);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setPreferredSize(new Dimension(150, 30));
+
 		String[] reportType = {"Báo cáo công nợ", "Báo cáo doanh số"};
-		for (String type : reportType) {
-			comboBox.addItem(type);
-		}
+		JComboBox comboBox = new JComboBox(reportType);
+		comboBox.setPreferredSize(new Dimension(150, 30));
 
 		
 		panel.add(comboBox, BorderLayout.EAST);

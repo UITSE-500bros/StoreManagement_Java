@@ -96,14 +96,14 @@ public class ExportPanel extends JPanel {
 		contentPane.add(pnhLable, gbc1);
 
 		gbc1 = new GridBagConstraints();
-		addButton = new JButton("Lập phiếu");
+		addButton = new CustomButton("Lập phiếu");
 		ImageIcon lapPhieuIcon = new ImageIcon("src/main/java/resource/lapPhieuIcon.png");
 		addButton.setIcon(lapPhieuIcon);
 		addButton.setBorderPainted(false);
 		addButton.setBackground(Color.BLACK);
 		addButton.setForeground(Color.ORANGE);
-		addButton.setHorizontalAlignment(addButton.LEFT);
-		addButton.setHorizontalTextPosition(addButton.RIGHT);
+		addButton.setHorizontalAlignment(JButton.CENTER);
+		addButton.setHorizontalTextPosition(JButton.RIGHT);
 		addButton.setFont(new Font("Roboto", Font.BOLD, 20));
 		addButton.setPreferredSize(new Dimension(150, 40));
 		gbc1.gridx = 1;
@@ -142,42 +142,21 @@ public class ExportPanel extends JPanel {
 		// For tienConLaiTextField
 		gbc3 = new GridBagConstraints();
 		gbc3.anchor = GridBagConstraints.EAST;
-		JButton themMatHangButton = new JButton("Thêm mặt hàng");
+		CustomButton themMatHangButton = new CustomButton("Thêm mặt hàng");
 		themMatHangButton.setPreferredSize(new Dimension(150, 40));
 		ImageIcon themMatHang = new ImageIcon("src/main/java/resource/themMatHangIcon.png");
 		themMatHangButton.setIcon(themMatHang);
 		themMatHangButton.setFont(new Font("Roboto", Font.BOLD, 12));
 		themMatHangButton.setForeground(Color.WHITE);
 		themMatHangButton.setBackground(Color.BLACK);
-		themMatHangButton.setHorizontalAlignment(SwingConstants.LEFT);
-		themMatHangButton.setHorizontalTextPosition(SwingConstants.RIGHT);
+		themMatHangButton.setHorizontalAlignment(JButton.CENTER);
+		themMatHangButton.setHorizontalTextPosition(JButton.RIGHT);
 		themMatHangButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JPanel panel = new JPanel();
 				panel.setSize(600, 900);
 				GridBagConstraints gbc = new GridBagConstraints();
-
-				JPanel panelHeader = new JPanel();
-				panelHeader.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
-				gbc.gridx = 0;
-				gbc.gridy = 0;
-				gbc.fill = GridBagConstraints.BOTH;
-				gbc.weightx = 1;
-				gbc.weighty = 0.1;
-				panelHeader.setLayout(new GridBagLayout());
-				GridBagConstraints gbcHeader = new GridBagConstraints();
-				gbcHeader.gridx = 0;
-				gbcHeader.gridy = 0;
-				gbcHeader.weightx = 1;
-				gbcHeader.weighty = 1;
-				gbcHeader.fill = GridBagConstraints.BOTH;
-				gbcHeader.anchor = GridBagConstraints.WEST;
-				gbcHeader.insets = new Insets(0, 20, 0, 0);
-				JLabel headerLable = new JLabel("Mặt hàng mới");
-				headerLable.setFont(new Font("Roboto", Font.BOLD, 20));
-				panelHeader.add(headerLable, gbcHeader);
-				panel.add(panelHeader, gbc);
 
 				JPanel panelContent = new JPanel();
 				gbc = new GridBagConstraints();
@@ -207,7 +186,7 @@ public class ExportPanel extends JPanel {
 				gbcContent.gridy = 1;
 				gbcContent.weightx = 0.5;
 				gbcContent.weighty = 0.4;
-				gbcContent.insets = new Insets(0, 20, 20, 0);
+				gbcContent.insets = new Insets(10, 20, 20, 0);
 				txtName.setFont(new Font("Roboto", Font.PLAIN, 15));
 				gbcContent.anchor = GridBagConstraints.FIRST_LINE_START;
 				panelContent.add(txtName, gbcContent);
@@ -231,7 +210,7 @@ public class ExportPanel extends JPanel {
 				gbcContent.fill = GridBagConstraints.HORIZONTAL;
 				gbcContent.weightx = 0.5;
 				gbcContent.weighty = 0.4;
-				gbcContent.insets = new Insets(0, 20, 20, 0);
+				gbcContent.insets = new Insets(10, 20, 20, 0);
 				txtDVT.setFont(new Font("Roboto", Font.PLAIN, 15));
 				gbcContent.anchor = GridBagConstraints.FIRST_LINE_START;
 				panelContent.add(txtDVT, gbcContent);
@@ -254,7 +233,7 @@ public class ExportPanel extends JPanel {
 				gbcContent.gridy = 3;
 				gbcContent.weightx = 0.5;
 				gbcContent.weighty = 0.4;
-				gbcContent.insets = new Insets(0, 20, 0, 0);
+				gbcContent.insets = new Insets(10, 20, 0, 0);
 				txtSoLuong.setFont(new Font("Roboto", Font.PLAIN, 15));
 				gbcContent.anchor = GridBagConstraints.FIRST_LINE_START;
 				panelContent.add(txtSoLuong, gbcContent);
@@ -276,14 +255,14 @@ public class ExportPanel extends JPanel {
 				gbcContent.gridy = 3;
 				gbcContent.weightx = 0.5;
 				gbcContent.weighty = 0.4;
-				gbcContent.insets = new Insets(0, 20, 0, 0);
+				gbcContent.insets = new Insets(10, 20, 0, 0);
 				txtDonGia.setFont(new Font("Roboto", Font.PLAIN, 15));
 				gbcContent.anchor = GridBagConstraints.FIRST_LINE_START;
 				panelContent.add(txtDonGia, gbcContent);
 
 				gbcContent = new GridBagConstraints();
-				JButton newGoodButton = new JButton("Thêm mới");
-				JButton cancelButton = new JButton("Hủy bỏ");
+				CustomButton newGoodButton = new CustomButton("Thêm mới");
+				CustomButton cancelButton = new CustomButton("Hủy bỏ");
 				newGoodButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						int sum= Integer.parseInt(txtSoLuong.getText()) * Integer.parseInt(txtDonGia.getText());
