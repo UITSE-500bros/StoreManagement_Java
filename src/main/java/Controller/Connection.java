@@ -85,7 +85,6 @@ public class Connection {
         }
 
         closeConnection();
-        System.out.println(response);
         return response;
     }
 

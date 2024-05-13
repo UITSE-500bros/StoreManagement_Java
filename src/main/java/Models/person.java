@@ -1,9 +1,11 @@
 package Models;
 
 
-public class person {
+import com.google.gson.annotations.SerializedName;
 
-    private int personid;
+public class person {
+    @SerializedName("ppersonid")
+    private int PPersonid;
     private String personlastname;
     private String personname;
     private String personsdt;
@@ -22,8 +24,17 @@ public class person {
         this.personpassword = personpassword;
     }
 
+    public person(int PPersonid, String personlastname, String personname, String personsdt, String personemail, String personpassword) {
+        this.PPersonid = PPersonid;
+        this.personlastname = personlastname;
+        this.personname = personname;
+        this.personsdt = personsdt;
+        this.personemail = personemail;
+        this.personpassword = personpassword;
+    }
+
     public int getPPersonid() {
-        return personid;
+        return PPersonid;
     }
 
     public String getPersonlastname() {
@@ -66,4 +77,7 @@ public class person {
         this.personpassword = personpassword;
     }
 
+    public void setPPersonid(int PPersonid) {
+        this.PPersonid = PPersonid;
+    }
 }
