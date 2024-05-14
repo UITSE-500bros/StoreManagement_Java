@@ -23,8 +23,8 @@ public class DaiLyController {
         connection = new Connection();
     }
 
-    public List<daily> showDaiLy(int personid) throws IOException {
-        connection.setUrl(new URL("http://localhost:8080/daily/getAllDaiLyByPersonId?person_id=" + personid));
+    public List<daily> showDaiLy() throws IOException {
+        connection.setUrl(new URL("http://localhost:8080/daily/getAllDaiLy"));
         connection.openGetConnection();
         connection.getCon().setRequestProperty("Content-Type", "application/json");
         connection.getCon().setRequestProperty("Accept", "application/json");
@@ -42,7 +42,7 @@ public class DaiLyController {
         return dailies;
     }
 
-    public String addNewDaiLy(daily daily, quan quan, loaidaily loaidaily, person person){
+    public String addNewDaiLy(daily daily, quan quan, loaidaily loaidaily){
         connection.insertDaiLy(daily);
         return "DaiLy added successfully";
     }
