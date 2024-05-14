@@ -24,9 +24,9 @@ public class StoresPanel extends JPanel {
 	 */
 	public StoresPanel() {
         String[] labels = {"Tên đại lý", "Loại đại lý", "Số điện thoại", "Địa chỉ", "Quận", "Ngày tiếp nhận"};
-        String[] districtItems = {"1", "2", "3", "Tân Phú", "Bình Tân"};
-        String[] categoryItems = {"1", "2"};
-		
+        String[] districtItems = {"Quận", "1", "2", "3", "Tân Phú", "Bình Tân"};
+        String[] categoryItems = {"Loại", "1", "2"};
+		String[] sortItems = {"Sắp xếp theo", "Tiền nợ tăng dần", "Tiền nợ giảm dần" };
 		setOpaque(false);
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -101,18 +101,9 @@ public class StoresPanel extends JPanel {
 //		gbc1_1.insets = new Insets(0, 30, 5, 30);
 		contentPane.add(addButton, gbc1_1);
 
-		gbc1_4 = new GridBagConstraints();
-		gbc1_4.insets = new Insets(0, 0, 5, 300);
-		gbc1_4.anchor = GridBagConstraints.WEST;
-		gbc1_4.fill = GridBagConstraints.HORIZONTAL;
-		datePicker = new DatePicker();
-		datePicker.setFont(new Font("Roboto", Font.PLAIN, 20));
-		gbc1_4.gridx = 0;
-		gbc1_4.gridy = 1;
-		gbc1_4.weightx = 0.1;
-		gbc1_4.anchor = GridBagConstraints.WEST;
-		contentPane.add(datePicker, gbc1_4);
 
+		
+        
 		JButton makeReceiptButton = new JButton("Lập phiếu thu tiền");
 	 makeReceiptButton.setPreferredSize(new Dimension(150, 40));
 		ImageIcon themMatHang = new ImageIcon("src/main/java/resource/themMatHangIcon.png");
@@ -128,6 +119,31 @@ public class StoresPanel extends JPanel {
 		gbc1_2.weightx = 1;
 //		gbc1_2.insets = new Insets(0, 0, 5, 0);
 		contentPane.add(makeReceiptButton, gbc1_2);
+		
+		// Row 2: search bar, and filters
+		gbc1_3 = new GridBagConstraints();
+		gbc1_3.gridx = 0;
+		gbc1_3.gridy = 1;
+		gbc1_3.weightx = 1;
+		gbc1_3.gridwidth = 2;
+		gbc1_3.fill = GridBagConstraints.BOTH;
+		gbc1_3.insets = new Insets(0, 0, 5, 0);
+		JPanel filterPanel = new JPanel();
+		filterPanel.setOpaque(false);
+		// a layout that arranges its children in a single row
+		filterPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 0));
+		SearchTextField searchField = new SearchTextField(20);
+		searchField.setPlaceholder("Tìm kiếm");
+		filterPanel.add(searchField);
+		
+		FilterComboBox categoryFilterComboBox = new FilterComboBox(categoryItems);
+		filterPanel.add(categoryFilterComboBox);
+		FilterComboBox districtFilterComboBox = new FilterComboBox(districtItems);
+		filterPanel.add(districtFilterComboBox);
+		FilterComboBox sortFilterComboBox = new FilterComboBox(sortItems);
+		filterPanel.add(sortFilterComboBox);
+		
+		contentPane.add(filterPanel, gbc1_3);
 		
 		this.add(contentPane, gbc);
 		
