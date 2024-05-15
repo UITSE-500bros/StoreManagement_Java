@@ -5,7 +5,14 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.*;
+
+import Controller.DaiLyController;
+import Models.daily;
+import Models.loaidaily;
+import Models.quan;
+
 import java.awt.event.*;
+import java.time.LocalDate;
 import java.util.Arrays;
 
 import ReuseClass.DatePicker;
@@ -23,10 +30,12 @@ public class StoresPanel extends JPanel {
 	private GridBagConstraints gbc1_4;
 	private JButton addButton;
 	private DatePicker datePicker;
+	private DaiLyController daiLyController;
 	/**
 	 * Create the panel.
 	 */
 	public StoresPanel() {
+		daiLyController = new DaiLyController();
         String[] labels = {"Tên đại lý", "Loại đại lý", "Số điện thoại", "Địa chỉ", "Quận", "Ngày tiếp nhận"};
         String[] districtItems = {"Quận", "1", "2", "3", "Tân Phú", "Bình Tân"};
         String[] categoryItems = {"Loại", "1", "2"};
@@ -330,6 +339,14 @@ public class StoresPanel extends JPanel {
         	            } else if (labels[i].equals("Quận")) {
         	                // Add a combo box for "Quận"
         	                inputs[i] = new CustomComboBox(districtItems);
+        	                } else if (labels[i].equals("Ngày tiếp nhận")) {
+        	                	// Add a date picker for "Ngày tiếp nhận"
+        	                	DatePicker datePicker = new DatePicker();
+        	                    datePicker.setDate(LocalDate.now()); // Set the date to the current date
+        	                    datePicker.setEditable(false);
+        	                    inputs[i] = datePicker;
+        	                	
+        	                	
         	            } else {
         	                // Add a text field for the other fields
         	                inputs[i] = new CustomTextField(20);
@@ -346,18 +363,54 @@ public class StoresPanel extends JPanel {
 							String[] values = new String[labels.length];
 		
 							for (int i = 0; i < labels.length; i++) {
-								if (labels[i].equals("Loại đại lý") || labels[i].equals("Quận")) {
-									values[i] = (String)((CustomComboBox) inputs[i]).getSelectedItem();
-								} else {
-									values[i] = ((CustomTextField) inputs[i]).getText();
-								}
-							}
+					            if (labels[i].equals("Loại đại lý") || labels[i].equals("Quận")) {
+					                values[i] = (String)((CustomComboBox) inputs[i]).getSelectedItem();
+					                if (values[i].equals(districtItems[0]) || values[i].equals(categoryItems[0])) { // replace "DefaultItem" with your actual default item
+					                    JOptionPane.showMessageDialog(null, "Hãy chọn " + labels[i]);
+					                    return;
+					                }
+					            }
+					            else if (labels[i].equals("Ngày tiếp nhận")) {
+					                values[i] = ((DatePicker) inputs[i]).getDateString();
+					            }
+					            else {
+					                values[i] = ((CustomTextField) inputs[i]).getText();
+					                if (values[i].isEmpty()) {
+					                    JOptionPane.showMessageDialog(null, labels[i] + " không thể trống");
+					                    return;
+					                }
+					                if (labels[i].equals("Số điện thoại")) {
+					                    if (!values[i].matches("\\d{10}")) { // replace with your phone number validation regex
+					                        JOptionPane.showMessageDialog(null, "Please enter a valid phone number");
+					                        return;
+					                    }
+					                }
+					            }
+					        }					
 							// use the values array to pass to the database
-							// dung ham gi do cua Nam
+							quan quan = new quan();
+							quan.setTenquan(values[4]);
 							
+							loaidaily loaidaily = new loaidaily();
+							loaidaily.setTenloaidl(values[1]);
+							
+							daily daily = new daily();
+							daily.setTendaily(values[0]);
+							daily.setSdt(values[2]);
+							daily.setDiachi(values[3]);
+							daily.setNgaytn(values[5]);
+							daily.setMaquan(quan);
+							daily.setTienno(0);
+							daily.setMaloaidl(loaidaily);
+							daily.setEmail("example@gmail.com");
+							
+							if (daiLyController.addNewDaiLy(daily, quan, loaidaily).contains("201")) {
+								JOptionPane.showMessageDialog(null, "Thêm đại lý thành công");
+								model.addRow(
+										new Object[] { model.getRowCount() + 1, values[0], values[1], values[4], 0.0 });
+							}
 							// Add the new row to the table
-							model.addRow(
-									new Object[] { model.getRowCount() + 1, values[0], values[1], values[4], 0.0 });
+							
 							// Hide the popup
 							((Window) SwingUtilities.getRoot(popupPanel)).dispose();
 						}

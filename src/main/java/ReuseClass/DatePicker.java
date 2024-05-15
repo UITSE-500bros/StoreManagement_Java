@@ -2,6 +2,7 @@ package ReuseClass;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
@@ -50,5 +51,16 @@ public class DatePicker extends JDatePickerImpl {
 	public String getDateString() {
 		Date selectedDate = (Date) getModel().getValue();
 		return sdf.format(selectedDate);
+	}
+
+	public void setDate(LocalDate date) {
+		getModel().setDate(date.getYear(), date.getMonthValue() - 1, date.getDayOfMonth());
+		getModel().setSelected(true);
+	}
+
+	public void setEditable(boolean b) {
+		getJFormattedTextField().setEditable(b);
+	    getComponent(1).setEnabled(b); // Disable/enable the date picker button
+
 	}
 }
