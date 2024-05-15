@@ -6,10 +6,14 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.*;
 import java.awt.event.*;
+import java.util.Arrays;
+
 import ReuseClass.DatePicker;
 import javax.swing.table.*;
 import UI.CustomTextField;
 import UI.CustomComboBox;
+import javax.swing.event.*;
+import javax.swing.RowFilter;
 public class StoresPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -132,14 +136,17 @@ public class StoresPanel extends JPanel {
 		filterPanel.setOpaque(false);
 		// a layout that arranges its children in a single row
 		filterPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 0));
+		
 		SearchTextField searchField = new SearchTextField(20);
 		searchField.setPlaceholder("Tìm kiếm");
 		filterPanel.add(searchField);
 		
 		FilterComboBox categoryFilterComboBox = new FilterComboBox(categoryItems);
 		filterPanel.add(categoryFilterComboBox);
+		
 		FilterComboBox districtFilterComboBox = new FilterComboBox(districtItems);
 		filterPanel.add(districtFilterComboBox);
+		
 		FilterComboBox sortFilterComboBox = new FilterComboBox(sortItems);
 		filterPanel.add(sortFilterComboBox);
 		
@@ -162,8 +169,8 @@ public class StoresPanel extends JPanel {
 
         // Create data
         Object[][] data = {
-            {1, "Đại lý 1", "1", "10", 1000.0},
-            {2, "Đại lý 2", "2", "11", 2000.0},
+            {1, "Đại lý 1", "1", districtItems[1], 1000.0},
+            {2, "Đại lý 2", "2", districtItems[3], 2000.0},
             // Add more rows as needed
         };
 
@@ -210,8 +217,72 @@ public class StoresPanel extends JPanel {
     scrollPane.getViewport().setOpaque(false);
 
          contentPane.add(scrollPane, gbc1_3);
+    // Add listener for filter components
+         searchField.getDocument().addDocumentListener(new DocumentListener() {
+        	    public void changedUpdate(DocumentEvent e) {
+        	        filter();
+        	    }
+        	    public void removeUpdate(DocumentEvent e) {
+        	        filter();
+        	    }
+        	    public void insertUpdate(DocumentEvent e) {
+        	        filter();
+        	    }
+
+        	    public void filter() {
+        	        String filterText = searchField.getText();
+        	        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>((DefaultTableModel) table.getModel());
+        	        sorter.setRowFilter(RowFilter.regexFilter("(?i)" + filterText)); // (?i) enables case insensitive matching
+        	        table.setRowSorter(sorter);
+        	    }
+        	});
          
-         
+         ItemListener itemListener = new ItemListener() {
+        	    public void itemStateChanged(ItemEvent e) {
+        	        if (e.getStateChange() == ItemEvent.SELECTED) {
+        	            filter();
+        	        }
+        	    }
+
+        	    public void filter() {
+        	    	String district = (String) districtFilterComboBox.getSelectedItem();
+        	        String category = (String) categoryFilterComboBox.getSelectedItem();
+
+        	        // Ignore default values
+        	        if (district.equals("Quận")) {
+        	            district = "";
+        	        }
+        	        if (category.equals("Loại")) {
+        	            category = "";
+        	        }
+
+        	        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>((DefaultTableModel) table.getModel());
+        	        sorter.setRowFilter(RowFilter.andFilter(Arrays.asList(
+        	            RowFilter.regexFilter(district, 3), // 3 is the column index for district
+        	            RowFilter.regexFilter(category, 2) // 2 is the column index for category
+        	        )));
+        	        table.setRowSorter(sorter);
+        	    }
+        	};
+        	districtFilterComboBox.addItemListener(itemListener);
+        	categoryFilterComboBox.addItemListener(itemListener);
+        	
+        	sortFilterComboBox.addItemListener(new ItemListener() {
+        	    public void itemStateChanged(ItemEvent e) {
+        	        if (e.getStateChange() == ItemEvent.SELECTED) {
+        	            String selected = (String) e.getItem();
+        	            TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>((DefaultTableModel) table.getModel());
+        	            if (selected.equals("Tiền nợ tăng dần")) {
+        	                sorter.setSortKeys(Arrays.asList(new RowSorter.SortKey(4, SortOrder.ASCENDING))); // 4 is the column index for debt
+        	            } else if (selected.equals("Tiền nợ giảm dần")) {
+        	                sorter.setSortKeys(Arrays.asList(new RowSorter.SortKey(4, SortOrder.DESCENDING))); // 4 is the column index for debt
+        	            }
+        	            table.setRowSorter(sorter);
+        	        }
+        	    }
+        	});
+    
+    // Add action listener for the "Tiếp nhận đại lý" button     
          addButton.addActionListener(new ActionListener() {
         	    @Override
         	    public void actionPerformed(ActionEvent e) {
