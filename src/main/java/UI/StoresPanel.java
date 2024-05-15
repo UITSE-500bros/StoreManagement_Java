@@ -13,10 +13,10 @@ import Models.quan;
 
 import java.awt.event.*;
 import java.time.LocalDate;
-import java.util.Arrays;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 import ReuseClass.DatePicker;
-import javax.swing.table.*;
 import UI.CustomTextField;
 import UI.CustomComboBox;
 import javax.swing.event.*;
@@ -36,7 +36,12 @@ public class StoresPanel extends JPanel {
 	 */
 	public StoresPanel() {
 		daiLyController = new DaiLyController();
-        String[] labels = {"Tên đại lý", "Loại đại lý", "Số điện thoại", "Địa chỉ", "Quận", "Ngày tiếp nhận"};
+		try {
+			//java.util.List<daily> dailyList = daiLyController.showDaiLy();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+        String[] labels = {"Tên đại lý", "Loại đại lý", "Số điện thoại", "Địa chỉ", "Quận", "Email"};
         String[] districtItems = {"Quận", "1", "2", "3", "Tân Phú", "Bình Tân"};
         String[] categoryItems = {"Loại", "1", "2"};
 		String[] sortItems = {"Sắp xếp theo", "Tiền nợ tăng dần", "Tiền nợ giảm dần" };
@@ -177,6 +182,8 @@ public class StoresPanel extends JPanel {
         String[] columnNames = {"STT", "Tên đại lý", "Loại", "Quận", "Tiền nợ"};
 
         // Create data
+        
+        
         Object[][] data = {
             {1, "Đại lý 1", "1", districtItems[1], 1000.0},
             {2, "Đại lý 2", "2", districtItems[3], 2000.0},
@@ -339,15 +346,7 @@ public class StoresPanel extends JPanel {
         	            } else if (labels[i].equals("Quận")) {
         	                // Add a combo box for "Quận"
         	                inputs[i] = new CustomComboBox(districtItems);
-        	                } else if (labels[i].equals("Ngày tiếp nhận")) {
-        	                	// Add a date picker for "Ngày tiếp nhận"
-        	                	DatePicker datePicker = new DatePicker();
-        	                    datePicker.setDate(LocalDate.now()); // Set the date to the current date
-        	                    datePicker.setEditable(false);
-        	                    inputs[i] = datePicker;
-        	                	
-        	                	
-        	            } else {
+        	                } else {
         	                // Add a text field for the other fields
         	                inputs[i] = new CustomTextField(20);
         	            }
@@ -365,14 +364,12 @@ public class StoresPanel extends JPanel {
 							for (int i = 0; i < labels.length; i++) {
 					            if (labels[i].equals("Loại đại lý") || labels[i].equals("Quận")) {
 					                values[i] = (String)((CustomComboBox) inputs[i]).getSelectedItem();
-					                if (values[i].equals(districtItems[0]) || values[i].equals(categoryItems[0])) { // replace "DefaultItem" with your actual default item
+					                if (values[i].equals(districtItems[0]) || values[i].equals(categoryItems[0])) { // 
 					                    JOptionPane.showMessageDialog(null, "Hãy chọn " + labels[i]);
 					                    return;
 					                }
 					            }
-					            else if (labels[i].equals("Ngày tiếp nhận")) {
-					                values[i] = ((DatePicker) inputs[i]).getDateString();
-					            }
+					          
 					            else {
 					                values[i] = ((CustomTextField) inputs[i]).getText();
 					                if (values[i].isEmpty()) {
@@ -380,11 +377,17 @@ public class StoresPanel extends JPanel {
 					                    return;
 					                }
 					                if (labels[i].equals("Số điện thoại")) {
-					                    if (!values[i].matches("\\d{10}")) { // replace with your phone number validation regex
-					                        JOptionPane.showMessageDialog(null, "Please enter a valid phone number");
+					                    if (!values[i].matches("\\d{10}")) { // regex cho sdt
+					                        JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ");
 					                        return;
 					                    }
 					                }
+									if (labels[i].equals("Email")) {
+										if (!values[i].matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+											JOptionPane.showMessageDialog(null, "Email không hợp lệ");
+											return;
+										}
+									}
 					            }
 					        }					
 							// use the values array to pass to the database
@@ -398,11 +401,12 @@ public class StoresPanel extends JPanel {
 							daily.setTendaily(values[0]);
 							daily.setSdt(values[2]);
 							daily.setDiachi(values[3]);
-							daily.setNgaytn(values[5]);
+							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+							daily.setNgaytn(LocalDate.now().format(formatter));
 							daily.setMaquan(quan);
 							daily.setTienno(0);
 							daily.setMaloaidl(loaidaily);
-							daily.setEmail("example@gmail.com");
+							daily.setEmail(values[5]);
 							
 							if (daiLyController.addNewDaiLy(daily, quan, loaidaily).contains("201")) {
 								JOptionPane.showMessageDialog(null, "Thêm đại lý thành công");
@@ -436,6 +440,90 @@ public class StoresPanel extends JPanel {
         	        JOptionPane.showOptionDialog(null, popupPanel, "Thêm đại lý", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
         	    }
         	});
+         
+         makeReceiptButton.addActionListener(new ActionListener() {
+        	    @Override
+        	    public void actionPerformed(ActionEvent e) {
+        	        // Create a panel for the popup
+        	    	String[] storeNames = {"Đại lý 1", "Đại lý 2"}; // Replace with actual agent names
+        	        JPanel popupPanel = new JPanel(new GridBagLayout());
+        	        GridBagConstraints gbc = new GridBagConstraints();
+        	        gbc.fill = GridBagConstraints.HORIZONTAL;
+        	        gbc.weightx = 1.0;
+        	        gbc.weighty = 1.0;
+        	        gbc.insets = new Insets(5, 5, 5, 5);
+
+        	        // Add the title
+        	        JLabel title = new JLabel("Phiếu thu tiền");
+        	        title.setFont(new Font("Roboto", Font.BOLD, 22));
+        	        gbc.gridx = 0;
+        	        gbc.gridy = 0;
+        	        gbc.gridwidth = 2;
+        	        popupPanel.add(title, gbc);
+
+        	        // Add the line separator
+        	        gbc.gridy++;
+        	        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        	        gbc.fill = GridBagConstraints.HORIZONTAL;
+        	        JSeparator separator = new JSeparator();
+        	        separator.setForeground(Color.BLACK);
+        	        popupPanel.add(separator, gbc);
+
+        	        // Add the text fields and combo boxes
+        	        String[] labels = {"Tên đại lý", "Địa chỉ", "Số điện thoại", "Email", "Ngày thu tiền", "Số tiền thu (VND)"};
+        	        JComponent[] inputs = new JComponent[labels.length];
+        	        for (int i = 0; i < labels.length; i++) {
+        	            gbc.gridwidth = 1;
+        	            gbc.gridx = i % 2;
+        	            gbc.gridy = 2 + 2*(i/2);
+
+        	            JLabel label = new JLabel(labels[i]);
+        	            label.setFont(new Font("Roboto", Font.PLAIN, 10));
+        	            popupPanel.add(label, gbc);
+
+        	            gbc.gridy++;
+        	            if (labels[i].equals("Tên đại lý")) {
+        	                // Add a combo box for "Tên đại lý"
+        	                inputs[i] = new CustomComboBox(storeNames);
+						} else if (labels[i].equals("Ngày thu tiền")) {
+							// Add a date picker for "Ngày thu tiền"
+							datePicker = new DatePicker();
+							datePicker.setEditable(false);
+							datePicker.setDate(LocalDate.now());
+							inputs[i] = datePicker;
+						}
+        	            else {
+        	                // Add a text field for the other fields
+        	                inputs[i] = new CustomTextField(20);
+        	                ((CustomTextField) inputs[i]).setEditable(false);
+							if (labels[i].equals("Số tiền thu (VND)")) {
+								((CustomTextField) inputs[i]).setEditable(true);
+							}
+        	            }
+        	            popupPanel.add(inputs[i], gbc);
+        	        }
+        	        
+        	        
+        	     // Add the buttons
+        	        JButton cancelButton = new JButton("Hủy bỏ");
+        	        JButton confirmButton = new JButton("Thêm mới");
+        	        // Add action listeners for the buttons
+        	        
+        	        //
+        	        gbc.gridy++;
+        	        gbc.gridwidth = 1;
+        	        gbc.gridx = 0;
+        	        popupPanel.add(cancelButton, gbc);
+        	        gbc.gridx++;
+        	        popupPanel.add(confirmButton, gbc);
+        	        popupPanel.revalidate();
+        	        popupPanel.repaint();
+
+        	        // Show the popup
+        	        JOptionPane.showOptionDialog(null, popupPanel, "Phiếu thu tiền", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
+        	    }
+        	});
+         
 	}
 
 }
