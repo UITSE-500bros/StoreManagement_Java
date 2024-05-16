@@ -34,7 +34,6 @@ public class MainFrame extends JFrame {
 	private JButton reportButton;
 	private JButton importButton;
 	private JButton exportButton;
-	private JButton settingButton;
 	private JButton logoutButton;
 
 	/**
@@ -94,7 +93,7 @@ public class MainFrame extends JFrame {
 		});
 		MainMenu.add(mntm_NewStore);
 		
-		JMenuItem mntm_MaxStore = new JMenuItem("Số lượng đại lý tối đa");
+		JMenuItem mntm_MaxStore = new JMenuItem("Số đại lý tối đa mỗi quận");
 		mntm_MaxStore.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				maxStorelimit maxStorelimit = new maxStorelimit();
@@ -198,7 +197,6 @@ public class MainFrame extends JFrame {
 		menuPanel.add(reportButton);
 		menuPanel.add(importButton);
 		menuPanel.add(exportButton);
-		menuPanel.add(settingButton);
 		menuPanel.add(logoutButton);
 		
 		CardLayout cardLayout = new CardLayout(0,0);
@@ -265,11 +263,6 @@ public class MainFrame extends JFrame {
 				cardLayout.show(containerPanel, "name_240836258641200");
 			}
 		});
-		settingButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(containerPanel, "name_240836285379400");
-			}
-		});
 		
 		
 	}
@@ -284,8 +277,6 @@ public class MainFrame extends JFrame {
 		importButton = new JButton("Nhập hàng");
 		
 		exportButton = new JButton("Xuất hàng");
-		
-		settingButton = new JButton("Cài đặt");
 		
 		logoutButton = new JButton("Đăng xuất");
 	}

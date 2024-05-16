@@ -20,6 +20,7 @@ public class Items extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 
+
 	/**
 	 * Launch the application.
 	 */
@@ -60,7 +61,7 @@ public class Items extends JFrame {
 			}
 		) {
 			Class[] columnTypes = new Class[] {
-				Object.class, String.class
+				Integer.class, String.class
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
@@ -78,13 +79,20 @@ public class Items extends JFrame {
 		contentPane.add(panel, BorderLayout.SOUTH);
 		
 		JButton btnAdd = new JButton("Thêm");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DefaultTableModel model = (DefaultTableModel) table.getModel();
+				model.addRow(new Object[] { model.getRowCount() + 1, "" });
+				
+			}
+		});
 
 		panel.add(btnAdd);
 		
 		JButton btnOk = new JButton("Ok");
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				
 			}
 			
 		});
