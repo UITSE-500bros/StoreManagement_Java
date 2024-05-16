@@ -31,13 +31,14 @@ public class StoresPanel extends JPanel {
 	private JButton addButton;
 	private DatePicker datePicker;
 	private DaiLyController daiLyController;
+	java.util.List<daily> dailyList;
 	/**
 	 * Create the panel.
 	 */
 	public StoresPanel() {
 		daiLyController = new DaiLyController();
 		try {
-			//java.util.List<daily> dailyList = daiLyController.showDaiLy();
+			dailyList = daiLyController.showDaiLy();
 		}catch (Exception e){
 			e.printStackTrace();
 		}
@@ -181,14 +182,8 @@ public class StoresPanel extends JPanel {
 		// Create column names
         String[] columnNames = {"STT", "Tên đại lý", "Loại", "Quận", "Tiền nợ"};
 
-        // Create data
         
-        
-        Object[][] data = {
-            {1, "Đại lý 1", "1", districtItems[1], 1000.0},
-            {2, "Đại lý 2", "2", districtItems[3], 2000.0},
-            // Add more rows as needed
-        };
+       
 
      // Create table model
         DefaultTableModel model = new DefaultTableModel(data, columnNames) {
@@ -197,6 +192,12 @@ public class StoresPanel extends JPanel {
                 return false; // This causes all cells to be not editable
             }
         };
+        // Create data
+		for (int i = 0; i < dailyList.size(); i++) {
+			daily daily = dailyList.get(i);
+			model.addRow(new Object[] { i + 1, daily.getTendaily(), daily.getMaloaidl().getTenloaidl(),
+					daily.getMaquan().getTenquan(), daily.getTienno() });
+		}
 
         // Create table
         JTable table = new JTable(model);
