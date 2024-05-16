@@ -1,6 +1,7 @@
 package Controller;
 
 import Models.mathang;
+import Repository.Connection;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
@@ -44,7 +45,7 @@ public class MatHangController {
 //        mathang.setMathangsoluong(10);
 //        mathang.setMathangmota("test");
 
-        connection.insertMatHang(mathang);
+        //connection.insertMatHang(mathang);
         return "MatHang added successfully";
     }
 

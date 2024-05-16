@@ -2,9 +2,9 @@ package Controller;
 
 import Models.daily;
 import Models.loaidaily;
-import Models.person;
 import Models.quan;
-import UI.MainFrame;
+import Repository.Connection;
+import Repository.DaiLyRepository;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
@@ -16,11 +16,11 @@ import java.net.URL;
 import java.util.List;
 
 public class DaiLyController {
-    private final Connection connection;
+    private final DaiLyRepository connection;
 
     public DaiLyController() {
 
-        connection = new Connection();
+        connection = new DaiLyRepository();
     }
 
     public List<daily> showDaiLy() throws IOException {

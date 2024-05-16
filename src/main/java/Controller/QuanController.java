@@ -1,6 +1,7 @@
 package Controller;
 
 import Models.quan;
+import Repository.Connection;
 
 public class QuanController {
     private final Connection connection ;
@@ -11,7 +12,7 @@ public class QuanController {
         quan quan = new quan();
         //quan.setTenQuan("Quan 1");
 
-        connection.addQuan(quan);
+        //connection.addQuan(quan);
 
     }
 }

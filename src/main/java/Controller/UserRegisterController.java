@@ -2,6 +2,7 @@ package Controller;
 
 import Models.UserInstance;
 import Models.person;
+import Repository.Connection;
 import UI.register;
 import com.google.gson.Gson;
 
@@ -12,7 +13,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 
 public class UserRegisterController {
 
