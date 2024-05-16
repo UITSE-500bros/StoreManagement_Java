@@ -259,22 +259,6 @@ public class register extends JFrame {
 
 
 
-		JButton btn_login = new JButton("Đã  có tài khoản? Đăng nhập");
-		btn_login.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				login login = new login();
-				login.setVisible(true);
-			}
-		});
-		btn_login.setBackground(new Color(241, 235, 229));
-		GridBagConstraints gbc_btn_login = new GridBagConstraints();
-		gbc_btn_login.insets = new Insets(0, 0, 0, 5);
-		gbc_btn_login.fill = GridBagConstraints.BOTH;
-		gbc_btn_login.gridx = 0;
-		gbc_btn_login.gridy = 9;
-		panel.add(btn_login, gbc_btn_login);
-
 		btn_register.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Boolean flag = true;
@@ -318,11 +302,7 @@ public class register extends JFrame {
 						if(userRegisterController.registerUser())
 						{
 							JOptionPane.showMessageDialog(null, "Đăng ký thành công");
-							dispose();
-							MainFrame mainframe = new MainFrame();
-							mainframe.setVisible(true);
-							setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-							setLocationRelativeTo(null);
+							
 						}
 						else {
 							JOptionPane.showMessageDialog(null, "Đăng ký thất bại");

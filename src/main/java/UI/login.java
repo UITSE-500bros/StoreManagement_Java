@@ -210,21 +210,7 @@ public class login extends JFrame {
 		gbc_btn_login.gridy = 8;
 		contentPane.add(btn_login, gbc_btn_login);
 		
-		JButton btn_register = new JButton("Chưa đăng ký? Đăng ký ngay");
-		btn_register.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				register register = new register();
-				register.setVisible(true);
-			
-			}
-		});
-		GridBagConstraints gbc_btn_register = new GridBagConstraints();
-		gbc_btn_register.fill = GridBagConstraints.BOTH;
-		gbc_btn_register.insets = new Insets(0, 0, 0, 5);
-		gbc_btn_register.gridx = 0;
-		gbc_btn_register.gridy = 9;
-		contentPane.add(btn_register, gbc_btn_register);
+
 
 		
 		JLabel label = new JLabel();
