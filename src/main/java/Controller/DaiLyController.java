@@ -24,7 +24,7 @@ public class DaiLyController {
     }
 
     public List<daily> showDaiLy() throws IOException {
-        connection.setUrl(new URL("http://localhost:8080/daily/getAllDaiLy"));
+        connection.setUrl(new URL("https://still-cliffs-55450-6c9d6b2dff57.herokuapp.com/daily/getAllDaiLy"));
         connection.openGetConnection();
         connection.getCon().setRequestProperty("Content-Type", "application/json");
         connection.getCon().setRequestProperty("Accept", "application/json");

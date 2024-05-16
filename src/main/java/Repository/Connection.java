@@ -2,14 +2,20 @@ package Repository;
 
 import Models.*;
 import com.google.gson.Gson;
+import com.sun.net.httpserver.Request;
+import okhttp3.OkHttpClient;
+import okhttp3.Response;
 
+import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
+
 import java.net.HttpURLConnection;
+
 import java.net.URL;
 
 public class Connection {
     private URL url;
-    public HttpURLConnection con;
+    public HttpsURLConnection con;
 
     protected static Gson gson ;
 
@@ -19,14 +25,17 @@ public class Connection {
 
     public void openGetConnection() {
     try {
-        con = (HttpURLConnection) url.openConnection();
+
+        URL url = new URL("https://still-cliffs-55450-6c9d6b2dff57.herokuapp.com/daily/getAllDaiLy");
+
+        con = (HttpsURLConnection) url.openConnection();
         con.setRequestMethod("GET");
         con.setConnectTimeout(5000);
         con.setReadTimeout(5000);
-    } catch (IOException e) {
-        e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-}
 
     public URL getUrl() {
         return url;
@@ -40,7 +49,7 @@ public class Connection {
         return con;
     }
 
-    public void setCon(HttpURLConnection con) {
+    public void setCon(HttpsURLConnection con) {
         this.con = con;
     }
 
@@ -52,7 +61,7 @@ public class Connection {
     public void openPostConnection(String link) {
         try {
             URL url = new URL(link);
-            con = (HttpURLConnection) url.openConnection();
+            con = (HttpsURLConnection) url.openConnection();
             con.setRequestMethod("POST");
             con.setRequestProperty("Content-Type", "application/json; utf-8");
             con.setRequestProperty("Accept", "application/json");
