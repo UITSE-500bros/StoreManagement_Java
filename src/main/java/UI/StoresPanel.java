@@ -186,12 +186,14 @@ public class StoresPanel extends JPanel {
        
 
      // Create table model
-        DefaultTableModel model = new DefaultTableModel(data, columnNames) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false; // This causes all cells to be not editable
-            }
-        };
+		DefaultTableModel model = new DefaultTableModel(columnNames, 0) {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
         // Create data
 		for (int i = 0; i < dailyList.size(); i++) {
 			daily daily = dailyList.get(i);
