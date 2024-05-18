@@ -21,6 +21,8 @@ import UI.CustomTextField;
 import UI.CustomComboBox;
 import javax.swing.event.*;
 import javax.swing.RowFilter;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
+
 public class StoresPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -180,7 +182,7 @@ public class StoresPanel extends JPanel {
 		gbc1_3.insets = new Insets(0, 0, 5, 0);
 		
 		// Create column names
-        String[] columnNames = {"STT", "Tên đại lý", "Loại", "Quận", "Tiền nợ"};
+        String[] columnNames = {"STT", "Tên đại lý", "Loại", "Quận", "Tiền nợ (VND)"};
 
         
        
@@ -451,7 +453,7 @@ public class StoresPanel extends JPanel {
         	    @Override
         	    public void actionPerformed(ActionEvent e) {
         	        // Create a panel for the popup
-        	    	String[] storeNames = {"Đại lý 1", "Đại lý 2"}; // Replace with actual agent names
+        	    	String[] storeNames = dailyList.stream().map(daily::getTendaily).toArray(String[]::new);
         	        JPanel popupPanel = new JPanel(new GridBagLayout());
         	        GridBagConstraints gbc = new GridBagConstraints();
         	        gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -478,6 +480,7 @@ public class StoresPanel extends JPanel {
         	        // Add the text fields and combo boxes
         	        String[] labels = {"Tên đại lý", "Địa chỉ", "Số điện thoại", "Email", "Ngày thu tiền", "Số tiền thu (VND)"};
         	        JComponent[] inputs = new JComponent[labels.length];
+        	        ItemListener storeNameItemListener = null;
         	        for (int i = 0; i < labels.length; i++) {
         	            gbc.gridwidth = 1;
         	            gbc.gridx = i % 2;
@@ -491,6 +494,35 @@ public class StoresPanel extends JPanel {
         	            if (labels[i].equals("Tên đại lý")) {
         	                // Add a combo box for "Tên đại lý"
         	                inputs[i] = new CustomComboBox(storeNames);
+        	                AutoCompleteDecorator.decorate((CustomComboBox) inputs[i]);
+        	                ((CustomComboBox) inputs[i]).setEditable(true);
+							storeNameItemListener = new ItemListener() {
+								@Override
+								public void itemStateChanged(ItemEvent e) {
+									String selectedAgentName = (String) e.getItem();
+
+						            // Fetch the details of the selected agent from the dailyList
+						            daily selectedAgent = dailyList.stream()
+						                .filter(agent -> agent.getTendaily().equals(selectedAgentName))
+						                .findFirst()
+						                .orElse(null);
+
+						            if (selectedAgent != null) {
+						                // Update the other input fields
+						                ((JTextField) inputs[1]).setText(selectedAgent.getDiachi());
+						                ((JTextField) inputs[2]).setText(selectedAgent.getSdt());
+						                ((JTextField) inputs[3]).setText(selectedAgent.getEmail());
+						            } else {
+						                // Clear the other input fields
+						                ((JTextField) inputs[1]).setText("");
+						                ((JTextField) inputs[2]).setText("");
+						                ((JTextField) inputs[3]).setText("");
+						            }
+								}
+							};
+                                     ((CustomComboBox) inputs[i]).addItemListener(storeNameItemListener);
+							
+						
 						} else if (labels[i].equals("Ngày thu tiền")) {
 							// Add a date picker for "Ngày thu tiền"
 							datePicker = new DatePicker();
@@ -506,9 +538,13 @@ public class StoresPanel extends JPanel {
 								((CustomTextField) inputs[i]).setEditable(true);
 							}
         	            }
+        	            
         	            popupPanel.add(inputs[i], gbc);
         	        }
-        	        
+        	        if(!dailyList.isEmpty()) {
+						((CustomComboBox) inputs[0]).setSelectedItem(storeNames[0]);
+				        storeNameItemListener.itemStateChanged(new ItemEvent((CustomComboBox) inputs[0], ItemEvent.ITEM_STATE_CHANGED, storeNames[0], ItemEvent.SELECTED));
+					}
         	        
         	     // Add the buttons
         	        JButton cancelButton = new JButton("Hủy bỏ");
