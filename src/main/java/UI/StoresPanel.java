@@ -206,7 +206,10 @@ public class StoresPanel extends JPanel {
 
         // Set column widths
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        table.setAutoCreateRowSorter(true);
+        table.getTableHeader().setReorderingAllowed(false);
         for (int i = 0; i < table.getColumnCount(); i++) {
+        	((DefaultRowSorter)table.getRowSorter()).setSortable(i, false);
             TableColumn column = table.getColumnModel().getColumn(i);
             int width = 50; // Default width
             switch (i) {
@@ -414,7 +417,7 @@ public class StoresPanel extends JPanel {
 							if (daiLyController.addNewDaiLy(daily, quan, loaidaily).contains("200")) {
 								JOptionPane.showMessageDialog(null, "Thêm đại lý thành công");
 								model.addRow(
-										new Object[] { model.getRowCount() + 1, values[0], values[1], values[4], 0.0 });
+										new Object[] { model.getRowCount() + 1, values[0], values[1], values[4], 0 });
 							}
 							// Add the new row to the table
 							
