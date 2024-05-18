@@ -72,7 +72,7 @@ public class Unit extends JFrame {
 			this.dispose();
 		});
 		panel.add(btnOk);
-		
+
 	}
 
 }
