@@ -23,7 +23,7 @@ public class ExportPanel extends JPanel {
 	private JTextComponent tienTraTextField;
 	private JTextField tongTienTextField;
 	private JTable tableXuatHang;
-	private JComboBox<String> maSoPhieuTextField;
+	private FilterComboBox maSoPhieuTextField;
 	private DatePicker datePicker;
 
 	public static void main(String[] args) {
@@ -96,21 +96,26 @@ public class ExportPanel extends JPanel {
 		gbc1.anchor = GridBagConstraints.WEST;
 		contentPane.add(pnhLable, gbc1);
 
-		gbc1 = new GridBagConstraints();
 		addButton = new CustomButton("Lập phiếu");
+		addButton.setPreferredSize(new Dimension(150, 40));  // Preferred size
+		addButton.setMinimumSize(new Dimension(150, 40));    // Minimum size
 		ImageIcon lapPhieuIcon = new ImageIcon("src/main/java/resource/lapPhieuIcon.png");
 		addButton.setIcon(lapPhieuIcon);
 		addButton.setBorderPainted(false);
 		addButton.setBackground(Color.BLACK);
 		addButton.setForeground(Color.ORANGE);
-		addButton.setHorizontalAlignment(JButton.CENTER);
+		addButton.setIconTextGap(20);
+		addButton.setHorizontalAlignment(JButton.LEFT);
 		addButton.setHorizontalTextPosition(JButton.RIGHT);
-		addButton.setFont(new Font("Roboto", Font.BOLD, 20));
-		addButton.setPreferredSize(new Dimension(150, 40));
+		addButton.setFont(new Font("Roboto", Font.BOLD, 15));
+		gbc1 = new GridBagConstraints();
+		gbc1.gridy = 0;
 		gbc1.gridx = 1;
-		gbc1.weightx = 0.2;
+		gbc1.weightx = 1.0;         // Make sure it can expand horizontally
+		gbc1.weighty = 0.0;         // No extra vertical space
 		gbc1.anchor = GridBagConstraints.EAST;
-		gbc1.insets = new Insets(0, 30, 5, 30);
+		gbc1.insets = new Insets(0, 0, 0, 30);
+		gbc1.fill = GridBagConstraints.CENTER;  // Allow it to fill horizontally
 		contentPane.add(addButton, gbc1);
 
 		JPanel pnaelHang2 = new JPanel();
@@ -127,9 +132,9 @@ public class ExportPanel extends JPanel {
 
 		GridBagConstraints gbc3 = new GridBagConstraints();
 		gbc3.anchor = GridBagConstraints.WEST;
-		maSoPhieuTextField = new JComboBox<String>(new String[] { "Mã số phiếu 1", "Mã số phiếu 2", "Mã số phiếu 3" });
+		maSoPhieuTextField = new FilterComboBox(new String[] { "Mã số phiếu 1", "Mã số phiếu 2", "Mã số phiếu 3" });
 		maSoPhieuTextField.setPreferredSize(new Dimension(200, 33));
-		maSoPhieuTextField.setFont(new Font("Roboto", Font.PLAIN, 20));
+		maSoPhieuTextField.setFont(new Font("Roboto", Font.PLAIN, 15));
 		gbc3.gridx = 0;
 		gbc3.weightx = 0.33; // Adjusted weight
 		pnaelHang2.add(maSoPhieuTextField, gbc3);
@@ -152,7 +157,8 @@ public class ExportPanel extends JPanel {
 		themMatHangButton.setFont(new Font("Roboto", Font.BOLD, 12));
 		themMatHangButton.setForeground(Color.WHITE);
 		themMatHangButton.setBackground(Color.BLACK);
-		themMatHangButton.setHorizontalAlignment(JButton.CENTER);
+		themMatHangButton.setIconTextGap(20);
+		themMatHangButton.setHorizontalAlignment(JButton.LEFT);
 		themMatHangButton.setHorizontalTextPosition(JButton.RIGHT);
 		themMatHangButton.addActionListener(new ActionListener() {
 			@Override

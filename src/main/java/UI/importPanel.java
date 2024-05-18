@@ -75,7 +75,7 @@ public class importPanel extends JPanel {
 		gbc.gridy = 1;
 		gbc.weighty = 0.8;
 		gbc.weightx = 1;
-		gbc.insets = new java.awt.Insets(30, 50, 30, 50);
+		gbc.insets = new java.awt.Insets(20, 40, 20, 40);
 		gbc.fill = GridBagConstraints.BOTH;
 
 		CustomPanel contentPane = new CustomPanel();
@@ -97,30 +97,36 @@ public class importPanel extends JPanel {
 		pnhLable.setFont(new Font("Roboto", Font.BOLD, 30));
 		gbc1.gridx = 0;
 		gbc1.gridy = 0;
-		gbc1.weightx = 0.8;
+		gbc1.weightx = 0.2;
 		gbc1.anchor = GridBagConstraints.WEST;
 		contentPane.add(pnhLable, gbc1);
 
-		gbc1_1 = new GridBagConstraints();
-		gbc1_1.gridy = 0;
 		addButton = new CustomButton("Lập phiếu");
+		addButton.setPreferredSize(new Dimension(150, 40));  // Preferred size
+		addButton.setMinimumSize(new Dimension(150, 40));    // Minimum size
 		ImageIcon lapPhieuIcon = new ImageIcon("src/main/java/resource/lapPhieuIcon.png");
 		addButton.setIcon(lapPhieuIcon);
 		addButton.setBorderPainted(false);
 		addButton.setBackground(Color.BLACK);
 		addButton.setForeground(Color.ORANGE);
-		addButton.setHorizontalAlignment(JButton.CENTER);
+		addButton.setIconTextGap(20);
+		addButton.setHorizontalAlignment(JButton.LEFT);
 		addButton.setHorizontalTextPosition(JButton.RIGHT);
-		addButton.setFont(new Font("Roboto", Font.BOLD, 20));
-		addButton.setPreferredSize(new Dimension(150, 40));
+		addButton.setFont(new Font("Roboto", Font.BOLD, 15));
+
+		gbc1_1 = new GridBagConstraints();
+		gbc1_1.gridy = 0;
 		gbc1_1.gridx = 1;
-		gbc1_1.weightx = 0.2;
+		gbc1_1.weightx = 1.0;         // Make sure it can expand horizontally
+		gbc1_1.weighty = 0.0;         // No extra vertical space
 		gbc1_1.anchor = GridBagConstraints.EAST;
-		gbc1_1.insets = new Insets(0, 30, 5, 30);
+		gbc1_1.insets = new Insets(0, 0, 0, 30);
+		gbc1_1.fill = GridBagConstraints.CENTER;  // Allow it to fill horizontally
+
 		contentPane.add(addButton, gbc1_1);
 
 		gbc1_4 = new GridBagConstraints();
-		gbc1_4.insets = new Insets(0, 0, 5, 200);
+		gbc1_4.insets = new Insets(0, 0, 0, 200);
 		gbc1_4.anchor = GridBagConstraints.WEST;
 		datePicker = new DatePicker();
 		datePicker.setFont(new Font("Roboto", Font.PLAIN, 20));
@@ -137,7 +143,8 @@ public class importPanel extends JPanel {
 		themMatHangButton.setFont(new Font("Roboto", Font.BOLD, 12));
 		themMatHangButton.setForeground(Color.WHITE);
 		themMatHangButton.setBackground(Color.BLACK);
-		themMatHangButton.setHorizontalAlignment(JButton.CENTER);
+		themMatHangButton.setIconTextGap(15);
+		themMatHangButton.setHorizontalAlignment(JButton.LEFT);
 		themMatHangButton.setHorizontalTextPosition(JButton.RIGHT);
 		themMatHangButton.addActionListener(new ActionListener() {
 			@Override
@@ -361,7 +368,7 @@ public class importPanel extends JPanel {
 		gbc1_3.gridy = 3;
 		gbc1_3.gridx = 1;
 		gbc1_3.weightx = 0.3;
-		gbc1_3.insets = new java.awt.Insets(20, 0, 0, 0);
+		gbc1_3.insets = new java.awt.Insets(10, 0, 0, 0);
 		contentPane.add(tongTienTextField, gbc1_3);
 
 		this.add(contentPane, gbc);

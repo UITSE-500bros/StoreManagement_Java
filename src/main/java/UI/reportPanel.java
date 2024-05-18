@@ -1,15 +1,14 @@
 package UI;
 
-import java.awt.EventQueue;
+import java.awt.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import java.awt.Dimension;
 import java.util.Objects;
+import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.formdev.flatlaf.FlatLightLaf;
@@ -51,10 +50,42 @@ public class reportPanel extends JPanel {
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 ;
-		this.setLayout(new BorderLayout(0, 0));
+		this.setLayout(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+
+		JPanel panelHeader = new JPanel();
+		panelHeader.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(0, 0, 0)));
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.weightx = 1;
+		gbc.weighty = 0.1;
+		gbc.fill = GridBagConstraints.BOTH;
+
+		panelHeader.setLayout(new GridBagLayout());
+		panelHeader.setOpaque(false);
+		GridBagConstraints gbcHeader = new GridBagConstraints();
+		gbcHeader.gridx = 0;
+		gbcHeader.gridy = 0;
+		gbcHeader.weightx = 0.9;
+		gbcHeader.weighty = 1;
+		gbcHeader.fill = GridBagConstraints.HORIZONTAL;
+		gbcHeader.anchor = GridBagConstraints.WEST;
+		JLabel headerLable = new JLabel("Báo cáo");
+		headerLable.setBorder(new EmptyBorder(0, 20, 0, 0));
+		headerLable.setFont(new Font("Roboto", Font.BOLD, 44));
+		panelHeader.add(headerLable, gbcHeader);
+		this.add(panelHeader, gbc);
 		
 		JPanel panel = new JPanel();
-		this.add(panel, BorderLayout.NORTH);
+
+		gbc = new GridBagConstraints();
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		gbc.weightx = 1;
+		gbc.weighty = 0.1;
+		gbc.fill = GridBagConstraints.BOTH;
+
+		this.add(panel, gbc);
 		panel.setLayout(new BorderLayout(0, 0));
 		
 		JButton btnNewButton = new JButton("");
@@ -80,7 +111,14 @@ public class reportPanel extends JPanel {
 		panel.add(comboBox, BorderLayout.EAST);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		this.add(scrollPane, BorderLayout.CENTER);
+		gbc = new GridBagConstraints();
+		gbc = new GridBagConstraints();
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		gbc.weightx = 1;
+		gbc.weighty = 0.9;
+		gbc.fill = GridBagConstraints.BOTH;
+		this.add(scrollPane, gbc);
 		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
