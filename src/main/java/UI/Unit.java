@@ -2,15 +2,10 @@ package UI;
 
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTable;
-import javax.swing.JScrollPane;
-import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 import java.awt.BorderLayout;
-import javax.swing.JRadioButton;
 
 public class Unit extends JFrame {
 
@@ -63,13 +58,21 @@ public class Unit extends JFrame {
 		contentPane.add(panel, BorderLayout.SOUTH);
 		
 		JButton btnAdd = new JButton("Thêm");
+		btnAdd.addActionListener(e -> {
+			String unit = JOptionPane.showInputDialog("Nhập đơn vị tính");
+			DefaultTableModel model = (DefaultTableModel) table.getModel();
+			model.addRow(new Object[] {model.getRowCount() + 1, unit});
+
+
+		});
 		panel.add(btnAdd);
 		
 		JButton btnOk = new JButton("Ok");
+		btnOk.addActionListener(e -> {
+			this.dispose();
+		});
 		panel.add(btnOk);
 		
-		JButton btnCancel = new JButton("Hủy");
-		panel.add(btnCancel);
 	}
 
 }
