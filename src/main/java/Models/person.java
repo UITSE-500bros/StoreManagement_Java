@@ -4,7 +4,7 @@ package Models;
 import com.google.gson.annotations.SerializedName;
 
 public class person {
-    @SerializedName("ppersonid")
+
     private int PPersonid;
     private String personlastname;
     private String personname;

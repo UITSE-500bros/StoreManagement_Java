@@ -411,7 +411,7 @@ public class StoresPanel extends JPanel {
 							daily.setMaloaidl(loaidaily);
 							daily.setEmail(values[5]);
 							
-							if (daiLyController.addNewDaiLy(daily, quan, loaidaily).contains("201")) {
+							if (daiLyController.addNewDaiLy(daily, quan, loaidaily).contains("200")) {
 								JOptionPane.showMessageDialog(null, "Thêm đại lý thành công");
 								model.addRow(
 										new Object[] { model.getRowCount() + 1, values[0], values[1], values[4], 0.0 });

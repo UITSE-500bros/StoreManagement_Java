@@ -17,25 +17,10 @@ public class MatHangRepository extends Connection{
         gson = new Gson();
         String json = gson.toJson(mathang);
 
-        openPostConnection("http://localhost:8080/matHang/addMatHang");
+        openPostConnection("matHang/addMatHang");
 
-        String response = "";
-        try {
-            // Send post request
-            con.setDoOutput(true);
-            OutputStream os = con.getOutputStream();
-            OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
-            osw.write(json);
-            osw.flush();
-            osw.close();
-            os.close();
-
-            // Get the response code
-            response = String.valueOf(con.getResponseCode());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        response = "";
+        writeObject(json);
         closeConnection();
 
         return response;

@@ -24,26 +24,14 @@ public class DaiLyController {
     }
 
     public List<daily> showDaiLy() throws IOException {
-        connection.setUrl(new URL("https://still-cliffs-55450-6c9d6b2dff57.herokuapp.com/daily/getAllDaiLy"));
-        connection.openGetConnection();
-        connection.getCon().setRequestProperty("Content-Type", "application/json");
-        connection.getCon().setRequestProperty("Accept", "application/json");
-        connection.getCon().setRequestMethod("GET");
-        connection.getCon().setDoOutput(true);
-        connection.getCon().setDoInput(true);
-        connection.getCon().connect();
+        String link = "daily/getAllDaiLy";
+        connection.openGetConnection(link);
 
-        // Read from the input stream before disconnecting
-        Gson gson = new Gson();
-        JsonReader reader = new JsonReader(new InputStreamReader(connection.getCon().getInputStream()));
-        Type listType = new TypeToken<List<daily>>(){}.getType();
-        List<daily> dailies = gson.fromJson(reader, listType);
-        connection.getCon().disconnect();
-        return dailies;
+        return connection.getAllDaiLy();
+
     }
 
     public String addNewDaiLy(daily daily, quan quan, loaidaily loaidaily){
-        connection.insertDaiLy(daily);
-        return "DaiLy added successfully";
+        return connection.insertDaiLy(daily);
     }
 }
