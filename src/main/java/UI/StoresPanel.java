@@ -509,14 +509,16 @@ public class StoresPanel extends JPanel {
 
 						            if (selectedAgent != null) {
 						                // Update the other input fields
-						                ((JTextField) inputs[1]).setText(selectedAgent.getDiachi());
-						                ((JTextField) inputs[2]).setText(selectedAgent.getSdt());
-						                ((JTextField) inputs[3]).setText(selectedAgent.getEmail());
+						                ((CustomTextField) inputs[1]).setText(selectedAgent.getDiachi());
+						                ((CustomTextField) inputs[2]).setText(selectedAgent.getSdt());
+						                ((CustomTextField) inputs[3]).setText(selectedAgent.getEmail());
+						                ((CustomTextField) inputs[5]).setPlaceholder("Tối đa " + selectedAgent.getTienno() + " VND");
 						            } else {
 						                // Clear the other input fields
-						                ((JTextField) inputs[1]).setText("");
-						                ((JTextField) inputs[2]).setText("");
-						                ((JTextField) inputs[3]).setText("");
+						                ((CustomTextField) inputs[1]).setText("");
+						                ((CustomTextField) inputs[2]).setText("");
+						                ((CustomTextField) inputs[3]).setText("");
+						                ((CustomTextField) inputs[5]).setPlaceholder("");
 						            }
 								}
 							};
@@ -563,8 +565,8 @@ public class StoresPanel extends JPanel {
 
         	        // Show the popup
         	        JOptionPane.showOptionDialog(null, popupPanel, "Phiếu thu tiền", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
-        	    }
-        	});
+        	        }
+        	    });
          
 	}
 
