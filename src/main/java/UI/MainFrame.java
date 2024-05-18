@@ -115,7 +115,7 @@ public class MainFrame extends JFrame {
 		});
 		MainMenu.add(mntm_StoreType);
 		
-		JMenuItem mntm_ItemQuantity = new JMenuItem("Số lượng mặt hàng tối đa");
+		JMenuItem mntm_ItemQuantity = new JMenuItem("Thêm mặt hàng mới");
 		mntm_ItemQuantity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Items items = new Items();

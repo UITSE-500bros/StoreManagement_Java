@@ -8,6 +8,9 @@ import javax.swing.border.EmptyBorder;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 import java.awt.GridLayout;
 
 public class addItem extends JDialog {
@@ -131,18 +134,22 @@ public class addItem extends JDialog {
 				//
 				okButton.addActionListener(e -> {
 					String name = getName();
-					String importPrice = String.valueOf(getImportPrice());
+					String importPrice =String.valueOf(getImportPrice());
 					String unit = (String) cmb_units.getSelectedItem();
-					if(name.isEmpty() || importPrice.isEmpty()) {
+					if(name.isEmpty()||importPrice.isEmpty()||unit.isEmpty() ) {
 						JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin");
 						return;
 					}
-					if(Double.parseDouble(importPrice)==-1)
-						return;
-					else {
-						Items.addItemToTable(name, importPrice, unit);
-						dispose();
-					}
+					
+				
+				
+		            // add item to table
+					Items.addItemToTable(name, importPrice, unit);
+					this.dispose();
+					
+					
+		
+
 
 				});
 			}
