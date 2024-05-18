@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.table.DefaultTableModel;
 import java.awt.BorderLayout;
 import javax.swing.JRadioButton;
@@ -18,7 +19,7 @@ public class Items extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTable table;
+	private static JTable table;
 
 
 	/**
@@ -57,17 +58,17 @@ public class Items extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"STT", "M\u1EB7t h\u00E0ng"
+				"STT", "M\u1EB7t h\u00E0ng", "\u0110\u01A1n v\u1ECB t\u00EDnh", "\u0110\u01A1n gi\u00E1 nh\u1EADp"
 			}
 		) {
 			Class[] columnTypes = new Class[] {
-				Integer.class, String.class
+				Integer.class, Object.class, Object.class, Object.class
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
 			boolean[] columnEditables = new boolean[] {
-				false, true
+				false, false, false, false
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
@@ -81,9 +82,11 @@ public class Items extends JFrame {
 		JButton btnAdd = new JButton("Thêm");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DefaultTableModel model = (DefaultTableModel) table.getModel();
-				model.addRow(new Object[] { model.getRowCount() + 1, "" });
-				
+				addItem dialog = new addItem();
+				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				dialog.setLocationRelativeTo(null);
+				dialog.setVisible(true);
+
 			}
 		});
 
@@ -92,13 +95,17 @@ public class Items extends JFrame {
 		JButton btnOk = new JButton("Ok");
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				dispose();
 			}
 			
 		});
 		panel.add(btnOk);
 		
 		
+	}
+	public  static void addItemToTable(String name, String unit, String price) {
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		model.addRow(new Object[] {model.getRowCount() + 1, name, unit, price});
 	}
 
 }
