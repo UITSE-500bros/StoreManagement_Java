@@ -15,7 +15,7 @@ import java.util.List;
 
 public class MatHangController {
     private final MatHangRepository connection;
-    private final String link = "mathang/getAllMatHang";
+    private final String link = "mathang/all";
 
 
     public MatHangController() {

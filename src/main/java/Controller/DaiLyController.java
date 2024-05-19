@@ -19,18 +19,13 @@ public class DaiLyController {
     private final DaiLyRepository connection;
 
     public DaiLyController() {
-
         connection = new DaiLyRepository();
     }
-
     public List<daily> showDaiLy() throws IOException {
         String link = "daily/getAllDaiLy";
         connection.openGetConnection(link);
-
         return connection.getAllDaiLy();
-
     }
-
     public String addNewDaiLy(daily daily, quan quan, loaidaily loaidaily){
         return connection.insertDaiLy(daily);
     }
