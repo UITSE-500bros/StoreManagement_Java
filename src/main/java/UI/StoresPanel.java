@@ -420,6 +420,7 @@ public class StoresPanel extends JPanel {
 								JOptionPane.showMessageDialog(null, "Thêm đại lý thành công");
 								model.addRow(
 										new Object[] { model.getRowCount() + 1, values[0], values[1], values[4], 0 });
+								dailyList.add(daily);
 							}
 							// Add the new row to the table
 							
@@ -445,7 +446,7 @@ public class StoresPanel extends JPanel {
         	        popupPanel.revalidate();
         	        popupPanel.repaint();
         	        // Show the popup
-        	        JOptionPane.showOptionDialog(null, popupPanel, "Thêm đại lý", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
+        	        JOptionPane.showOptionDialog(null, popupPanel, "Hồ sơ đại lý", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
         	    }
         	});
          
