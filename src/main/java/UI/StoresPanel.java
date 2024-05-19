@@ -20,7 +20,7 @@ import ReuseClass.DatePicker;
 import UI.CustomTextField;
 import UI.CustomComboBox;
 import javax.swing.event.*;
-import javax.swing.RowFilter;
+
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 public class StoresPanel extends JPanel {
@@ -255,7 +255,7 @@ public class StoresPanel extends JPanel {
 
         	    public void filter() {
         	        String filterText = searchField.getText();
-        	        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>((DefaultTableModel) table.getModel());
+    	            TableRowSorter<DefaultTableModel> sorter = (TableRowSorter<DefaultTableModel>) ((DefaultRowSorter)table.getRowSorter());
         	        sorter.setRowFilter(RowFilter.regexFilter("(?i)" + filterText)); // (?i) enables case insensitive matching
         	        table.setRowSorter(sorter);
         	    }
@@ -280,7 +280,7 @@ public class StoresPanel extends JPanel {
         	            category = "";
         	        }
 
-        	        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>((DefaultTableModel) table.getModel());
+    	            TableRowSorter<DefaultTableModel> sorter = (TableRowSorter<DefaultTableModel>) ((DefaultRowSorter)table.getRowSorter());
         	        sorter.setRowFilter(RowFilter.andFilter(Arrays.asList(
         	            RowFilter.regexFilter(district, 3), // 3 is the column index for district
         	            RowFilter.regexFilter(category, 2) // 2 is the column index for category
@@ -295,13 +295,14 @@ public class StoresPanel extends JPanel {
         	    public void itemStateChanged(ItemEvent e) {
         	        if (e.getStateChange() == ItemEvent.SELECTED) {
         	            String selected = (String) e.getItem();
-        	            TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>((DefaultTableModel) table.getModel());
+        	            TableRowSorter<DefaultTableModel> sorter = (TableRowSorter<DefaultTableModel>) ((DefaultRowSorter)table.getRowSorter());
         	            if (selected.equals("Tiền nợ tăng dần")) {
         	                sorter.setSortKeys(Arrays.asList(new RowSorter.SortKey(4, SortOrder.ASCENDING))); // 4 is the column index for debt
         	            } else if (selected.equals("Tiền nợ giảm dần")) {
         	                sorter.setSortKeys(Arrays.asList(new RowSorter.SortKey(4, SortOrder.DESCENDING))); // 4 is the column index for debt
         	            }
         	            table.setRowSorter(sorter);
+        	            
         	        }
         	    }
         	});
