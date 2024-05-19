@@ -97,8 +97,8 @@ public class ExportPanel extends JPanel {
 		contentPane.add(pnhLable, gbc1);
 
 		addButton = new CustomButton("Lập phiếu");
-		addButton.setPreferredSize(new Dimension(150, 40));  // Preferred size
-		addButton.setMinimumSize(new Dimension(150, 40));    // Minimum size
+		addButton.setPreferredSize(new Dimension(130, 40));  // Preferred size
+		addButton.setMinimumSize(new Dimension(130, 40));    // Minimum size
 		ImageIcon lapPhieuIcon = new ImageIcon("src/main/java/resource/lapPhieuIcon.png");
 		addButton.setIcon(lapPhieuIcon);
 		addButton.setBorderPainted(false);
@@ -114,7 +114,6 @@ public class ExportPanel extends JPanel {
 		gbc1.weightx = 1.0;         // Make sure it can expand horizontally
 		gbc1.weighty = 0.0;         // No extra vertical space
 		gbc1.anchor = GridBagConstraints.EAST;
-		gbc1.insets = new Insets(0, 0, 0, 30);
 		gbc1.fill = GridBagConstraints.CENTER;  // Allow it to fill horizontally
 		contentPane.add(addButton, gbc1);
 

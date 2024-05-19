@@ -27,5 +27,7 @@ public class mathang {
         this.slton = slton;
     }
 
-
+    public String getTenmh() {
+        return tenmh;
+    }
 }

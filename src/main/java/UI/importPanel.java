@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -13,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
 import Controller.MatHangController;
+import Models.mathang;
 import ReuseClass.DatePicker;
 
 public class importPanel extends JPanel {
@@ -105,8 +108,8 @@ public class importPanel extends JPanel {
 		contentPane.add(pnhLable, gbc1);
 
 		addButton = new CustomButton("Lập phiếu");
-		addButton.setPreferredSize(new Dimension(150, 40));  // Preferred size
-		addButton.setMinimumSize(new Dimension(150, 40));    // Minimum size
+		addButton.setPreferredSize(new Dimension(130, 40));  // Preferred size
+		addButton.setMinimumSize(new Dimension(130, 40));    // Minimum size
 		ImageIcon lapPhieuIcon = new ImageIcon("src/main/java/resource/lapPhieuIcon.png");
 		addButton.setIcon(lapPhieuIcon);
 		addButton.setBorderPainted(false);
@@ -123,7 +126,6 @@ public class importPanel extends JPanel {
 		gbc1_1.weightx = 1.0;         // Make sure it can expand horizontally
 		gbc1_1.weighty = 0.0;         // No extra vertical space
 		gbc1_1.anchor = GridBagConstraints.EAST;
-		gbc1_1.insets = new Insets(0, 0, 0, 30);
 		gbc1_1.fill = GridBagConstraints.CENTER;  // Allow it to fill horizontally
 
 		contentPane.add(addButton, gbc1_1);
@@ -178,13 +180,17 @@ public class importPanel extends JPanel {
 
 				gbcContent = new GridBagConstraints();
 				matHangController = new MatHangController();
-                CustomComboBox txtName = null;
+                List<mathang> list = null;
                 try {
-                    txtName = new CustomComboBox(matHangController.showMatHang().toArray());
+					list = new MatHangController().showMatHang();
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
-
+				ArrayList<String> matHangs = new ArrayList<>();
+				for(mathang mh : list) {
+					matHangs.add(mh.getTenmh());
+				}
+				CustomComboBox txtName = new CustomComboBox(matHangs.toArray());
                 gbcContent.fill = GridBagConstraints.HORIZONTAL;
 				gbcContent.gridx = 0;
 				gbcContent.gridy = 1;
@@ -267,10 +273,9 @@ public class importPanel extends JPanel {
 				gbcContent = new GridBagConstraints();
 				CustomButton newGoodButton = new CustomButton("Thêm mới");
 				CustomButton cancelButton = new CustomButton("Hủy bỏ");
-				CustomComboBox finalTxtName = txtName;
 				newGoodButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if (finalTxtName.getSelectedItem() == null || txtDVT.getSelectedItem() == null
+						if (txtName.getSelectedItem() == null || txtDVT.getSelectedItem() == null
 								|| txtSoLuong.getText().equals("") || txtDonGia.getText().equals("")) {
 							JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin", "Lỗi",
 									JOptionPane.ERROR_MESSAGE);
@@ -283,7 +288,7 @@ public class importPanel extends JPanel {
 						}
 						int sum= Integer.parseInt(txtSoLuong.getText()) * Integer.parseInt(txtDonGia.getText());
 						int num = Integer.parseInt(model.getValueAt(model.getRowCount() - 1, 0).toString());
-						model.addRow(new Object[] { num + 1, finalTxtName.getSelectedItem(), txtDVT.getSelectedItem(),
+						model.addRow(new Object[] { num + 1, txtName.getSelectedItem(), txtDVT.getSelectedItem(),
 								txtSoLuong.getText(), txtDonGia.getText(), sum});
 						String tongTienText = tongTienTextField.getText();
 						tongTienText = tongTienText.replace("Tổng tiền: ", "").replace(" VND", "");
