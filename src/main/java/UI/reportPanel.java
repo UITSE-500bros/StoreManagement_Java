@@ -90,7 +90,7 @@ public class reportPanel extends JPanel {
 		
 		JButton btnNewButton = new JButton("");
 		ImageIcon icon = new ImageIcon("/resource/searchStoreIcon.png");
-		btnNewButton.setIcon(new ImageIcon(reportPanel.class.getResource("/resource/searchStoreIcon.png")));
+		btnNewButton.setIcon(new ImageIcon("src/main/java/resource/searchStoreIcon.png"));
 		btnNewButton.setPreferredSize(new Dimension(30, 30));
 
 

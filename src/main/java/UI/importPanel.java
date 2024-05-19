@@ -3,6 +3,7 @@ package UI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -11,6 +12,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
+import Controller.MatHangController;
 import ReuseClass.DatePicker;
 
 public class importPanel extends JPanel {
@@ -25,6 +27,7 @@ public class importPanel extends JPanel {
 	private DatePicker datePicker;
 	private JTable tableNhapHang;
 	private DefaultTableModel model;
+	private MatHangController matHangController;
 
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
@@ -174,9 +177,15 @@ public class importPanel extends JPanel {
 				panelContent.add(labelName, gbcContent);
 
 				gbcContent = new GridBagConstraints();
-				String [] cacMatHang = new String[] {"Cà phê", "Đường", "Hạt nêm", "Mì", "Sữa"};
-				CustomComboBox txtName = new CustomComboBox(cacMatHang);
-				gbcContent.fill = GridBagConstraints.HORIZONTAL;
+				matHangController = new MatHangController();
+                CustomComboBox txtName = null;
+                try {
+                    txtName = new CustomComboBox(matHangController.showMatHang().toArray());
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+                gbcContent.fill = GridBagConstraints.HORIZONTAL;
 				gbcContent.gridx = 0;
 				gbcContent.gridy = 1;
 				gbcContent.weightx = 0.5;
@@ -258,9 +267,10 @@ public class importPanel extends JPanel {
 				gbcContent = new GridBagConstraints();
 				CustomButton newGoodButton = new CustomButton("Thêm mới");
 				CustomButton cancelButton = new CustomButton("Hủy bỏ");
+				CustomComboBox finalTxtName = txtName;
 				newGoodButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if (txtName.getSelectedItem() == null || txtDVT.getSelectedItem() == null
+						if (finalTxtName.getSelectedItem() == null || txtDVT.getSelectedItem() == null
 								|| txtSoLuong.getText().equals("") || txtDonGia.getText().equals("")) {
 							JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin", "Lỗi",
 									JOptionPane.ERROR_MESSAGE);
@@ -273,7 +283,7 @@ public class importPanel extends JPanel {
 						}
 						int sum= Integer.parseInt(txtSoLuong.getText()) * Integer.parseInt(txtDonGia.getText());
 						int num = Integer.parseInt(model.getValueAt(model.getRowCount() - 1, 0).toString());
-						model.addRow(new Object[] { num + 1, txtName.getSelectedItem(), txtDVT.getSelectedItem(),
+						model.addRow(new Object[] { num + 1, finalTxtName.getSelectedItem(), txtDVT.getSelectedItem(),
 								txtSoLuong.getText(), txtDonGia.getText(), sum});
 						String tongTienText = tongTienTextField.getText();
 						tongTienText = tongTienText.replace("Tổng tiền: ", "").replace(" VND", "");
