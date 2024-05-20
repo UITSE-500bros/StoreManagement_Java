@@ -1,5 +1,9 @@
 package UI;
 
+import Controller.DaiLyController;
+import Controller.LoaiDaiLyController;
+import Models.loaidaily;
+
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.text.NumberFormat;
@@ -14,11 +18,14 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class addNewStoreType extends JFrame {
 
+
+public class addNewStoreType extends JFrame {
+	java.util.List<loaidaily> loaidailyList;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private int totaltype=0;
+
+
 
 	/**
 	 * Launch the application.
@@ -46,6 +53,15 @@ public class addNewStoreType extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 
+		LoaiDaiLyController loaidailyController = new LoaiDaiLyController();
+		try{
+			loaidailyList = loaidailyController.showLoaiDaiLy();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		 int  totaltype = loaidailyList.size();
+
 		NumberFormat intFormat = NumberFormat.getIntegerInstance();
 		NumberFormat floatFormat = NumberFormat.getNumberInstance();
 		GridBagLayout gbl_contentPane = new GridBagLayout();
@@ -62,7 +78,10 @@ public class addNewStoreType extends JFrame {
 		gbc_lblStoreType.gridx = 0;
 		gbc_lblStoreType.gridy = 0;
 		contentPane.add(lblStoreType, gbc_lblStoreType);
-		JSpinner txtStoreType = new JSpinner(new SpinnerNumberModel(totaltype, totaltype, 100, 1));
+		JLabel txtStoreType = new JLabel();
+
+		txtStoreType.setText(String.valueOf(loaidailyList.size()+1));
+
 		GridBagConstraints gbc_txtStoreType = new GridBagConstraints();
 		gbc_txtStoreType.anchor = GridBagConstraints.EAST;
 		gbc_txtStoreType.insets = new Insets(0, 0, 5, 0);
@@ -97,7 +116,7 @@ public class addNewStoreType extends JFrame {
 		JButton btnSave = new JButton("Lưu");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				totaltype = (int) txtStoreType.getValue();
+				
 				JOptionPane.showMessageDialog(null, "Đã lưu");
 				dispose();
 			}

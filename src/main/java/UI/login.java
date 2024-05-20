@@ -140,8 +140,7 @@ public class login extends JFrame {
 		contentPane.add(password_panel, gbc_password_panel);
 		password_panel.setLayout(new BorderLayout(0, 0));
 		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("Ghi nhớ mật khẩu");
-		password_panel.add(chckbxNewCheckBox, BorderLayout.WEST);
+
 		JButton btn_forgot = new JButton("Quên mật khẩu");
 		btn_forgot.setBackground(new Color(238, 230, 224));
 		password_panel.add(btn_forgot, BorderLayout.EAST);
