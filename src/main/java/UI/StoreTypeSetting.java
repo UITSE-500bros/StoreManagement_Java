@@ -69,7 +69,7 @@ public class StoreTypeSetting extends JDialog {
 		contentPanel.add(lblNewLabel_1, gbc_lblNewLabel_1);
 
 		textField = new JTextField();
-		textField.setPreferredSize(new Dimension(150, 20)); // Set fixed size for the text field
+		textField.setPreferredSize(new Dimension(150, 30)); // Set fixed size for the text field
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField.gridx = 1;
@@ -86,16 +86,10 @@ public class StoreTypeSetting extends JDialog {
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
-		okButton.addActionListener(e->{
-			dispose();
-		});
 
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.setPreferredSize(new Dimension(80, 30)); // Set fixed size for the button
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
-		cancelButton.addActionListener(e->{
-			dispose();
-		});
 	}
 }
