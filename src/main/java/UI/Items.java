@@ -14,6 +14,8 @@ import java.awt.BorderLayout;
 import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Items extends JFrame {
 
@@ -58,7 +60,7 @@ public class Items extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"STT", "M\u1EB7t h\u00E0ng", "\u0110\u01A1n v\u1ECB t\u00EDnh", "\u0110\u01A1n gi\u00E1 nh\u1EADp"
+				"STT", "M\u1EB7t h\u00E0ng", "\u0110\u01A1n gi\u00E1 nh\u1EADp", "\u0110\u01A1n v\u1ECB t\u00EDnh"
 			}
 		) {
 			Class[] columnTypes = new Class[] {
@@ -74,6 +76,10 @@ public class Items extends JFrame {
 				return columnEditables[column];
 			}
 		});
+		table.getColumnModel().getColumn(0).setResizable(false);
+		table.getColumnModel().getColumn(1).setResizable(false);
+		table.getColumnModel().getColumn(2).setResizable(false);
+		table.getColumnModel().getColumn(3).setResizable(false);
 		scrollPane.setViewportView(table);
 		
 		JPanel panel = new JPanel();
@@ -100,6 +106,30 @@ public class Items extends JFrame {
 			
 		});
 		panel.add(btnOk);
+		// Trong class Items
+		JButton btnEdit = new JButton("Sửa");
+		btnEdit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int selectedRow = table.getSelectedRow();
+				if (selectedRow != -1) {
+					String currentPrice = (String) table.getValueAt(selectedRow, 2);
+					EditPriceDialog dialog = new EditPriceDialog(currentPrice);
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dialog.setLocationRelativeTo(null);
+					dialog.setVisible(true);
+					dialog.addWindowListener(new WindowAdapter() {
+						@Override
+						public void windowClosed(WindowEvent e) {
+							String newPrice = dialog.getNewPrice();
+							if (newPrice != null) {
+								table.setValueAt(newPrice, selectedRow, 3);
+							}
+						}
+					});
+				}
+			}
+		});
+		panel.add(btnEdit);
 		
 		
 	}
@@ -107,5 +137,7 @@ public class Items extends JFrame {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		model.addRow(new Object[] {model.getRowCount() + 1, name, unit, price});
 	}
+
+
 
 }
