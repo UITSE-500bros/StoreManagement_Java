@@ -10,8 +10,8 @@ public class PhieuThuTienController {
         this.phieuThuTienRepository = new PhieuThuTienRepository();
     }
 
-    public void createPhieuThuTien(phieuthutien phieuThuTien) {
-        phieuThuTienRepository.insertPhieuThuTien(phieuThuTien);
+    public String createPhieuThuTien(phieuthutien phieuThuTien) {
+        return phieuThuTienRepository.insertPhieuThuTien(phieuThuTien);
     }
 
 }
