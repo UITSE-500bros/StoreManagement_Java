@@ -34,4 +34,12 @@ public class mathang {
     public int getDongianhap() {
         return dongianhap;
     }
+
+	public int getSoLuong() {
+		return slton;
+	}
+
+	public dvt getDvt() {
+		return madvt;
+	}
 }

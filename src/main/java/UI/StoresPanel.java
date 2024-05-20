@@ -620,12 +620,33 @@ public class StoresPanel extends JPanel {
             	                    phieuThuTien.setMadaily(selectedAgent);            	                    
             	                    phieuThuTien.setNgaythutien(LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
             	                    phieuThuTien.setTienthu(Integer.parseInt(values[5]));
-            	                    phieuThuTienController.createPhieuThuTien(phieuThuTien);
-            	                    JOptionPane.showMessageDialog(null, "Lập phiếu thu tiền thành công");
-            	                    model.setValueAt(selectedAgent.getTienno(), table.getSelectedRow(), 4);
+            	                    if(phieuThuTienController.createPhieuThuTien(phieuThuTien).contains("201")) {
+            	                    	for (int i = 0; i < model.getRowCount(); i++) {
+        									if (model.getValueAt(i, 1).equals(selectedAgent.getTendaily())) {
+        										model.setValueAt( selectedAgent.getTienno(), i,4 );
+        										break;
+        									}
+        								}
+            	                    	((Window) SwingUtilities.getRoot(popupPanel)).dispose();
+            	                    	JOptionPane.showMessageDialog(null, "Lập phiếu thu tiền thành công");
+                	                    
+                	                    
+                	                   
+            	                    }
+            	                    else {
+            	                    	JOptionPane.showMessageDialog(null, "Lập phiếu thu tiền thất bại");
+            	                    }
+            	                    
             	                }
         	        	   }
         	        });
+					cancelButton.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							// Hide the popup
+							((Window) SwingUtilities.getRoot(popupPanel)).dispose();
+						}
+					});
         	        //
         	        gbc.gridy++;
         	        gbc.gridwidth = 1;
