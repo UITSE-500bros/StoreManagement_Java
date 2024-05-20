@@ -13,7 +13,7 @@ public class LoaiDaiLyController {
         this.connection = connection;
     }
     public List<loaidaily> showLoaiDaiLy() throws IOException {
-        String link = "loaidaily/getAllLoaiDaiLy";
+        String link = "loaidaily/loaidaily";
         connection.openGetConnection(link);
         return connection.getALlLoaiDaiLy();
     }
