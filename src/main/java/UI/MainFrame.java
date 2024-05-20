@@ -96,10 +96,10 @@ public class MainFrame extends JFrame {
 		JMenuItem mntm_MaxStore = new JMenuItem("Số đại lý tối đa mỗi quận");
 		mntm_MaxStore.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				maxStorelimit maxStorelimit = new maxStorelimit();
-				maxStorelimit.setVisible(true);
-				maxStorelimit.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				maxStorelimit.setLocationRelativeTo(null);
+				storeLimit storeLimit = new storeLimit();
+				storeLimit.setVisible(true);
+				storeLimit.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				storeLimit.setLocationRelativeTo(null);
 			}
 		});
 		MainMenu.add(mntm_MaxStore);
