@@ -25,7 +25,7 @@ public class ExportPanel extends JPanel {
 	private final JButton addButton;
 	private final DefaultTableModel model;
 	private JTextField tienConLaiTextField;
-	private JTextComponent tienTraTextField;
+	private CustomTextField tienTraTextField;
 	private JTextField tongTienTextField;
 	private JTable tableXuatHang;
 	private FilterComboBox maSoPhieuTextField;
@@ -324,6 +324,23 @@ public class ExportPanel extends JPanel {
 		addButton.setIconTextGap(20);
 		addButton.setHorizontalAlignment(JButton.LEFT);
 		addButton.setHorizontalTextPosition(JButton.RIGHT);
+		addButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (model.getRowCount() == 0) {
+					JOptionPane.showMessageDialog(null, "Vui lòng thêm mặt hàng", "Lỗi", JOptionPane.ERROR_MESSAGE);
+				}
+				if (tienTraTextField.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Vui lòng nhập số tiền trả", "Lỗi", JOptionPane.ERROR_MESSAGE);
+				}
+				if (!tienTraTextField.getText().matches("[0-9]+")) {
+					JOptionPane.showMessageDialog(null, "Số tiền trả phải là số nguyên", "Lỗi", JOptionPane.ERROR_MESSAGE);
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Lập phiếu thành công", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
 		gbc3 = new GridBagConstraints();
 		gbc3.gridx = 3;
 		gbc3.weightx = 0.2;
@@ -416,16 +433,35 @@ public class ExportPanel extends JPanel {
 		tongTienTextField.setEditable(false);
 		tongTienTextField.setText("Tổng tiền: 0 VND");
 		tongTienTextField.setFont(new Font("Roboto", Font.PLAIN, 15));
+		tongTienTextField.setMinimumSize(new Dimension(200, 40));
+		tongTienTextField.setPreferredSize(new Dimension(200, 40));
 		gbc2.gridx = 0;
 		gbc2.weightx = 0.33; // Adjusted weight
 		panel2Tien.add(tongTienTextField, gbc2);
 
 		gbc2 = new GridBagConstraints();
 		gbc2.anchor = GridBagConstraints.CENTER;
-		tienTraTextField = new JTextField(15);
+		tienTraTextField = new CustomTextField(15);
+		tienTraTextField.setPlaceholder("Số tiền trả");
 		tienTraTextField.setEditable(true);
-		tienTraTextField.setText("Số tiền trả: 0 VND");
 		tienTraTextField.setFont(new Font("Roboto", Font.PLAIN, 15));
+		tienTraTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+			public void keyReleased(java.awt.event.KeyEvent evt) {
+				String tienTraText = tienTraTextField.getText();
+				if (!tienTraText.matches("[0-9]+")) {
+					tienTraTextField.setText("");
+					tienConLaiTextField.setText("Còn lại: 0 VND");
+					return;
+				}
+				String tongTienText = tongTienTextField.getText();
+				tongTienText = tongTienText.replace("Tổng tiền: ", "").replace(" VND", "");
+				int tongTien = Integer.parseInt(tongTienText);
+				int tienTra = Integer.parseInt(tienTraText);
+				int tienConLai = tongTien - tienTra;
+				tienConLaiTextField.setText("Còn lại: " + tienConLai + " VND");
+			}
+		});
+		tienTraTextField.setMinimumSize(new Dimension(200, 40));
 		gbc2.gridx = 1;
 		gbc2.weightx = 0.33; // Adjusted weight
 		panel2Tien.add(tienTraTextField, gbc2);
@@ -436,6 +472,8 @@ public class ExportPanel extends JPanel {
 		tienConLaiTextField = new JTextField(15);
 		tienConLaiTextField.setEditable(false);
 		tienConLaiTextField.setText("Còn lại: 0 VND");
+		tienConLaiTextField.setMinimumSize(new Dimension(200, 40));
+		tienConLaiTextField.setPreferredSize(new Dimension(200, 40));
 		tienConLaiTextField.setFont(new Font("Roboto", Font.PLAIN, 15));
 		gbc2.gridx = 2;
 		gbc2.weightx = 0.33;
