@@ -14,7 +14,8 @@ public class PhieuNhapHangController {
     }
     int mapnhap;
     public int createPhieuNhapHang(phieunhaphang phieuNhapHang) throws IOException {
-        return phieuNhapHangRepository.createPhieuNhapHang(phieuNhapHang);
+        mapnhap = phieuNhapHangRepository.createPhieuNhapHang(phieuNhapHang);
+        return mapnhap;
     }
 
     public String addCTNH(List<ctnh> ctnhList) {
