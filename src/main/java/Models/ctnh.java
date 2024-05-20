@@ -24,8 +24,7 @@ public class ctnh {
         this.mapnhap = mapnhap;
     }
 
-    public ctnh(phieunhaphang mapnhap, mathang mamh, int slnhap) {
-        this.mapnhap = mapnhap;
+    public ctnh(mathang mamh, int slnhap) {
         this.mamh = mamh;
         this.slnhap = slnhap;
     }
