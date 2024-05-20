@@ -6,6 +6,7 @@ public class ctnh {
 
     private phieunhaphang mapnhap;
 
+
     private mathang mamh;
 
     private int slnhap;
@@ -19,9 +20,11 @@ public class ctnh {
 
     public ctnh() {
     }
-
-    public ctnh(phieunhaphang mapnhap, mathang mamh, int slnhap) {
+    public ctnh(phieunhaphang mapnhap) {
         this.mapnhap = mapnhap;
+    }
+
+    public ctnh(mathang mamh, int slnhap) {
         this.mamh = mamh;
         this.slnhap = slnhap;
     }

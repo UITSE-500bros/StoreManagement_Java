@@ -37,7 +37,7 @@ public class PhieuNhapHangRepository extends Connection {
         }
     }
 
-    private String createCTNH(List<ctnh> ctnh) {
+    public String createCTNH(List<ctnh> ctnh) {
         super.openPostConnection("ctnh/createctnh");
         response = "";
         writeObject(gson.toJson(ctnh));
@@ -47,7 +47,6 @@ public class PhieuNhapHangRepository extends Connection {
         } else {
             return "Failed to create ctnh. HTTP response code: " + response;
         }
-
 
     }
 
