@@ -3,12 +3,8 @@ package UI;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JSpinner;
 import java.awt.GridLayout;
 import java.awt.Font;
 
@@ -16,6 +12,8 @@ public class storeLimit extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
+	private  int limit=1;
+	private JSpinner spinner;
 
 	/**
 	 * Launch the application.
@@ -29,6 +27,10 @@ public class storeLimit extends JDialog {
 			e.printStackTrace();
 		}
 	}
+	public int getLimit() {
+		return limit;
+	}
+
 
 	/**
 	 * Create the dialog.
@@ -45,7 +47,7 @@ public class storeLimit extends JDialog {
 			contentPanel.add(lblNewLabel);
 		}
 		{
-			JSpinner spinner = new JSpinner();
+			 spinner = new JSpinner(new SpinnerNumberModel(limit, 1, 100, 1));
 			contentPanel.add(spinner);
 		}
 		{
@@ -57,11 +59,19 @@ public class storeLimit extends JDialog {
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
+				okButton.addActionListener(e->{
+					limit=(int)spinner.getValue();
+					spinner.setValue(limit);
+					dispose();
+				});
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
+				cancelButton.addActionListener(e->{
+					dispose();
+				});
 			}
 		}
 	}
