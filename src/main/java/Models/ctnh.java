@@ -6,6 +6,7 @@ public class ctnh {
 
     private phieunhaphang mapnhap;
 
+
     private mathang mamh;
 
     private int slnhap;
@@ -18,6 +19,9 @@ public class ctnh {
     private int dvt;
 
     public ctnh() {
+    }
+    public ctnh(phieunhaphang mapnhap) {
+        this.mapnhap = mapnhap;
     }
 
     public ctnh(phieunhaphang mapnhap, mathang mamh, int slnhap) {
