@@ -8,6 +8,9 @@ public class dvt {
 
     public dvt() {
     }
+    public dvt(String tendvt) {
+        this.tendvt = tendvt;
+    }
 
     public dvt(int madvt, String tendvt) {
         this.madvt = madvt;

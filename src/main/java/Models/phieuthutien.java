@@ -5,12 +5,12 @@ public class phieuthutien {
     private int maphieuthu;
     private String ngaythutien;
     private int tienthu;
-    private int madaily;
+    private daily madaily;
 
     public phieuthutien() {
     }
 
-    public phieuthutien(int maphieuthu, String ngaythutien, int tienthu, int madaily) {
+    public phieuthutien(int maphieuthu, String ngaythutien, int tienthu, daily madaily) {
         this.maphieuthu = maphieuthu;
         this.ngaythutien = ngaythutien;
         this.tienthu = tienthu;
@@ -41,11 +41,11 @@ public class phieuthutien {
         this.tienthu = tienthu;
     }
 
-    public int getMadaily() {
+    public daily getMadaily() {
         return madaily;
     }
 
-    public void setMadaily(int madaily) {
+    public void setMadaily(daily madaily) {
         this.madaily = madaily;
     }
 }
