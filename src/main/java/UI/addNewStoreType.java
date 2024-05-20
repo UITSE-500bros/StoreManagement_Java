@@ -64,7 +64,7 @@ public class addNewStoreType extends JFrame {
 		contentPane.add(lblStoreType, gbc_lblStoreType);
 		JSpinner txtStoreType = new JSpinner(new SpinnerNumberModel(totaltype, totaltype, 100, 1));
 		GridBagConstraints gbc_txtStoreType = new GridBagConstraints();
-		gbc_txtStoreType.anchor = GridBagConstraints.WEST;
+		gbc_txtStoreType.anchor = GridBagConstraints.EAST;
 		gbc_txtStoreType.insets = new Insets(0, 0, 5, 0);
 		gbc_txtStoreType.gridx = 1;
 		gbc_txtStoreType.gridy = 0;
