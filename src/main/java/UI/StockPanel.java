@@ -29,9 +29,9 @@ import Controller.DaiLyController;
 import Models.daily;
 import Models.loaidaily;
 import Models.quan;
-import ReuseClass.DatePicker;
 
-public class StockPanel extends JPanel {
+
+public class StockPanel extends CustomPanel {
 
 	private static final long serialVersionUID = 1L;
 

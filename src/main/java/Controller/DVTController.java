@@ -14,4 +14,6 @@ public class DVTController {
     public List<dvt> showDVT() throws IOException {
         return dvtRepository.getAll();
     }
+
+
 }

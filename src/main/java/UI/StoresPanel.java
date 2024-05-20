@@ -7,6 +7,8 @@ import javax.swing.border.MatteBorder;
 import javax.swing.table.*;
 
 import Controller.DaiLyController;
+import Controller.LoaiDaiLyController;
+import Controller.QuanController;
 import Models.daily;
 import Models.loaidaily;
 import Models.quan;
@@ -33,20 +35,36 @@ public class StoresPanel extends JPanel {
 	private JButton addButton;
 	private DatePicker datePicker;
 	private DaiLyController daiLyController;
+	private LoaiDaiLyController loaiDaiLyController;
+	private QuanController quanController;
 	java.util.List<daily> dailyList;
+	java.util.List<loaidaily> loaidailyList;
+	java.util.List<quan> quanList;
 	/**
 	 * Create the panel.
 	 */
 	public StoresPanel() {
 		daiLyController = new DaiLyController();
+		loaiDaiLyController = new LoaiDaiLyController();
+		quanController = new QuanController();
 		try {
 			dailyList = daiLyController.showDaiLy();
+			loaidailyList = loaiDaiLyController.showLoaiDaiLy();
+			quanList = quanController.showQuan();
 		}catch (Exception e){
 			e.printStackTrace();
 		}
         String[] labels = {"Tên đại lý", "Loại đại lý", "Số điện thoại", "Địa chỉ", "Quận", "Email"};
-        String[] districtItems = {"Quận", "1", "2", "3", "Tân Phú", "Bình Tân"};
-        String[] categoryItems = {"Loại", "1", "2"};
+        String[] districtItems = new String[quanList.size() + 1];
+        String[] categoryItems = new String[loaidailyList.size() + 1];
+        districtItems[0] = "Quận";
+        categoryItems[0] = "Loại";
+		for (int i=0; i<loaidailyList.size(); i++) {
+			categoryItems[i+1] = loaidailyList.get(i).getTenloaidl();
+		}
+		for (int i = 0; i < quanList.size(); i++) {
+			districtItems[i + 1] = quanList.get(i).getTenquan();
+		}
 		String[] sortItems = {"Sắp xếp theo", "Tiền nợ tăng dần", "Tiền nợ giảm dần" };
 		setOpaque(false);
 		this.setLayout(new GridBagLayout());

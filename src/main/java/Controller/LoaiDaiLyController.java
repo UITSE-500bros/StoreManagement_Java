@@ -9,11 +9,11 @@ import java.util.List;
 public class LoaiDaiLyController {
     private final LoaiDaiLyRepository connection;
 
-    public LoaiDaiLyController(LoaiDaiLyRepository connection) {
-        this.connection = connection;
+    public LoaiDaiLyController() {
+        this.connection = new LoaiDaiLyRepository();
     }
     public List<loaidaily> showLoaiDaiLy() throws IOException {
-        String link = "loaidaily/getAllLoaiDaiLy";
+        String link = "loaidaily/loaidaily";
         connection.openGetConnection(link);
         return connection.getALlLoaiDaiLy();
     }

@@ -11,6 +11,9 @@ public class phieunhaphang {
         
     }
 
+    public phieunhaphang(int maphieunhap) {
+        this.maphieunhap = maphieunhap;
+    }
     public phieunhaphang(String ngaynhap, int tongtien, int person_id) {
         this.ngaylp = ngaynhap;
         this.tongtien = tongtien;

@@ -18,7 +18,7 @@ public class QuanController {
     }
 
     public List<quan> showQuan() throws IOException {
-        connection.openGetConnection("quan/getAllQuan");
+        connection.openGetConnection("quan/allQuan");
         return connection.getAllQuan();
     }
 }

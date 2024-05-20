@@ -16,7 +16,7 @@ import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-public class reportPanel extends JPanel {
+public class reportPanel extends CustomPanel {
 
 	private static final long serialVersionUID = 1L;
 
