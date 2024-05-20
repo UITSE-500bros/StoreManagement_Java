@@ -49,7 +49,7 @@ public class StoresPanel extends JPanel {
 		quanController = new QuanController();
 		try {
 			dailyList = daiLyController.showDaiLy();
-			//loaidailyList = loaiDaiLyController.showLoaiDaiLy();
+			loaidailyList = loaiDaiLyController.showLoaiDaiLy();
 			quanList = quanController.showQuan();
 		}catch (Exception e){
 			e.printStackTrace();
