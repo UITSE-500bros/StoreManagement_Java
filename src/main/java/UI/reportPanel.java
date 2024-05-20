@@ -19,8 +19,10 @@ import javax.swing.table.TableRowSorter;
 public class reportPanel extends CustomPanel {
 
 	private static final long serialVersionUID = 1L;
+	private final CustomTextField textFieldNam;
+	private final CustomComboBox comboBox;
 
-	private JTextField textField;
+	private CustomTextField textFieldThang;
 	private JTable table;
 
 	/**
@@ -75,48 +77,59 @@ public class reportPanel extends CustomPanel {
 		headerLable.setFont(new Font("Roboto", Font.BOLD, 44));
 		panelHeader.add(headerLable, gbcHeader);
 		this.add(panelHeader, gbc);
-		
-		JPanel panel = new CustomPanel();
+
+		JPanel panel = new JPanel();
 
 		gbc = new GridBagConstraints();
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		gbc.weightx = 1;
 		gbc.weighty = 0.1;
+		gbc.insets = new java.awt.Insets(20, 40, 0, 40);
 		gbc.fill = GridBagConstraints.BOTH;
 
-		this.add(panel, gbc);
-		panel.setLayout(new BorderLayout(0, 0));
-		
-		JButton btnNewButton = new JButton("");
-		ImageIcon icon = new ImageIcon("/resource/searchStoreIcon.png");
-		btnNewButton.setIcon(new ImageIcon("src/main/java/resource/searchStoreIcon.png"));
-		btnNewButton.setPreferredSize(new Dimension(30, 30));
+		panel.setLayout(new GridLayout());
+		GridBagConstraints gbcPanel = new GridBagConstraints();
 
+		textFieldThang = new CustomTextField(15);
+		textFieldThang.setPlaceholder("Nam");
+		textFieldThang.setMinimumSize(new Dimension(100, 30));
+		textFieldThang.setPreferredSize(new Dimension(100, 30));
+		gbcPanel.gridx = 0;
+		gbcPanel.weightx = 0.2;
+		gbcPanel.anchor = GridBagConstraints.WEST;
+		panel.add(textFieldThang, gbcPanel);
 
-		panel.add(btnNewButton, BorderLayout.WEST);
-		
-		textField = new JTextField();
-		textField.setMinimumSize(new Dimension(24, 29));
-		textField.setPreferredSize(new Dimension(300, 30));
-		panel.add(textField, BorderLayout.CENTER);
-		textField.setColumns(10);
-		
+		textFieldNam = new CustomTextField(15);
+		textFieldNam.setPlaceholder("Tháng");
+		textFieldNam.setMinimumSize(new Dimension(100, 30));
+		textFieldNam.setPreferredSize(new Dimension(100, 30));
+		gbcPanel = new GridBagConstraints();
+		gbcPanel.gridx = 1;
+		gbcPanel.weightx = 0.2;
+		gbcPanel.insets = new Insets(0, 30, 0, 0);
+		gbcPanel.anchor = GridBagConstraints.CENTER;
+		panel.add(textFieldNam, gbcPanel);
 
 		String[] reportType = {"Báo cáo công nợ", "Báo cáo doanh số"};
-		JComboBox comboBox = new JComboBox(reportType);
+		comboBox = new CustomComboBox(reportType);
 		comboBox.setPreferredSize(new Dimension(150, 30));
+		gbcPanel = new GridBagConstraints();
+		gbcPanel.gridx = 2;
+		gbcPanel.weightx = 0.2;
+		gbcPanel.insets = new Insets(0, 30, 0, 0);
+		gbcPanel.anchor = GridBagConstraints.EAST;
+		panel.add(comboBox, gbcPanel);
 
-		
-		panel.add(comboBox, BorderLayout.EAST);
-		
+		this.add(panel, gbc);
+
 		JScrollPane scrollPane = new JScrollPane();
-		gbc = new GridBagConstraints();
 		gbc = new GridBagConstraints();
 		gbc.gridx = 0;
 		gbc.gridy = 2;
 		gbc.weightx = 1;
 		gbc.weighty = 0.9;
+		gbc.insets = new java.awt.Insets(0, 40, 20, 40);
 		gbc.fill = GridBagConstraints.BOTH;
 		this.add(scrollPane, gbc);
 		
@@ -151,16 +164,5 @@ public class reportPanel extends CustomPanel {
 				}
 			}
 		});
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String searchText = textField.getText().toLowerCase();
-				TableRowSorter<TableModel> sorter = new TableRowSorter<>(table.getModel());
-				table.setRowSorter(sorter);
-
-				sorter.setRowFilter(RowFilter.regexFilter("(?i)" + searchText, 1)); // 1 is the column index for "Đại lý"
-			}
-		});
-
-
 	}
 }
