@@ -9,10 +9,11 @@ import javax.swing.table.*;
 import Controller.DaiLyController;
 import Controller.LoaiDaiLyController;
 import Controller.QuanController;
+import Controller.PhieuThuTienController;
 import Models.daily;
 import Models.loaidaily;
 import Models.quan;
-
+import Models.phieuthutien;
 import java.awt.event.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -37,6 +38,7 @@ public class StoresPanel extends JPanel {
 	private DaiLyController daiLyController;
 	private LoaiDaiLyController loaiDaiLyController;
 	private QuanController quanController;
+	private PhieuThuTienController phieuThuTienController;
 	java.util.List<daily> dailyList;
 	java.util.List<loaidaily> loaidailyList;
 	java.util.List<quan> quanList;
@@ -47,6 +49,7 @@ public class StoresPanel extends JPanel {
 		daiLyController = new DaiLyController();
 		loaiDaiLyController = new LoaiDaiLyController();
 		quanController = new QuanController();
+		phieuThuTienController = new PhieuThuTienController();
 		try {
 			dailyList = daiLyController.showDaiLy();
 			loaidailyList = loaiDaiLyController.showLoaiDaiLy();
@@ -300,8 +303,8 @@ public class StoresPanel extends JPanel {
 
     	            TableRowSorter<DefaultTableModel> sorter = (TableRowSorter<DefaultTableModel>) ((DefaultRowSorter)table.getRowSorter());
         	        sorter.setRowFilter(RowFilter.andFilter(Arrays.asList(
-        	            RowFilter.regexFilter(district, 3), // 3 is the column index for district
-        	            RowFilter.regexFilter(category, 2) // 2 is the column index for category
+        	            RowFilter.regexFilter(district, 3),
+        	            RowFilter.regexFilter(category, 2) 
         	        )));
         	        table.setRowSorter(sorter);
         	    }
@@ -572,7 +575,78 @@ public class StoresPanel extends JPanel {
         	        JButton cancelButton = new JButton("Hủy bỏ");
         	        JButton confirmButton = new JButton("Thêm mới");
         	        // Add action listeners for the buttons
-        	        
+        	        confirmButton.addActionListener(new ActionListener() {
+        	        	            	            @Override
+            	            public void actionPerformed(ActionEvent e) {
+            	                // Get the values from the text fields and combo boxes
+            	                String[] values = new String[labels.length];
+            	                for (int i = 0; i < labels.length; i++) {
+            	                    if (labels[i].equals("Tên đại lý")) {
+            	                        values[i] = (String)((CustomComboBox) inputs[i]).getSelectedItem();
+            	                        
+            	                    } else if (labels[i].equals("Ngày thu tiền")) {
+            	                    	// values[i] = ((CustomTextField) inputs[i]).getText();
+            	                    } else {
+            	                        values[i] = ((CustomTextField) inputs[i]).getText();
+            	                        if (values[i].isEmpty()) {
+            	                            JOptionPane.showMessageDialog(null, labels[i] + " không thể trống");
+            	                            return;
+            	                        }
+            	                        if (labels[i].equals("Số tiền thu (VND)")) {
+            	                            if (!values[i].matches("\\d+")) { // regex cho sdt
+            	                                JOptionPane.showMessageDialog(null, "Số tiền thu không hợp lệ");
+            	                                return;
+            	                            }
+            	                            int money = Integer.parseInt(values[i]);
+            	                            daily selectedAgent = dailyList.stream()
+            	                                .filter(agent -> agent.getTendaily().equals((String)((CustomComboBox) inputs[0]).getSelectedItem()))
+            	                                .findFirst()
+            	                                .orElse(null);
+            	                            if (selectedAgent != null && money > selectedAgent.getTienno()) {
+            	                                JOptionPane.showMessageDialog(null, "Số tiền thu không thể lớn hơn tiền nợ của đại lý");
+            	                                return;
+            	                            }
+            	                        }
+            	                    }
+            	                }
+            	                // use the values array to pass to the database
+            	                daily selectedAgent = dailyList.stream()
+            	                    .filter(agent -> agent.getTendaily().equals(values[0]))
+            	                    .findFirst()
+            	                    .orElse(null);
+            	                if (selectedAgent != null) {
+            	                    selectedAgent.setTienno(selectedAgent.getTienno() - Integer.parseInt(values[5]));
+            	                    phieuthutien phieuThuTien = new phieuthutien();
+            	                    phieuThuTien.setMadaily(selectedAgent);            	                    
+            	                    phieuThuTien.setNgaythutien(LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+            	                    phieuThuTien.setTienthu(Integer.parseInt(values[5]));
+            	                    if(phieuThuTienController.createPhieuThuTien(phieuThuTien).contains("201")) {
+            	                    	for (int i = 0; i < model.getRowCount(); i++) {
+        									if (model.getValueAt(i, 1).equals(selectedAgent.getTendaily())) {
+        										model.setValueAt( selectedAgent.getTienno(), i,4 );
+        										break;
+        									}
+        								}
+            	                    	((Window) SwingUtilities.getRoot(popupPanel)).dispose();
+            	                    	JOptionPane.showMessageDialog(null, "Lập phiếu thu tiền thành công");
+                	                    
+                	                    
+                	                   
+            	                    }
+            	                    else {
+            	                    	JOptionPane.showMessageDialog(null, "Lập phiếu thu tiền thất bại");
+            	                    }
+            	                    
+            	                }
+        	        	   }
+        	        });
+					cancelButton.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							// Hide the popup
+							((Window) SwingUtilities.getRoot(popupPanel)).dispose();
+						}
+					});
         	        //
         	        gbc.gridy++;
         	        gbc.gridwidth = 1;
@@ -585,7 +659,7 @@ public class StoresPanel extends JPanel {
 
         	        // Show the popup
         	        JOptionPane.showOptionDialog(null, popupPanel, "Phiếu thu tiền", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
-        	        }
+        	        	            	            }
         	    });
          
 	}

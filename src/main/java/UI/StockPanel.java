@@ -25,11 +25,12 @@ import javax.swing.table.TableRowSorter;
 
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
+import Controller.MatHangController;
 import Controller.DaiLyController;
 import Models.daily;
 import Models.loaidaily;
 import Models.quan;
-
+import Models.mathang;
 
 public class StockPanel extends CustomPanel {
 
@@ -39,13 +40,19 @@ public class StockPanel extends CustomPanel {
 	private GridBagConstraints gbc1_2;
 	private GridBagConstraints gbc1_3;
 	private GridBagConstraints gbc1_4;
-
+	private MatHangController matHangController;
+	private java.util.List<mathang> mathangList;
 	/**
 	 * Create the panel.
 	 */
 	public StockPanel() {
+		matHangController = new MatHangController();
+		try {
+			mathangList = matHangController.showMatHang();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-       
 		String[] sortItems = {"Sắp xếp theo", "Số lượng tăng dần", "Số lượng giảm dần", "Đơn giá tăng dàn", "Đơn giá giảm dần" };
 		setOpaque(false);
 		this.setLayout(new GridBagLayout());
@@ -164,7 +171,11 @@ public class StockPanel extends CustomPanel {
 			}
 		};
         // Create data
-		
+		for (int i = 0; i < mathangList.size(); i++) {
+			mathang mh = mathangList.get(i);
+			Object[] rowData = { i + 1, mh.getTenmh(), mh.getSoLuong(), mh.getDvt(), mh.getDongianhap() };
+			model.addRow(rowData);
+		}
         // Create table
         JTable table = new JTable(model);
 
