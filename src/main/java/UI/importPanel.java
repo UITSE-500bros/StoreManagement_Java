@@ -22,6 +22,7 @@ public class importPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private final JTextField tongTienTextField;
+	private ArrayList<Object> matHangs;
 	private GridBagConstraints gbc1_1;
 	private GridBagConstraints gbc1_2;
 	private GridBagConstraints gbc1_3;
@@ -50,7 +51,9 @@ public class importPanel extends JPanel {
 	 */
 	public importPanel() {
 		this.setLayout(new GridBagLayout());
-        
+
+		loadData();
+
 		GridBagConstraints gbc = new GridBagConstraints();
 
 		JPanel panelHeader = new JPanel();
@@ -107,42 +110,28 @@ public class importPanel extends JPanel {
 		gbc1.anchor = GridBagConstraints.WEST;
 		contentPane.add(pnhLable, gbc1);
 
-		addButton = new CustomButton("Lập phiếu");
-		addButton.setPreferredSize(new Dimension(130, 40));  // Preferred size
-		addButton.setMinimumSize(new Dimension(130, 40));    // Minimum size
-		ImageIcon lapPhieuIcon = new ImageIcon("src/main/java/resource/lapPhieuIcon.png");
-		addButton.setIcon(lapPhieuIcon);
-		addButton.setBorderPainted(false);
-		addButton.setBackground(Color.BLACK);
-		addButton.setForeground(Color.ORANGE);
-		addButton.setIconTextGap(20);
-		addButton.setHorizontalAlignment(JButton.LEFT);
-		addButton.setHorizontalTextPosition(JButton.RIGHT);
-		addButton.setFont(new Font("Roboto", Font.BOLD, 15));
+		Panel panelButtons = new Panel();
+		panelButtons.setLayout(new GridBagLayout());
+		GridBagConstraints gbcBtns = new GridBagConstraints();
+		gbcBtns.gridx = 0;
+		gbcBtns.gridy = 0;
+		gbcBtns.weightx = 0.15;
+		gbcBtns.insets = new Insets(10, 0, 0, 0);
+		gbcBtns.anchor = GridBagConstraints.WEST;
 
-		gbc1_1 = new GridBagConstraints();
-		gbc1_1.gridy = 0;
-		gbc1_1.gridx = 1;
-		gbc1_1.weightx = 1.0;         // Make sure it can expand horizontally
-		gbc1_1.weighty = 0.0;         // No extra vertical space
-		gbc1_1.anchor = GridBagConstraints.EAST;
-		gbc1_1.fill = GridBagConstraints.CENTER;  // Allow it to fill horizontally
-
-		contentPane.add(addButton, gbc1_1);
-
-		gbc1_4 = new GridBagConstraints();
-		gbc1_4.insets = new Insets(0, 0, 0, 200);
-		gbc1_4.anchor = GridBagConstraints.WEST;
 		datePicker = new DatePicker();
 		datePicker.setFont(new Font("Roboto", Font.PLAIN, 20));
-		gbc1_4.gridx = 0;
-		gbc1_4.gridy = 1;
-		gbc1_4.weightx = 0.2;
-		gbc1_4.fill = GridBagConstraints.HORIZONTAL;
-		contentPane.add(datePicker, gbc1_4);
 
+		panelButtons.add(datePicker, gbcBtns);
+
+		gbcBtns = new GridBagConstraints();
+		gbcBtns.gridy = 0;
+		gbcBtns.gridx = 1;
+		gbcBtns.weightx = 0.15;
+		gbcBtns.insets = new Insets(0, 10, 0, 0);
+		gbcBtns.anchor = GridBagConstraints.CENTER;
 		JButton themMatHangButton = new CustomButton("Thêm mặt hàng");
-		themMatHangButton.setPreferredSize(new Dimension(150, 40));
+		themMatHangButton.setPreferredSize(new Dimension(150, 30));
 		ImageIcon themMatHang = new ImageIcon("src/main/java/resource/themMatHangIcon.png");
 		themMatHangButton.setIcon(themMatHang);
 		themMatHangButton.setFont(new Font("Roboto", Font.BOLD, 12));
@@ -179,17 +168,6 @@ public class importPanel extends JPanel {
 				panelContent.add(labelName, gbcContent);
 
 				gbcContent = new GridBagConstraints();
-				matHangController = new MatHangController();
-                List<mathang> list = null;
-                try {
-					list = new MatHangController().showMatHang();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-				ArrayList<String> matHangs = new ArrayList<>();
-				for(mathang mh : list) {
-					matHangs.add(mh.getTenmh());
-				}
 				CustomComboBox txtName = new CustomComboBox(matHangs.toArray());
                 gbcContent.fill = GridBagConstraints.HORIZONTAL;
 				gbcContent.gridx = 0;
@@ -261,6 +239,7 @@ public class importPanel extends JPanel {
 
 				gbcContent = new GridBagConstraints();
 				CustomTextField txtDonGia = new CustomTextField(15);
+				txtDonGia.setEditable(true);
 				gbcContent.gridx = 1;
 				gbcContent.gridy = 3;
 				gbcContent.weightx = 0.5;
@@ -287,7 +266,7 @@ public class importPanel extends JPanel {
 							return;
 						}
 						int sum= Integer.parseInt(txtSoLuong.getText()) * Integer.parseInt(txtDonGia.getText());
-						int num = Integer.parseInt(model.getValueAt(model.getRowCount() - 1, 0).toString());
+						int num = model.getRowCount();
 						model.addRow(new Object[] { num + 1, txtName.getSelectedItem(), txtDVT.getSelectedItem(),
 								txtSoLuong.getText(), txtDonGia.getText(), sum});
 						String tongTienText = tongTienTextField.getText();
@@ -319,27 +298,50 @@ public class importPanel extends JPanel {
 				JOptionPane.showOptionDialog(null, panel, "Thêm mặt hàng", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
 			}
 		});
-		gbc1_2 = new GridBagConstraints();
-		gbc1_2.gridy = 1;
-		gbc1_2.anchor = GridBagConstraints.WEST;
-		gbc1_2.gridx = 1;
-		gbc1_2.weightx = 0.8;
-		gbc1_2.insets = new Insets(0, 0, 5, 100);
-		contentPane.add(themMatHangButton, gbc1_2);
+		panelButtons.add(themMatHangButton, gbcBtns);
 
-		String[] columnNames = { "STT", "Tên mặt hàng", "Đơn vị tính", "Số lượng", "Đơn giá(VND)", "Thành tiền" };
-		// Create data
-		Object[][] data = { { 1, "Mặt hàng 1", "Chai", 3, 5000, 1000.0 }, { 2, "Mặt hàng 2", "lon", 2, 3000, 6000.0 },
-				// Add more rows as needed
-		};
+		addButton = new CustomButton("Lập phiếu");
+		addButton.setPreferredSize(new Dimension(150, 30));  // Preferred size
+		addButton.setMinimumSize(new Dimension(150, 30));    // Minimum size
+		ImageIcon lapPhieuIcon = new ImageIcon("src/main/java/resource/lapPhieuIcon.png");
+		addButton.setIcon(lapPhieuIcon);
+		addButton.setBorderPainted(false);
+		addButton.setBackground(Color.BLACK);
+		addButton.setForeground(Color.ORANGE);
+		addButton.setIconTextGap(20);
+		addButton.setHorizontalAlignment(JButton.LEFT);
+		addButton.setHorizontalTextPosition(JButton.RIGHT);
+		addButton.setFont(new Font("Roboto", Font.BOLD, 15));
 
-		// this mode handles data in table
-		model = new DefaultTableModel(data, columnNames){
+		gbcBtns = new GridBagConstraints();
+		gbcBtns.gridx = 2;
+		gbcBtns.gridy = 0;
+		gbcBtns.weightx = 0.15;
+		gbcBtns.insets = new Insets(0, 10, 0, 0);
+		gbcBtns.anchor = GridBagConstraints.EAST;
+		panelButtons.add(addButton, gbcBtns);
+
+		gbc1_4 = new GridBagConstraints();
+		gbc1_4.gridx = 0;
+		gbc1_4.gridy = 1;
+		gbc1_4.gridwidth = 2;
+		gbc1_4.weightx = 1;
+		gbc1_4.fill = GridBagConstraints.BOTH;
+		contentPane.add(panelButtons, gbc1_4);
+
+		model = new DefaultTableModel(){
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		};
+		model.addColumn("STT");
+		model.addColumn("Tên mặt hàng");
+		model.addColumn("Đơn vị tính");
+		model.addColumn("Số lượng");
+		model.addColumn("Đơn giá(VND)");
+		model.addColumn("Thành tiền");
+
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
@@ -373,21 +375,36 @@ public class importPanel extends JPanel {
 		contentPane.add(scrollPane, gbc_scrollPane);
 
 		gbc1_3 = new GridBagConstraints();
-		gbc1_3.gridx = 0;
-		gbc1_3.anchor = GridBagConstraints.EAST;
 		gbc1_3.fill = GridBagConstraints.HORIZONTAL;
+		gbc1_3.anchor = GridBagConstraints.EAST;
 		tongTienTextField = new JTextField(15);
 		tongTienTextField.setEditable(false);
 		tongTienTextField.setText("Tổng tiền: 0 VND");
-		tongTienTextField.setFont(new Font("Roboto", Font.PLAIN, 20));
+		tongTienTextField.setPreferredSize(new Dimension(350, 30));
+		tongTienTextField.setMinimumSize(new Dimension(350, 30));
+		tongTienTextField.setFont(new Font("Roboto", Font.PLAIN, 15));
 		gbc1_3.gridy = 3;
 		gbc1_3.gridx = 1;
-		gbc1_3.weightx = 0.3;
-		gbc1_3.insets = new java.awt.Insets(10, 0, 0, 0);
+		gbc1_3.weightx = 0.2;
+		gbc1_3.insets = new java.awt.Insets(10, 30, 0, 0);
 		contentPane.add(tongTienTextField, gbc1_3);
 
 		this.add(contentPane, gbc);
 
+	}
+
+	public void loadData(){
+		matHangController = new MatHangController();
+		List<mathang> list = null;
+		try {
+			list = new MatHangController().showMatHang();
+		} catch (IOException ex) {
+			throw new RuntimeException(ex);
+		}
+		matHangs = new ArrayList<>();
+		for(mathang mh : list) {
+			matHangs.add(mh.getTenmh());
+		}
 	}
 
 }

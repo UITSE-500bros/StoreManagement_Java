@@ -76,7 +76,7 @@ public class reportPanel extends JPanel {
 		panelHeader.add(headerLable, gbcHeader);
 		this.add(panelHeader, gbc);
 		
-		JPanel panel = new JPanel();
+		JPanel panel = new CustomPanel();
 
 		gbc = new GridBagConstraints();
 		gbc.gridx = 0;
