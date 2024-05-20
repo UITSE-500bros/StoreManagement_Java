@@ -279,6 +279,16 @@ public class MainFrame extends JFrame {
 		exportButton = new JButton("Xuất hàng");
 		
 		logoutButton = new JButton("Đăng xuất");
+		logoutButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int dialogResult = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất?", "Warning",
+                        JOptionPane.YES_NO_OPTION);
+                if (dialogResult == JOptionPane.YES_OPTION) {
+                    login  loginFrame = new login();
+                    loginFrame.setVisible(true);
+                    dispose();}
+			}
+		});
 	}
 
 	
