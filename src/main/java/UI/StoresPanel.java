@@ -55,8 +55,10 @@ public class StoresPanel extends JPanel {
 			e.printStackTrace();
 		}
         String[] labels = {"Tên đại lý", "Loại đại lý", "Số điện thoại", "Địa chỉ", "Quận", "Email"};
-        String[] districtItems = {"Quận"};
-        String[] categoryItems = {"Loại"};
+        String[] districtItems = new String[quanList.size() + 1];
+        String[] categoryItems = new String[loaidailyList.size() + 1];
+        districtItems[0] = "Quận";
+        categoryItems[0] = "Loại";
 		for (int i=0; i<loaidailyList.size(); i++) {
 			categoryItems[i+1] = loaidailyList.get(i).getTenloaidl();
 		}
