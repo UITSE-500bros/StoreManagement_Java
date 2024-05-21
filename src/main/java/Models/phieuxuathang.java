@@ -3,10 +3,10 @@ package Models;
 
 public class phieuxuathang {
 
-    private int maPhieuXuat;
+    private int mapxuat;
 
     private String ngayXuat;
-    private int maDaiLy;
+    private daily maDaiLy;
     private int tongTien;
     private int soTienTra;
     private int conLai;
@@ -14,7 +14,12 @@ public class phieuxuathang {
     public phieuxuathang() {
         
     }
-    public phieuxuathang(String ngayXuat, int maDaiLy, int tongTien, int soTienTra, int conLai) {
+
+    public phieuxuathang(int mapxuat) {
+        this.mapxuat = mapxuat;
+    }
+
+    public phieuxuathang(String ngayXuat, daily maDaiLy, int tongTien, int soTienTra, int conLai) {
         this.ngayXuat = ngayXuat;
         this.maDaiLy = maDaiLy;
         this.tongTien = tongTien;
@@ -22,12 +27,12 @@ public class phieuxuathang {
         this.conLai = conLai;
     }
 
-    public int getMaPhieuXuat() {
-        return maPhieuXuat;
+    public int getMapxuat() {
+        return mapxuat;
     }
 
-    public void setMaPhieuXuat(int maPhieuXuat) {
-        this.maPhieuXuat = maPhieuXuat;
+    public void setMapxuat(int mapxuat) {
+        this.mapxuat = mapxuat;
     }
 
     public String getNgayXuat() {
@@ -38,11 +43,11 @@ public class phieuxuathang {
         this.ngayXuat = ngayXuat;
     }
 
-    public int getMaDaiLy() {
+    public daily getMaDaiLy() {
         return maDaiLy;
     }
 
-    public void setMaDaiLy(int maDaiLy) {
+    public void setMaDaiLy(daily maDaiLy) {
         this.maDaiLy = maDaiLy;
     }
 
