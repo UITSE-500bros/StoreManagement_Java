@@ -3,8 +3,12 @@ package UI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.*;
 import java.util.List;
 
 import javax.swing.*;
@@ -15,14 +19,17 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
 import Controller.MatHangController;
+import Controller.PhieuNhapHangController;
+import Models.ctnh;
 import Models.mathang;
+import Models.phieunhaphang;
 import ReuseClass.DatePicker;
 
 public class importPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private final JTextField tongTienTextField;
-	private ArrayList<Object> matHangs;
+	private Map<String, Integer> matHangs;
 	private GridBagConstraints gbc1_1;
 	private GridBagConstraints gbc1_2;
 	private GridBagConstraints gbc1_3;
@@ -32,7 +39,7 @@ public class importPanel extends JPanel {
 	private JTable tableNhapHang;
 	private DefaultTableModel model;
 	private MatHangController matHangController;
-
+	private PhieuNhapHangController	phieuNhapHangController;
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
 		frame.setSize(1000, 800);
@@ -51,6 +58,10 @@ public class importPanel extends JPanel {
 	 */
 	public importPanel() {
 		this.setLayout(new GridBagLayout());
+
+		matHangController = new MatHangController();
+
+		phieuNhapHangController = new PhieuNhapHangController();
 
 		loadData();
 
@@ -168,7 +179,7 @@ public class importPanel extends JPanel {
 				panelContent.add(labelName, gbcContent);
 
 				gbcContent = new GridBagConstraints();
-				CustomComboBox txtName = new CustomComboBox(matHangs.toArray());
+				CustomComboBox txtName = new CustomComboBox(matHangs.keySet().toArray(new String[0]));
                 gbcContent.fill = GridBagConstraints.HORIZONTAL;
 				gbcContent.gridx = 0;
 				gbcContent.gridy = 1;
@@ -313,6 +324,45 @@ public class importPanel extends JPanel {
 		addButton.setHorizontalTextPosition(JButton.RIGHT);
 		addButton.setFont(new Font("Roboto", Font.BOLD, 15));
 
+		addButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (model.getRowCount() == 0) {
+					JOptionPane.showMessageDialog(null, "Vui lòng thêm mặt hàng", "Lỗi", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				Date selectedDate = (Date) datePicker.getModel().getValue();
+				LocalDate todayLocalDate = LocalDate.now();
+				Date todayDate = Date.from(todayLocalDate.atStartOfDay().atZone(ZoneId.of("Asia/Ho_Chi_Minh")).toInstant());
+				if(selectedDate.compareTo(todayDate) > 0 && (selectedDate.getDay() != todayDate.getDay() && selectedDate.getMonth() != todayDate.getMonth() && selectedDate.getYear() != todayDate.getYear())){
+					JOptionPane.showMessageDialog(null, "Ngày nhập hàng không thể lớn hơn ngày hiện tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				String date = datePicker.getDateString();
+				int tongTien = Integer.parseInt(tongTienTextField.getText().replace("Tổng tiền: ", "").replace(" VND", ""));
+				try {
+					phieuNhapHangController.createPhieuNhapHang(new phieunhaphang(date, tongTien));
+				} catch (IOException ex) {
+					throw new RuntimeException(ex);
+				}
+				ArrayList<ctnh> ctnhList = new ArrayList<>();
+				for (int i = 0; i < model.getRowCount(); i++) {
+					String tenMatHang = (String) model.getValueAt(i, 1);
+					int soLuong = Integer.parseInt((String) model.getValueAt(i, 3));
+
+					ctnhList.add(new ctnh(new mathang(matHangs.get(tenMatHang)), soLuong));
+				}
+				if(phieuNhapHangController.addCTNH(ctnhList).equals("Created successfully!")){
+					JOptionPane.showMessageDialog(null, "Lập phiếu nhập hàng thành công", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+					model.setRowCount(0);
+					tongTienTextField.setText("Tổng tiền: 0 VND");
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Lập phiếu nhập hàng thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+
 		gbcBtns = new GridBagConstraints();
 		gbcBtns.gridx = 2;
 		gbcBtns.gridy = 0;
@@ -355,6 +405,30 @@ public class importPanel extends JPanel {
 		((DefaultTableCellRenderer)tableNhapHang.getTableHeader().getDefaultRenderer()).setOpaque(false);
 		tableNhapHang.getTableHeader().setOpaque(false);
 		tableNhapHang.setShowVerticalLines(false);
+		tableNhapHang.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent mouseEvent) {
+				JTable table =(JTable) mouseEvent.getSource();
+				Point point = mouseEvent.getPoint();
+				int row = table.rowAtPoint(point);
+				if (SwingUtilities.isRightMouseButton(mouseEvent)) {
+					// Create a pop-up menu
+					JPopupMenu popupMenu = new JPopupMenu();
+					JMenuItem deleteItem = new JMenuItem("Delete");
+					deleteItem.addActionListener(e -> {
+						// Handle delete action
+						model.removeRow(row);
+					});
+					JMenuItem cancelItem = new JMenuItem("Cancel");
+					cancelItem.addActionListener(e -> {
+						// Handle cancel action
+						System.out.println("Cancelled action on row: " + row);
+					});
+					popupMenu.add(deleteItem);
+					popupMenu.add(cancelItem);
+					popupMenu.show(table, mouseEvent.getX(), mouseEvent.getY());
+				}
+			}
+		});
 
 		// Set font and alignment for table
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -394,16 +468,15 @@ public class importPanel extends JPanel {
 	}
 
 	public void loadData(){
-		matHangController = new MatHangController();
 		List<mathang> list = null;
 		try {
 			list = new MatHangController().showMatHang();
 		} catch (IOException ex) {
 			throw new RuntimeException(ex);
 		}
-		matHangs = new ArrayList<>();
+		matHangs = new HashMap<>();
 		for(mathang mh : list) {
-			matHangs.add(mh.getTenmh());
+			matHangs.put(mh.getTenmh(), mh.getMamh());
 		}
 	}
 

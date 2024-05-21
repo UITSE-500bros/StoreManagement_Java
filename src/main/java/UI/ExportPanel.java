@@ -3,6 +3,8 @@ package UI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -387,6 +389,31 @@ public class ExportPanel extends JPanel {
 		((DefaultTableCellRenderer)tableXuatHang.getTableHeader().getDefaultRenderer()).setOpaque(false);
 		tableXuatHang.getTableHeader().setOpaque(false);
 		tableXuatHang.setShowVerticalLines(false);
+
+		tableXuatHang.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent mouseEvent) {
+				JTable table =(JTable) mouseEvent.getSource();
+				Point point = mouseEvent.getPoint();
+				int row = table.rowAtPoint(point);
+				if (SwingUtilities.isRightMouseButton(mouseEvent)) {
+					// Create a pop-up menu
+					JPopupMenu popupMenu = new JPopupMenu();
+					JMenuItem deleteItem = new JMenuItem("Delete");
+					deleteItem.addActionListener(e -> {
+						// Handle delete action
+						model.removeRow(row);
+					});
+					JMenuItem cancelItem = new JMenuItem("Cancel");
+					cancelItem.addActionListener(e -> {
+						// Handle cancel action
+						System.out.println("Cancelled action on row: " + row);
+					});
+					popupMenu.add(deleteItem);
+					popupMenu.add(cancelItem);
+					popupMenu.show(table, mouseEvent.getX(), mouseEvent.getY());
+				}
+			}
+		});
 
 		// Set font and alignment for table
 		centerRenderer.setHorizontalAlignment(JLabel.CENTER);

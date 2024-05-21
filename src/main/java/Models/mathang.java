@@ -14,6 +14,18 @@ public class mathang {
     private double dongiaxuat;
 
     private int slton;
+    public mathang(int mamh) {
+        this.mamh = mamh;
+    }
+
+    public mathang(int mamh, String tenmh, dvt madvt, int dongianhap, double dongiaxuat, int slton) {
+        this.mamh = mamh;
+        this.tenmh = tenmh;
+        this.madvt = madvt;
+        this.dongianhap = dongianhap;
+        this.dongiaxuat = dongiaxuat;
+        this.slton = slton;
+    }
 
     public mathang() {
     }
@@ -29,6 +41,10 @@ public class mathang {
 
     public String getTenmh() {
         return tenmh;
+    }
+
+    public int getMamh() {
+        return mamh;
     }
 
     public int getDongianhap() {

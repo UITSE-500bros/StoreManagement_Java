@@ -14,12 +14,10 @@ public class phieunhaphang {
     public phieunhaphang(int maphieunhap) {
         this.maphieunhap = maphieunhap;
     }
-    public phieunhaphang(String ngaynhap, int tongtien, int person_id) {
+    public phieunhaphang(String ngaynhap, int tongtien) {
         this.ngaylp = ngaynhap;
         this.tongtien = tongtien;
-        this.person_id = person_id;
     }
-
     public int getMaphieunhap() {
         return maphieunhap;
     }
