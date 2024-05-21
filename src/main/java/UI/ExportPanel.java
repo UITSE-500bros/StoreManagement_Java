@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
 
 import javax.swing.*;
@@ -33,7 +33,7 @@ public class ExportPanel extends JPanel {
 	private FilterComboBox maSoPhieuTextField;
 	private DatePicker datePicker;
 	private MatHangController matHangController;
-	private ArrayList<Object> matHangs;
+	private Map<String, ArrayList<Integer>> matHangs;
 
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
@@ -179,8 +179,12 @@ public class ExportPanel extends JPanel {
 				labelName.setFont(new Font("Roboto", Font.PLAIN, 12));
 				panelContent.add(labelName, gbcContent);
 
+				CustomTextField txtDonGia = new CustomTextField(15);
+				txtDonGia.setFont(new Font("Roboto", Font.PLAIN, 15));
+				txtDonGia.setEditable(true);
+
 				gbcContent = new GridBagConstraints();
-				CustomComboBox txtName = new CustomComboBox(matHangs.toArray());
+				CustomComboBox txtName = new CustomComboBox(matHangs.keySet().toArray(new String[0]));
 				gbcContent.fill = GridBagConstraints.HORIZONTAL;
 				gbcContent.gridx = 0;
 				gbcContent.gridy = 1;
@@ -188,6 +192,13 @@ public class ExportPanel extends JPanel {
 				gbcContent.weighty = 0.4;
 				gbcContent.insets = new Insets(10, 20, 20, 0);
 				txtName.setFont(new Font("Roboto", Font.PLAIN, 15));
+				txtName.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						String selectedName = txtName.getSelectedItem().toString();
+						txtDonGia.setText(matHangs.get(selectedName).getLast().toString());
+					}
+				});
 				gbcContent.anchor = GridBagConstraints.FIRST_LINE_START;
 				panelContent.add(txtName, gbcContent);
 
@@ -250,14 +261,11 @@ public class ExportPanel extends JPanel {
 				panelContent.add(labelDonGia, gbcContent);
 
 				gbcContent = new GridBagConstraints();
-				CustomTextField txtDonGia = new CustomTextField(15);
-				txtDonGia.setEditable(true);
 				gbcContent.gridx = 1;
 				gbcContent.gridy = 3;
 				gbcContent.weightx = 0.5;
 				gbcContent.weighty = 0.4;
 				gbcContent.insets = new Insets(10, 20, 0, 0);
-				txtDonGia.setFont(new Font("Roboto", Font.PLAIN, 15));
 				gbcContent.anchor = GridBagConstraints.FIRST_LINE_START;
 				panelContent.add(txtDonGia, gbcContent);
 
@@ -400,8 +408,13 @@ public class ExportPanel extends JPanel {
 					JPopupMenu popupMenu = new JPopupMenu();
 					JMenuItem deleteItem = new JMenuItem("Delete");
 					deleteItem.addActionListener(e -> {
-						// Handle delete action
-						model.removeRow(row);
+						if(row < model.getRowCount()) {
+							int deleteMoney = (int)model.getValueAt(row, 5);
+							model.removeRow(row);
+							int sumMoney = Integer.parseInt(tongTienTextField.getText().replace("Tổng tiền: ", "").replace(" VND", ""));
+							tongTienTextField.setText("Tổng tiền: " + (sumMoney - deleteMoney) + " VND");
+							tienConLaiTextField.setText("Còn lại: " + (sumMoney - deleteMoney - Integer.parseInt(tienTraTextField.getText())) + " VND");
+						}
 					});
 					JMenuItem cancelItem = new JMenuItem("Cancel");
 					cancelItem.addActionListener(e -> {
@@ -520,9 +533,9 @@ public class ExportPanel extends JPanel {
 		} catch (IOException ex) {
 			throw new RuntimeException(ex);
 		}
-		matHangs = new ArrayList<>();
+		matHangs = new HashMap<>();
 		for(mathang mh : list) {
-			matHangs.add(mh.getTenmh());
+			matHangs.put(mh.getTenmh(), new ArrayList<>(Arrays.asList(mh.getMamh(), mh.getDongianhap())));
 		}
 	}
 

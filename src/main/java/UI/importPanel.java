@@ -28,8 +28,8 @@ import ReuseClass.DatePicker;
 public class importPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private final JTextField tongTienTextField;
-	private Map<String, Integer> matHangs;
+	private JTextField tongTienTextField;
+	private Map<String, ArrayList<Integer>> matHangs;
 	private GridBagConstraints gbc1_1;
 	private GridBagConstraints gbc1_2;
 	private GridBagConstraints gbc1_3;
@@ -40,6 +40,8 @@ public class importPanel extends JPanel {
 	private DefaultTableModel model;
 	private MatHangController matHangController;
 	private PhieuNhapHangController	phieuNhapHangController;
+	private ArrayList<Integer> donGiaMatHangs;
+
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
 		frame.setSize(1000, 800);
@@ -126,7 +128,7 @@ public class importPanel extends JPanel {
 		GridBagConstraints gbcBtns = new GridBagConstraints();
 		gbcBtns.gridx = 0;
 		gbcBtns.gridy = 0;
-		gbcBtns.weightx = 0.15;
+		gbcBtns.weightx = 0.1;
 		gbcBtns.insets = new Insets(10, 0, 0, 0);
 		gbcBtns.anchor = GridBagConstraints.WEST;
 
@@ -138,9 +140,9 @@ public class importPanel extends JPanel {
 		gbcBtns = new GridBagConstraints();
 		gbcBtns.gridy = 0;
 		gbcBtns.gridx = 1;
-		gbcBtns.weightx = 0.15;
+		gbcBtns.weightx = 0.1;
 		gbcBtns.insets = new Insets(0, 10, 0, 0);
-		gbcBtns.anchor = GridBagConstraints.CENTER;
+		gbcBtns.anchor = GridBagConstraints.WEST;
 		JButton themMatHangButton = new CustomButton("Thêm mặt hàng");
 		themMatHangButton.setPreferredSize(new Dimension(150, 30));
 		ImageIcon themMatHang = new ImageIcon("src/main/java/resource/themMatHangIcon.png");
@@ -178,6 +180,11 @@ public class importPanel extends JPanel {
 				labelName.setFont(new Font("Roboto", Font.PLAIN, 12));
 				panelContent.add(labelName, gbcContent);
 
+				CustomTextField txtDonGia = new CustomTextField(15);
+				txtDonGia.setFont(new Font("Roboto", Font.PLAIN, 15));
+				txtDonGia.setEditable(false);
+				txtDonGia.setText("0");
+
 				gbcContent = new GridBagConstraints();
 				CustomComboBox txtName = new CustomComboBox(matHangs.keySet().toArray(new String[0]));
                 gbcContent.fill = GridBagConstraints.HORIZONTAL;
@@ -187,6 +194,14 @@ public class importPanel extends JPanel {
 				gbcContent.weighty = 0.4;
 				gbcContent.insets = new Insets(10, 20, 20, 0);
 				txtName.setFont(new Font("Roboto", Font.PLAIN, 15));
+				txtName.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						String tenMatHang = (String) txtName.getSelectedItem();
+						int donGia = matHangs.get(tenMatHang).getLast();
+						txtDonGia.setText(String.valueOf(donGia));
+					}
+				});
 				gbcContent.anchor = GridBagConstraints.FIRST_LINE_START;
 				panelContent.add(txtName, gbcContent);
 
@@ -249,14 +264,11 @@ public class importPanel extends JPanel {
 				panelContent.add(labelDonGia, gbcContent);
 
 				gbcContent = new GridBagConstraints();
-				CustomTextField txtDonGia = new CustomTextField(15);
-				txtDonGia.setEditable(true);
 				gbcContent.gridx = 1;
 				gbcContent.gridy = 3;
 				gbcContent.weightx = 0.5;
 				gbcContent.weighty = 0.4;
 				gbcContent.insets = new Insets(10, 20, 0, 0);
-				txtDonGia.setFont(new Font("Roboto", Font.PLAIN, 15));
 				gbcContent.anchor = GridBagConstraints.FIRST_LINE_START;
 				panelContent.add(txtDonGia, gbcContent);
 
@@ -334,7 +346,7 @@ public class importPanel extends JPanel {
 				Date selectedDate = (Date) datePicker.getModel().getValue();
 				LocalDate todayLocalDate = LocalDate.now();
 				Date todayDate = Date.from(todayLocalDate.atStartOfDay().atZone(ZoneId.of("Asia/Ho_Chi_Minh")).toInstant());
-				if(selectedDate.compareTo(todayDate) > 0 && (selectedDate.getDay() != todayDate.getDay() && selectedDate.getMonth() != todayDate.getMonth() && selectedDate.getYear() != todayDate.getYear())){
+				if(selectedDate.after(todayDate) && (selectedDate.getDay() != todayDate.getDay() || selectedDate.getMonth() != todayDate.getMonth() || selectedDate.getYear() != todayDate.getYear())){
 					JOptionPane.showMessageDialog(null, "Ngày nhập hàng không thể lớn hơn ngày hiện tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
@@ -350,7 +362,7 @@ public class importPanel extends JPanel {
 					String tenMatHang = (String) model.getValueAt(i, 1);
 					int soLuong = Integer.parseInt((String) model.getValueAt(i, 3));
 
-					ctnhList.add(new ctnh(new mathang(matHangs.get(tenMatHang)), soLuong));
+					ctnhList.add(new ctnh(new mathang(matHangs.get(tenMatHang).getFirst()), soLuong));
 				}
 				if(phieuNhapHangController.addCTNH(ctnhList).equals("Created successfully!")){
 					JOptionPane.showMessageDialog(null, "Lập phiếu nhập hàng thành công", "Thành công", JOptionPane.INFORMATION_MESSAGE);
@@ -366,9 +378,9 @@ public class importPanel extends JPanel {
 		gbcBtns = new GridBagConstraints();
 		gbcBtns.gridx = 2;
 		gbcBtns.gridy = 0;
-		gbcBtns.weightx = 0.15;
+		gbcBtns.weightx = 0.1;
 		gbcBtns.insets = new Insets(0, 10, 0, 0);
-		gbcBtns.anchor = GridBagConstraints.EAST;
+		gbcBtns.anchor = GridBagConstraints.WEST;
 		panelButtons.add(addButton, gbcBtns);
 
 		gbc1_4 = new GridBagConstraints();
@@ -416,7 +428,12 @@ public class importPanel extends JPanel {
 					JMenuItem deleteItem = new JMenuItem("Delete");
 					deleteItem.addActionListener(e -> {
 						// Handle delete action
-						model.removeRow(row);
+						if(row < model.getRowCount()) {
+							int deleteMoney = (int)model.getValueAt(row, 5);
+							model.removeRow(row);
+							int sumMoney = Integer.parseInt(tongTienTextField.getText().replace("Tổng tiền: ", "").replace(" VND", ""));
+							tongTienTextField.setText("Tổng tiền: " + (sumMoney - deleteMoney) + " VND");
+						}
 					});
 					JMenuItem cancelItem = new JMenuItem("Cancel");
 					cancelItem.addActionListener(e -> {
@@ -474,9 +491,10 @@ public class importPanel extends JPanel {
 		} catch (IOException ex) {
 			throw new RuntimeException(ex);
 		}
+		donGiaMatHangs = new ArrayList<>();
 		matHangs = new HashMap<>();
 		for(mathang mh : list) {
-			matHangs.put(mh.getTenmh(), mh.getMamh());
+			matHangs.put(mh.getTenmh(), new ArrayList<>(Arrays.asList(mh.getMamh(), mh.getDongianhap())));
 		}
 	}
 
