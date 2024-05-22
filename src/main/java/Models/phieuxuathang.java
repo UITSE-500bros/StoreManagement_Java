@@ -5,11 +5,11 @@ public class phieuxuathang {
 
     private int mapxuat;
 
-    private String ngayXuat;
-    private daily maDaiLy;
-    private int tongTien;
-    private int soTienTra;
-    private int conLai;
+    private String ngaylp;
+    private daily madaily;
+    private int tongtien;
+    private int sotientra;
+    private int conlai;
 
     public phieuxuathang() {
         
@@ -19,59 +19,11 @@ public class phieuxuathang {
         this.mapxuat = mapxuat;
     }
 
-    public phieuxuathang(String ngayXuat, daily maDaiLy, int tongTien, int soTienTra, int conLai) {
-        this.ngayXuat = ngayXuat;
-        this.maDaiLy = maDaiLy;
-        this.tongTien = tongTien;
-        this.soTienTra = soTienTra;
-        this.conLai = conLai;
-    }
-
-    public int getMapxuat() {
-        return mapxuat;
-    }
-
-    public void setMapxuat(int mapxuat) {
-        this.mapxuat = mapxuat;
-    }
-
-    public String getNgayXuat() {
-        return ngayXuat;
-    }
-
-    public void setNgayXuat(String ngayXuat) {
-        this.ngayXuat = ngayXuat;
-    }
-
-    public daily getMaDaiLy() {
-        return maDaiLy;
-    }
-
-    public void setMaDaiLy(daily maDaiLy) {
-        this.maDaiLy = maDaiLy;
-    }
-
-    public int getTongTien() {
-        return tongTien;
-    }
-
-    public void setTongTien(int tongTien) {
-        this.tongTien = tongTien;
-    }
-
-    public int getSoTienTra() {
-        return soTienTra;
-    }
-
-    public void setSoTienTra(int soTienTra) {
-        this.soTienTra = soTienTra;
-    }
-
-    public int getConLai() {
-        return conLai;
-    }
-
-    public void setConLai(int conLai) {
-        this.conLai = conLai;
+    public phieuxuathang(String ngaylp, daily madaily, int tongtien, int sotientra, int conlai) {
+        this.ngaylp = ngaylp;
+        this.madaily = madaily;
+        this.tongtien = tongtien;
+        this.sotientra = sotientra;
+        this.conlai = conlai;
     }
 }
