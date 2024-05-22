@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 import java.util.List;
 
@@ -17,8 +19,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.text.JTextComponent;
 
+import Controller.DaiLyController;
 import Controller.MatHangController;
-import Models.mathang;
+import Controller.PhieuXuatHangController;
+import Models.*;
 import ReuseClass.DatePicker;
 
 public class ExportPanel extends JPanel {
@@ -30,10 +34,11 @@ public class ExportPanel extends JPanel {
 	private CustomTextField tienTraTextField;
 	private JTextField tongTienTextField;
 	private JTable tableXuatHang;
-	private FilterComboBox maSoPhieuTextField;
+	private FilterComboBox daiLyCombobox;
 	private DatePicker datePicker;
-	private MatHangController matHangController;
 	private Map<String, ArrayList<Integer>> matHangs;
+	private Map<String, ArrayList<Integer>>  daiLys;
+	private List<daily> list1;
 
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
@@ -121,13 +126,13 @@ public class ExportPanel extends JPanel {
 
 		GridBagConstraints gbc3 = new GridBagConstraints();
 		gbc3.anchor = GridBagConstraints.WEST;
-		maSoPhieuTextField = new FilterComboBox(new String[] { "Mã số phiếu 1", "Mã số phiếu 2", "Mã số phiếu 3" });
-		maSoPhieuTextField.setPreferredSize(new Dimension(200, 30));
-		maSoPhieuTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
+		daiLyCombobox = new FilterComboBox(daiLys.keySet().toArray(new String[0]));
+		daiLyCombobox.setPreferredSize(new Dimension(200, 30));
+		daiLyCombobox.setFont(new Font("Roboto", Font.PLAIN, 12));
 		gbc3.gridx = 0;
 		gbc3.insets = new Insets(0, 10, 0, 0);
 		gbc3.weightx = 0.2; // Adjusted weight
-		pnaelHang2.add(maSoPhieuTextField, gbc3);
+		pnaelHang2.add(daiLyCombobox, gbc3);
 
 		gbc3 = new GridBagConstraints();
 		gbc3.anchor = GridBagConstraints.CENTER;
@@ -293,6 +298,13 @@ public class ExportPanel extends JPanel {
 						tongTienText = tongTienText.replace("Tổng tiền: ", "").replace(" VND", "");
 						int res = Integer.parseInt(tongTienText) + sum;
 						tongTienTextField.setText("Tổng tiền: " + res + " VND");
+						if(tienTraTextField.getText().equals("")) {
+							tienConLaiTextField.setText("Còn lại: " + res + " VND");
+						}
+						else {
+							int tienTra = Integer.parseInt(tienTraTextField.getText());
+							tienConLaiTextField.setText("Còn lại: " + (res - tienTra) + " VND");
+						}
 						((Window) SwingUtilities.getRoot(panel)).dispose();
 					}
 				});
@@ -339,12 +351,64 @@ public class ExportPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if (model.getRowCount() == 0) {
 					JOptionPane.showMessageDialog(null, "Vui lòng thêm mặt hàng", "Lỗi", JOptionPane.ERROR_MESSAGE);
+					return;
 				}
+
+				Date selectedDate = (Date) datePicker.getModel().getValue();
+				LocalDate todayLocalDate = LocalDate.now();
+				Date todayDate = Date.from(todayLocalDate.atStartOfDay().atZone(ZoneId.of("Asia/Ho_Chi_Minh")).toInstant());
+				if(selectedDate.after(todayDate) && (selectedDate.getDay() != todayDate.getDay() || selectedDate.getMonth() != todayDate.getMonth() || selectedDate.getYear() != todayDate.getYear())){
+					JOptionPane.showMessageDialog(null, "Ngày nhập hàng không thể lớn hơn ngày hiện tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+
+				String date = datePicker.getDateString();
+
+
 				if (tienTraTextField.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, "Vui lòng nhập số tiền trả", "Lỗi", JOptionPane.ERROR_MESSAGE);
+					return;
 				}
 				if (!tienTraTextField.getText().matches("[0-9]+")) {
 					JOptionPane.showMessageDialog(null, "Số tiền trả phải là số nguyên", "Lỗi", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+
+				int tongTien = Integer.parseInt(tongTienTextField.getText().replace("Tổng tiền: ", "").replace(" VND", ""));
+				int tienTra = Integer.parseInt(tienTraTextField.getText());
+
+				if (tienTra > tongTien) {
+					JOptionPane.showMessageDialog(null, "Số tiền trả không được lớn hơn tổng tiền", "Lỗi", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+
+				int tienConLai = tienConLaiTextField.getText().equals("") ? tongTien : Integer.parseInt(tienConLaiTextField.getText().replace("Còn lại: ", "").replace(" VND", ""));
+
+				PhieuXuatHangController phieuXuatHangController = new PhieuXuatHangController();
+
+				try {
+					phieuXuatHangController.createPhieuXuatHang(new phieuxuathang(date, list1.get(daiLys.get(daiLyCombobox.getSelectedItem().toString()).getLast()), tongTien, tienTra, tienConLai));
+				} catch (IOException ex) {
+					throw new RuntimeException(ex);
+				}
+				ArrayList<ctxh> ctxhs = new ArrayList<>();
+				for (int i = 0; i < model.getRowCount(); i++) {
+					String tenMatHang = (String) model.getValueAt(i, 1);
+					int soLuong = Integer.parseInt((String) model.getValueAt(i, 3));
+					int donGia = Integer.parseInt((String) model.getValueAt(i, 4));
+					int thanhTien = (int) model.getValueAt(i, 5);
+
+					ctxhs.add(new ctxh(new mathang(matHangs.get(tenMatHang).getFirst()), soLuong, donGia, thanhTien));
+				}
+
+				String result = phieuXuatHangController.addCTXH(ctxhs);
+
+				if (result.equals("Created successfully!")) {
+					tongTienTextField.setText("Tổng tiền: 0 VND");
+					tienTraTextField.setText("");
+					tienConLaiTextField.setText("Còn lại: 0 VND");
+					model.setRowCount(0);
+					JOptionPane.showMessageDialog(null, "Lập phiếu thành công", "Thành công", JOptionPane.INFORMATION_MESSAGE);
 				}
 				else {
 					JOptionPane.showMessageDialog(null, "Lập phiếu thành công", "Thành công", JOptionPane.INFORMATION_MESSAGE);
@@ -413,7 +477,12 @@ public class ExportPanel extends JPanel {
 							model.removeRow(row);
 							int sumMoney = Integer.parseInt(tongTienTextField.getText().replace("Tổng tiền: ", "").replace(" VND", ""));
 							tongTienTextField.setText("Tổng tiền: " + (sumMoney - deleteMoney) + " VND");
-							tienConLaiTextField.setText("Còn lại: " + (sumMoney - deleteMoney - Integer.parseInt(tienTraTextField.getText())) + " VND");
+							if (tienTraTextField.getText().equals("")) {
+								tienConLaiTextField.setText("Còn lại: " + (sumMoney - deleteMoney) + " VND");
+							} else {
+								int tienTra = Integer.parseInt(tienTraTextField.getText());
+								tienConLaiTextField.setText("Còn lại: " + (sumMoney - deleteMoney - tienTra) + " VND");
+							}
 						}
 					});
 					JMenuItem cancelItem = new JMenuItem("Cancel");
@@ -526,16 +595,23 @@ public class ExportPanel extends JPanel {
 	}
 
 	public void loadData(){
-		matHangController = new MatHangController();
 		List<mathang> list = null;
+		list1 = null;
 		try {
+			list1 = new DaiLyController().showDaiLy();
 			list = new MatHangController().showMatHang();
 		} catch (IOException ex) {
 			throw new RuntimeException(ex);
 		}
 		matHangs = new HashMap<>();
+		daiLys = new HashMap<>();
 		for(mathang mh : list) {
 			matHangs.put(mh.getTenmh(), new ArrayList<>(Arrays.asList(mh.getMamh(), mh.getDongianhap())));
+		}
+		int i = 0;
+		for (daily dl : list1) {
+			daiLys.put(dl.getTendaily(), new ArrayList<>(Arrays.asList(dl.getMadaily(), i)));
+			i++;
 		}
 	}
 

@@ -20,6 +20,7 @@ import javax.swing.table.TableColumnModel;
 
 import Controller.MatHangController;
 import Controller.PhieuNhapHangController;
+import Controller.PhieuXuatHangController;
 import Models.ctnh;
 import Models.mathang;
 import Models.phieunhaphang;
@@ -39,8 +40,6 @@ public class importPanel extends JPanel {
 	private JTable tableNhapHang;
 	private DefaultTableModel model;
 	private MatHangController matHangController;
-	private PhieuNhapHangController	phieuNhapHangController;
-	private ArrayList<Integer> donGiaMatHangs;
 
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
@@ -62,8 +61,6 @@ public class importPanel extends JPanel {
 		this.setLayout(new GridBagLayout());
 
 		matHangController = new MatHangController();
-
-		phieuNhapHangController = new PhieuNhapHangController();
 
 		loadData();
 
@@ -350,6 +347,8 @@ public class importPanel extends JPanel {
 					JOptionPane.showMessageDialog(null, "Ngày nhập hàng không thể lớn hơn ngày hiện tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
+				PhieuNhapHangController phieuNhapHangController = new PhieuNhapHangController();
+
 				String date = datePicker.getDateString();
 				int tongTien = Integer.parseInt(tongTienTextField.getText().replace("Tổng tiền: ", "").replace(" VND", ""));
 				try {
@@ -364,7 +363,8 @@ public class importPanel extends JPanel {
 
 					ctnhList.add(new ctnh(new mathang(matHangs.get(tenMatHang).getFirst()), soLuong));
 				}
-				if(phieuNhapHangController.addCTNH(ctnhList).equals("Created successfully!")){
+				String res = phieuNhapHangController.addCTNH(ctnhList);
+				if(res.equals("Created successfully!")){
 					JOptionPane.showMessageDialog(null, "Lập phiếu nhập hàng thành công", "Thành công", JOptionPane.INFORMATION_MESSAGE);
 					model.setRowCount(0);
 					tongTienTextField.setText("Tổng tiền: 0 VND");
@@ -491,7 +491,6 @@ public class importPanel extends JPanel {
 		} catch (IOException ex) {
 			throw new RuntimeException(ex);
 		}
-		donGiaMatHangs = new ArrayList<>();
 		matHangs = new HashMap<>();
 		for(mathang mh : list) {
 			matHangs.put(mh.getTenmh(), new ArrayList<>(Arrays.asList(mh.getMamh(), mh.getDongianhap())));

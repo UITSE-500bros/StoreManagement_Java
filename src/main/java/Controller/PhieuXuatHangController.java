@@ -14,7 +14,7 @@ public class PhieuXuatHangController {
         phieuXuatHangRepository = new PhieuXuatHangRepository();
     }
     int mapxuat;
-    public int createPhieuXuatHang(phieunhaphang phieuXuatHang) throws IOException {
+    public int createPhieuXuatHang(phieuxuathang phieuXuatHang) throws IOException {
         mapxuat = phieuXuatHangRepository.createPhieuXuatHang(phieuXuatHang);
         return mapxuat;
     }

@@ -19,6 +19,14 @@ public class ctxh {
     public ctxh() {
     }
 
+    public ctxh(mathang mamh, int slxuat, int dongiaxuat, int thanhtien) {
+
+            this.mamh = mamh;
+            this.slxuat = slxuat;
+            this.dongiaxuat = dongiaxuat;
+            this.thanhtien = thanhtien;
+        }
+
     public ctxh(phieuxuathang mapxuat, mathang mamh, int slxuat, int dongiaxuat, int thanhtien) {
         this.mapxuat = mapxuat;
         this.mamh = mamh;
