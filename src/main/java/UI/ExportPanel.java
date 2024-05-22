@@ -39,6 +39,7 @@ public class ExportPanel extends JPanel {
 	private Map<String, ArrayList<Integer>> matHangs;
 	private Map<String, ArrayList<Integer>>  daiLys;
 	private List<daily> list1;
+	private List<mathang> list;
 
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
@@ -186,7 +187,7 @@ public class ExportPanel extends JPanel {
 
 				CustomTextField txtDonGia = new CustomTextField(15);
 				txtDonGia.setFont(new Font("Roboto", Font.PLAIN, 15));
-				txtDonGia.setEditable(true);
+				txtDonGia.setEditable(false);
 
 				gbcContent = new GridBagConstraints();
 				CustomComboBox txtName = new CustomComboBox(matHangs.keySet().toArray(new String[0]));
@@ -354,15 +355,22 @@ public class ExportPanel extends JPanel {
 					return;
 				}
 
+
 				Date selectedDate = (Date) datePicker.getModel().getValue();
 				LocalDate todayLocalDate = LocalDate.now();
 				Date todayDate = Date.from(todayLocalDate.atStartOfDay().atZone(ZoneId.of("Asia/Ho_Chi_Minh")).toInstant());
+
+				if (selectedDate == null) {
+					JOptionPane.showMessageDialog(null, "Vui lòng chọn ngày nhập hàng", "Lỗi", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+
 				if(selectedDate.after(todayDate) && (selectedDate.getDay() != todayDate.getDay() || selectedDate.getMonth() != todayDate.getMonth() || selectedDate.getYear() != todayDate.getYear())){
 					JOptionPane.showMessageDialog(null, "Ngày nhập hàng không thể lớn hơn ngày hiện tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
 
-				String date = datePicker.getDateString();
+				String date = selectedDate.toString();
 
 
 				if (tienTraTextField.getText().equals("")) {
@@ -382,12 +390,19 @@ public class ExportPanel extends JPanel {
 					return;
 				}
 
-				int tienConLai = tienConLaiTextField.getText().equals("") ? tongTien : Integer.parseInt(tienConLaiTextField.getText().replace("Còn lại: ", "").replace(" VND", ""));
+				int tienConLai = tongTien - tienTra;
 
 				PhieuXuatHangController phieuXuatHangController = new PhieuXuatHangController();
 
 				try {
-					phieuXuatHangController.createPhieuXuatHang(new phieuxuathang(date, list1.get(daiLys.get(daiLyCombobox.getSelectedItem().toString()).getLast()), tongTien, tienTra, tienConLai));
+					phieuxuathang phieuXuatHang = new phieuxuathang(date, list1.get(daiLys.get(Objects.requireNonNull(daiLyCombobox.getSelectedItem()).toString()).getLast()), tongTien, tienTra, tienConLai);
+
+					System.out.println(phieuXuatHang.getMadaily().getMadaily());
+					System.out.println(phieuXuatHang.getConlai());
+					System.out.println(phieuXuatHang.getSotientra());
+					System.out.println(phieuXuatHang.getTongtien());
+					System.out.println(phieuXuatHang.getNgaylp());
+					phieuXuatHangController.createPhieuXuatHang(phieuXuatHang);
 				} catch (IOException ex) {
 					throw new RuntimeException(ex);
 				}
@@ -398,7 +413,7 @@ public class ExportPanel extends JPanel {
 					int donGia = Integer.parseInt((String) model.getValueAt(i, 4));
 					int thanhTien = (int) model.getValueAt(i, 5);
 
-					ctxhs.add(new ctxh(new mathang(matHangs.get(tenMatHang).getFirst()), soLuong, donGia, thanhTien));
+					ctxhs.add(new ctxh(list.get(matHangs.get(tenMatHang).getFirst()), soLuong, donGia, thanhTien));
 				}
 
 				String result = phieuXuatHangController.addCTXH(ctxhs);
@@ -595,7 +610,7 @@ public class ExportPanel extends JPanel {
 	}
 
 	public void loadData(){
-		List<mathang> list = null;
+		list = null;
 		list1 = null;
 		try {
 			list1 = new DaiLyController().showDaiLy();
@@ -605,10 +620,12 @@ public class ExportPanel extends JPanel {
 		}
 		matHangs = new HashMap<>();
 		daiLys = new HashMap<>();
+		int  i = 0;
 		for(mathang mh : list) {
-			matHangs.put(mh.getTenmh(), new ArrayList<>(Arrays.asList(mh.getMamh(), mh.getDongianhap())));
+			matHangs.put(mh.getTenmh(), new ArrayList<>(Arrays.asList(i , mh.getDongianhap())));
+			i++;
 		}
-		int i = 0;
+		i = 0;
 		for (daily dl : list1) {
 			daiLys.put(dl.getTendaily(), new ArrayList<>(Arrays.asList(dl.getMadaily(), i)));
 			i++;

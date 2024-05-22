@@ -40,6 +40,7 @@ public class importPanel extends JPanel {
 	private JTable tableNhapHang;
 	private DefaultTableModel model;
 	private MatHangController matHangController;
+	private List<mathang> list;
 
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
@@ -341,6 +342,12 @@ public class importPanel extends JPanel {
 					return;
 				}
 				Date selectedDate = (Date) datePicker.getModel().getValue();
+
+				if (selectedDate == null){
+					JOptionPane.showMessageDialog(null, "Vui lòng chọn ngày nhập hàng", "Lỗi", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+
 				LocalDate todayLocalDate = LocalDate.now();
 				Date todayDate = Date.from(todayLocalDate.atStartOfDay().atZone(ZoneId.of("Asia/Ho_Chi_Minh")).toInstant());
 				if(selectedDate.after(todayDate) && (selectedDate.getDay() != todayDate.getDay() || selectedDate.getMonth() != todayDate.getMonth() || selectedDate.getYear() != todayDate.getYear())){
@@ -349,7 +356,7 @@ public class importPanel extends JPanel {
 				}
 				PhieuNhapHangController phieuNhapHangController = new PhieuNhapHangController();
 
-				String date = datePicker.getDateString();
+				String date = selectedDate.toString();
 				int tongTien = Integer.parseInt(tongTienTextField.getText().replace("Tổng tiền: ", "").replace(" VND", ""));
 				try {
 					phieuNhapHangController.createPhieuNhapHang(new phieunhaphang(date, tongTien));
@@ -361,7 +368,7 @@ public class importPanel extends JPanel {
 					String tenMatHang = (String) model.getValueAt(i, 1);
 					int soLuong = Integer.parseInt((String) model.getValueAt(i, 3));
 
-					ctnhList.add(new ctnh(new mathang(matHangs.get(tenMatHang).getFirst()), soLuong));
+					ctnhList.add(new ctnh(list.get(matHangs.get(tenMatHang).getFirst()), soLuong));
 				}
 				String res = phieuNhapHangController.addCTNH(ctnhList);
 				if(res.equals("Created successfully!")){
@@ -485,7 +492,7 @@ public class importPanel extends JPanel {
 	}
 
 	public void loadData(){
-		List<mathang> list = null;
+		list = null;
 		try {
 			list = new MatHangController().showMatHang();
 		} catch (IOException ex) {
