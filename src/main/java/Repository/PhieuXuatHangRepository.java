@@ -2,6 +2,7 @@ package Repository;
 
 import Models.ctxh;
 import Models.phieunhaphang;
+import Models.phieuxuathang;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,7 +16,7 @@ public class PhieuXuatHangRepository extends Connection
     }
 
     private int mapxuat;
-    public int createPhieuXuatHang(phieunhaphang phieuXuatHang) throws IOException {
+    public int createPhieuXuatHang(phieuxuathang phieuXuatHang) throws IOException {
         openPostConnection("phieuxuathang/createpxh");
         String json = gson.toJson(phieuXuatHang);
         response ="";
