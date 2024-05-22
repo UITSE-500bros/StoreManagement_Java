@@ -2,7 +2,7 @@ package Models;
 
 public class phieunhaphang {
 
-    private int maphieunhap;
+    private int mapnhap;
     private String ngaylp;
     private int tongtien;
     private int person_id;
@@ -12,18 +12,18 @@ public class phieunhaphang {
     }
 
     public phieunhaphang(int maphieunhap) {
-        this.maphieunhap = maphieunhap;
+        this.mapnhap = maphieunhap;
     }
     public phieunhaphang(String ngaynhap, int tongtien) {
         this.ngaylp = ngaynhap;
         this.tongtien = tongtien;
     }
     public int getMaphieunhap() {
-        return maphieunhap;
+        return mapnhap;
     }
 
     public void setMaphieunhap(int maphieunhap) {
-        this.maphieunhap = maphieunhap;
+        this.mapnhap = maphieunhap;
     }
 
     public String getNgaylp() {
