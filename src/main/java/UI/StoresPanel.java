@@ -15,6 +15,7 @@ import Models.loaidaily;
 import Models.quan;
 import Models.phieuthutien;
 import java.awt.event.*;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -432,7 +433,7 @@ public class StoresPanel extends JPanel {
 							daily.setSdt(values[2]);
 							daily.setDiachi(values[3]);
 							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-							daily.setNgaytn(LocalDate.now().format(formatter));
+							daily.setNgaytn(Date.valueOf(LocalDate.now().format(formatter)));
 							daily.setMaquan(quan);
 							daily.setTienno(0);
 							daily.setMaloaidl(loaidaily);
@@ -618,7 +619,7 @@ public class StoresPanel extends JPanel {
             	                    selectedAgent.setTienno(selectedAgent.getTienno() - Integer.parseInt(values[5]));
             	                    phieuthutien phieuThuTien = new phieuthutien();
             	                    phieuThuTien.setMadaily(selectedAgent);            	                    
-            	                    phieuThuTien.setNgaythutien(LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+            	                    phieuThuTien.setNgaythutien(Date.valueOf(LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
             	                    phieuThuTien.setTienthu(Integer.parseInt(values[5]));
             	                    if(phieuThuTienController.createPhieuThuTien(phieuThuTien).contains("201")) {
             	                    	for (int i = 0; i < model.getRowCount(); i++) {

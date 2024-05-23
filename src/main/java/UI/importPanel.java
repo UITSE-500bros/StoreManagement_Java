@@ -358,7 +358,7 @@ public class importPanel extends JPanel {
 				}
 				PhieuNhapHangController phieuNhapHangController = new PhieuNhapHangController();
 
-				String date = selectedDate.toString();
+				java.sql.Date date = new java.sql.Date(selectedDate.getTime());
 				int tongTien = Integer.parseInt(tongTienTextField.getText().replace("Tổng tiền: ", "").replace(" VND", ""));
 				try {
 					phieuNhapHangController.createPhieuNhapHang(new phieunhaphang(date, tongTien));

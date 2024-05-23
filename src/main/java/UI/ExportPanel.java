@@ -372,8 +372,7 @@ public class ExportPanel extends JPanel {
 					return;
 				}
 
-				String date = selectedDate.toString();
-
+				java.sql.Date date = new java.sql.Date(selectedDate.getTime());
 
 				if (tienTraTextField.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, "Vui lòng nhập số tiền trả", "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -399,11 +398,6 @@ public class ExportPanel extends JPanel {
 				try {
 					phieuxuathang phieuXuatHang = new phieuxuathang(date, list1.get(daiLys.get(Objects.requireNonNull(daiLyCombobox.getSelectedItem()).toString()).getLast()), tongTien, tienTra, tienConLai);
 
-					System.out.println(phieuXuatHang.getMadaily().getMadaily());
-					System.out.println(phieuXuatHang.getConlai());
-					System.out.println(phieuXuatHang.getSotientra());
-					System.out.println(phieuXuatHang.getTongtien());
-					System.out.println(phieuXuatHang.getNgaylp());
 					phieuXuatHangController.createPhieuXuatHang(phieuXuatHang);
 				} catch (IOException ex) {
 					throw new RuntimeException(ex);
