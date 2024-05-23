@@ -1,9 +1,11 @@
 package Models;
 
+import java.sql.Date;
+
 public class phieunhaphang {
 
     private int mapnhap;
-    private String ngaylp;
+    private Date ngaylp;
     private int tongtien;
     private int person_id;
 
@@ -14,7 +16,7 @@ public class phieunhaphang {
     public phieunhaphang(int maphieunhap) {
         this.mapnhap = maphieunhap;
     }
-    public phieunhaphang(String ngaynhap, int tongtien) {
+    public phieunhaphang(Date ngaynhap, int tongtien) {
         this.ngaylp = ngaynhap;
         this.tongtien = tongtien;
     }
@@ -26,11 +28,11 @@ public class phieunhaphang {
         this.mapnhap = maphieunhap;
     }
 
-    public String getNgaylp() {
+    public Date getNgaylp() {
         return ngaylp;
     }
 
-    public void setNgaylp(String ngaylp) {
+    public void setNgaylp(Date ngaylp) {
         this.ngaylp = ngaylp;
     }
 

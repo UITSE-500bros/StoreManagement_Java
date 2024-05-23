@@ -1,16 +1,18 @@
 package Models;
 
+import java.sql.Date;
+
 public class phieuthutien {
 
     private int maphieuthu;
-    private String ngaythutien;
+    private Date ngaythutien;
     private int tienthu;
     private daily madaily;
 
     public phieuthutien() {
     }
 
-    public phieuthutien(int maphieuthu, String ngaythutien, int tienthu, daily madaily) {
+    public phieuthutien(int maphieuthu, Date ngaythutien, int tienthu, daily madaily) {
         this.maphieuthu = maphieuthu;
         this.ngaythutien = ngaythutien;
         this.tienthu = tienthu;
@@ -25,11 +27,11 @@ public class phieuthutien {
         this.maphieuthu = maphieuthu;
     }
 
-    public String getNgaythutien() {
+    public Date getNgaythutien() {
         return ngaythutien;
     }
 
-    public void setNgaythutien(String ngaythutien) {
+    public void setNgaythutien(Date ngaythutien) {
         this.ngaythutien = ngaythutien;
     }
 

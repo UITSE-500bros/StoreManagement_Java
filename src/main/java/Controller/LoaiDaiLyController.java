@@ -21,4 +21,8 @@ public class LoaiDaiLyController {
     public String addNewLoaiDaiLy(loaidaily loaidaily){
         return connection.insertLoaiDaiLy(loaidaily);
     }
+
+    public String updateLoaiDaiLy(loaidaily loaidaily){
+        return connection.updateLoaiDaiLy(loaidaily);
+    }
 }

@@ -34,4 +34,14 @@ public class ThamSoRepository extends Connection{
         super.closeConnection();
         return response;
     }
+
+    public String updateThamSo(thamso thamso){
+        Gson gson = new Gson();
+        String json = gson.toJson(thamso);
+        super.openPostConnection("thamso/updateThamSo");
+        response = "";
+        super.writeObject(json);
+        super.closeConnection();
+        return response;
+    }
 }

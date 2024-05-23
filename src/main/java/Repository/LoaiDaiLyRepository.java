@@ -33,4 +33,14 @@ public class LoaiDaiLyRepository extends Connection{
         con.disconnect();
         return loaidailies;
     }
+
+    public String updateLoaiDaiLy(loaidaily loaidaily) {
+        gson = new Gson();
+        String json = gson.toJson(loaidaily);
+        openPostConnection("loaidaily/updateLoaiDaiLy");
+        response = "";
+        writeObject(json);
+        closeConnection();
+        return response;
+    }
 }

@@ -1,6 +1,8 @@
 package Models;
 
 
+import java.sql.Date;
+
 public class daily {
 
     private int madaily;
@@ -14,7 +16,7 @@ public class daily {
 
     private quan maquan;
 
-    private String ngaytn;
+    private Date ngaytn;
     private int tienno;
 
 
@@ -22,7 +24,7 @@ public class daily {
     public daily() {
     }
 
-    public daily(String tendaily, String diachi, String sdt, String email, loaidaily maloaidl, quan maquan, String ngaytn, int tienno) {
+    public daily(String tendaily, String diachi, String sdt, String email, loaidaily maloaidl, quan maquan, Date ngaytn, int tienno) {
             this.tendaily = tendaily;
             this.diachi = diachi;
             this.sdt = sdt;
@@ -90,11 +92,11 @@ public class daily {
         this.maquan = maquan;
     }
 
-    public String getNgaytn() {
+    public Date getNgaytn() {
         return ngaytn;
     }
 
-    public void setNgaytn(String ngaytn) {
+    public void setNgaytn(Date ngaytn) {
         this.ngaytn = ngaytn;
     }
 
