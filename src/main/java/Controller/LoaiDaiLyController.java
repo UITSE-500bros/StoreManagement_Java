@@ -17,4 +17,8 @@ public class LoaiDaiLyController {
         connection.openGetConnection(link);
         return connection.getALlLoaiDaiLy();
     }
+
+    public String addNewLoaiDaiLy(loaidaily loaidaily){
+        return connection.insertLoaiDaiLy(loaidaily);
+    }
 }
