@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.text.JTextComponent;
 
+import Controller.DVTController;
 import Controller.DaiLyController;
 import Controller.MatHangController;
 import Controller.PhieuXuatHangController;
@@ -40,6 +41,8 @@ public class ExportPanel extends JPanel {
 	private Map<String, ArrayList<Integer>>  daiLys;
 	private List<daily> list1;
 	private List<mathang> list;
+	private ArrayList<String> dvMatHangs;
+
 
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
@@ -220,8 +223,7 @@ public class ExportPanel extends JPanel {
 				panelContent.add(labelDVT, gbcContent);
 
 				gbcContent = new GridBagConstraints();
-				String[] cacDVT = new String[] {"Gói", "Hộp", "Thùng"};
-				CustomComboBox txtDVT = new CustomComboBox(cacDVT);
+				CustomComboBox txtDVT = new CustomComboBox(dvMatHangs.toArray(new String[0]));
 				gbcContent.gridx = 1;
 				gbcContent.gridy = 1;
 				gbcContent.fill = GridBagConstraints.HORIZONTAL;
@@ -612,14 +614,17 @@ public class ExportPanel extends JPanel {
 	public void loadData(){
 		list = null;
 		list1 = null;
+		List<dvt> list2 = new ArrayList<>();
 		try {
 			list1 = new DaiLyController().showDaiLy();
 			list = new MatHangController().showMatHang();
+			list2 = new DVTController().showDVT();
 		} catch (IOException ex) {
 			throw new RuntimeException(ex);
 		}
 		matHangs = new HashMap<>();
 		daiLys = new HashMap<>();
+		dvMatHangs = new ArrayList<>();
 		int  i = 0;
 		for(mathang mh : list) {
 			matHangs.put(mh.getTenmh(), new ArrayList<>(Arrays.asList(i , mh.getDongianhap())));
@@ -629,6 +634,9 @@ public class ExportPanel extends JPanel {
 		for (daily dl : list1) {
 			daiLys.put(dl.getTendaily(), new ArrayList<>(Arrays.asList(dl.getMadaily(), i)));
 			i++;
+		}
+		for (dvt dvt : list2) {
+			dvMatHangs.add(dvt.getTendvt());
 		}
 	}
 

@@ -18,10 +18,12 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
+import Controller.DVTController;
 import Controller.MatHangController;
 import Controller.PhieuNhapHangController;
 import Controller.PhieuXuatHangController;
 import Models.ctnh;
+import Models.dvt;
 import Models.mathang;
 import Models.phieunhaphang;
 import ReuseClass.DatePicker;
@@ -31,6 +33,7 @@ public class importPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField tongTienTextField;
 	private Map<String, ArrayList<Integer>> matHangs;
+	private ArrayList<String> dvMatHangs;
 	private GridBagConstraints gbc1_1;
 	private GridBagConstraints gbc1_2;
 	private GridBagConstraints gbc1_3;
@@ -215,8 +218,7 @@ public class importPanel extends JPanel {
 				panelContent.add(labelDVT, gbcContent);
 
 				gbcContent = new GridBagConstraints();
-				String[] cacDVT = new String[] {"Gói", "Hộp", "Thùng"};
-				CustomComboBox txtDVT = new CustomComboBox(cacDVT);
+				CustomComboBox txtDVT = new CustomComboBox(dvMatHangs.toArray(new String[0]));
 				gbcContent.gridx = 1;
 				gbcContent.gridy = 1;
 				gbcContent.fill = GridBagConstraints.HORIZONTAL;
@@ -493,14 +495,22 @@ public class importPanel extends JPanel {
 
 	public void loadData(){
 		list = null;
+		List<dvt> list1 = new ArrayList<>();
 		try {
 			list = new MatHangController().showMatHang();
+			list1 = new DVTController().showDVT();
 		} catch (IOException ex) {
 			throw new RuntimeException(ex);
 		}
+		dvMatHangs = new ArrayList<>();
 		matHangs = new HashMap<>();
+		int i = 0;
 		for(mathang mh : list) {
-			matHangs.put(mh.getTenmh(), new ArrayList<>(Arrays.asList(mh.getMamh(), mh.getDongianhap())));
+			matHangs.put(mh.getTenmh(), new ArrayList<>(Arrays.asList(i, mh.getDongianhap())));
+			i++;
+		}
+		for (dvt dvt : list1) {
+			dvMatHangs.add(dvt.getTendvt());
 		}
 	}
 
