@@ -396,8 +396,7 @@ public class ExportPanel extends JPanel {
 				PhieuXuatHangController phieuXuatHangController = new PhieuXuatHangController();
 
 				try {
-					phieuxuathang phieuXuatHang = new phieuxuathang(date, list1.get(daiLys.get(Objects.requireNonNull(daiLyCombobox.getSelectedItem()).toString()).getLast()), tongTien, tienTra, tienConLai);
-
+					phieuxuathang phieuXuatHang = new phieuxuathang(list1.get(daiLys.get(Objects.requireNonNull(daiLyCombobox.getSelectedItem()).toString()).getLast()), tongTien, tienTra, tienConLai);
 					phieuXuatHangController.createPhieuXuatHang(phieuXuatHang);
 				} catch (IOException ex) {
 					throw new RuntimeException(ex);

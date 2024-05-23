@@ -16,13 +16,11 @@ public class phieuxuathang {
     public phieuxuathang() {
         
     }
-
     public phieuxuathang(int mapxuat) {
         this.mapxuat = mapxuat;
     }
 
-    public phieuxuathang(Date ngaylp, daily madaily, int tongtien, int sotientra, int conlai) {
-        this.ngaylp = ngaylp;
+    public phieuxuathang(daily madaily, int tongtien, int sotientra, int conlai) {
         this.madaily = madaily;
         this.tongtien = tongtien;
         this.sotientra = sotientra;

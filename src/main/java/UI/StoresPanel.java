@@ -432,8 +432,6 @@ public class StoresPanel extends JPanel {
 							daily.setTendaily(values[0]);
 							daily.setSdt(values[2]);
 							daily.setDiachi(values[3]);
-							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-							daily.setNgaytn(Date.valueOf(LocalDate.now().format(formatter)));
 							daily.setMaquan(quan);
 							daily.setTienno(0);
 							daily.setMaloaidl(loaidaily);

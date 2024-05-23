@@ -14,9 +14,9 @@ public class PhieuXuatHangController {
         phieuXuatHangRepository = new PhieuXuatHangRepository();
     }
     int mapxuat;
-    public int createPhieuXuatHang(phieuxuathang phieuXuatHang) throws IOException {
+    public void createPhieuXuatHang(phieuxuathang phieuXuatHang) throws IOException {
         mapxuat = phieuXuatHangRepository.createPhieuXuatHang(phieuXuatHang);
-        return mapxuat;
+
     }
     public String addCTXH(List<ctxh> ctxhList) {
         for(ctxh ctxh : ctxhList) {
