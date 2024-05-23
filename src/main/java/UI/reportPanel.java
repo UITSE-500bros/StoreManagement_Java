@@ -7,6 +7,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
@@ -19,10 +21,9 @@ import javax.swing.table.TableRowSorter;
 public class reportPanel extends CustomPanel {
 
 	private static final long serialVersionUID = 1L;
-	private final CustomTextField textFieldNam;
-	private final CustomComboBox comboBox;
-
-	private CustomTextField textFieldThang;
+	private CustomComboBox comboboxThang;
+	private CustomTextField textFieldNam;
+	private CustomComboBox comboBox;
 	private JTable table;
 
 	/**
@@ -78,55 +79,80 @@ public class reportPanel extends CustomPanel {
 		panelHeader.add(headerLable, gbcHeader);
 		this.add(panelHeader, gbc);
 
-		JPanel panel = new JPanel();
-
-		gbc = new GridBagConstraints();
+		JPanel panelSearch = new JPanel();
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		gbc.weightx = 1;
 		gbc.weighty = 0.1;
-		gbc.insets = new java.awt.Insets(20, 40, 0, 40);
+		gbc.insets = new java.awt.Insets(10, 40, 0, 40);
+		gbc.fill = GridBagConstraints.BOTH;
+		panelSearch.setLayout(new FlowLayout());
+
+		JTextField searchField = new JTextField();
+		searchField.setPreferredSize(new Dimension(300, 30));
+		searchField.setMinimumSize(new Dimension(300, 30));
+		searchField.setFont(new Font("Roboto", Font.PLAIN, 14));
+		panelSearch.add(searchField);
+
+		this.add(panelSearch, gbc);
+
+		JPanel panel = new JPanel();
+
+		gbc = new GridBagConstraints();
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		gbc.weightx = 1;
+		gbc.weighty = 0.1;
+		gbc.insets = new java.awt.Insets(5, 40, 0, 40);
 		gbc.fill = GridBagConstraints.BOTH;
 
-		panel.setLayout(new GridLayout());
-		GridBagConstraints gbcPanel = new GridBagConstraints();
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 
-		textFieldThang = new CustomTextField(15);
-		textFieldThang.setPlaceholder("Nam");
-		textFieldThang.setMinimumSize(new Dimension(100, 30));
-		textFieldThang.setPreferredSize(new Dimension(100, 30));
-		gbcPanel.gridx = 0;
-		gbcPanel.weightx = 0.2;
-		gbcPanel.anchor = GridBagConstraints.WEST;
-		panel.add(textFieldThang, gbcPanel);
+		comboboxThang = new CustomComboBox(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"});
+		comboboxThang.setMinimumSize(new Dimension(50, 30));
+		comboboxThang.setPreferredSize(new Dimension(50, 30));
+		panel.add(comboboxThang);
 
-		textFieldNam = new CustomTextField(15);
-		textFieldNam.setPlaceholder("Tháng");
-		textFieldNam.setMinimumSize(new Dimension(100, 30));
-		textFieldNam.setPreferredSize(new Dimension(100, 30));
-		gbcPanel = new GridBagConstraints();
-		gbcPanel.gridx = 1;
-		gbcPanel.weightx = 0.2;
-		gbcPanel.insets = new Insets(0, 30, 0, 0);
-		gbcPanel.anchor = GridBagConstraints.CENTER;
-		panel.add(textFieldNam, gbcPanel);
+		textFieldNam = new CustomTextField(10);
+		textFieldNam.setPlaceholder("Năm");
+		textFieldNam.setMinimumSize(new Dimension(50, 30));
+		textFieldNam.setPreferredSize(new Dimension(50, 30));
+		panel.add(textFieldNam);
 
 		String[] reportType = {"Báo cáo công nợ", "Báo cáo doanh số"};
 		comboBox = new CustomComboBox(reportType);
 		comboBox.setPreferredSize(new Dimension(150, 30));
-		gbcPanel = new GridBagConstraints();
-		gbcPanel.gridx = 2;
-		gbcPanel.weightx = 0.2;
-		gbcPanel.insets = new Insets(0, 30, 0, 0);
-		gbcPanel.anchor = GridBagConstraints.EAST;
-		panel.add(comboBox, gbcPanel);
+		panel.add(comboBox);
 
+		CustomButton btnXem = new CustomButton("Thống kê");
+		btnXem.setPreferredSize(new Dimension(100, 30));
+		btnXem.setFont(new Font("Roboto", Font.PLAIN, 12));
+		ImageIcon icon = new ImageIcon("src/main/java/resource/searchStoreIcon.png");
+		btnXem.setIcon(icon);
+		btnXem.setIconTextGap(20);
+		btnXem.setHorizontalAlignment(JButton.LEFT);
+		btnXem.setHorizontalTextPosition(JButton.RIGHT);
+
+		btnXem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (textFieldNam.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Vui lòng nhập năm", "Lỗi", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				if (Integer.parseInt(textFieldNam.getText()) < 0 || Integer.parseInt(textFieldNam.getText()) > LocalDate.now().getYear()){
+					JOptionPane.showMessageDialog(null, "Năm không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+			}
+		});
+
+		panel.add(btnXem);
 		this.add(panel, gbc);
 
 		JScrollPane scrollPane = new JScrollPane();
 		gbc = new GridBagConstraints();
 		gbc.gridx = 0;
-		gbc.gridy = 2;
+		gbc.gridy = 3;
 		gbc.weightx = 1;
 		gbc.weighty = 0.9;
 		gbc.insets = new java.awt.Insets(0, 40, 20, 40);
