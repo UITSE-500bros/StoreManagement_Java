@@ -1,7 +1,7 @@
 package Repository;
 
-import Models.daily;
 import Models.dvt;
+import Models.thamso;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
@@ -11,32 +11,27 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class DVTRepository extends Connection{
-    public DVTRepository() {
+public class ThamSoRepository extends Connection{
+    public ThamSoRepository() {
         super();
     }
-
-    public List<dvt> getAll() throws IOException {
-        super.openGetConnection("dvt/getALLDVT");
-        Gson gson = new Gson();
+    public List<thamso> getThamSo(thamso thamso) throws IOException {
+        super.openGetConnection("thamso/getThamSo");
+        gson = new Gson();
         JsonReader reader = new JsonReader(new InputStreamReader(con.getInputStream()));
-        Type listType = new TypeToken<List<dvt>>(){}.getType();
-        List<dvt> dvtList = gson.fromJson(reader, listType);
+        Type listType = new TypeToken<List<thamso>>(){}.getType();
+        List<thamso> thamsoList = gson.fromJson(reader, listType);
         super.closeConnection();
-        return dvtList;
+        return thamsoList;
     }
 
-    public String createDVT(dvt dvt){
+    public String insertThamSo(thamso thamso){
         Gson gson = new Gson();
-        String json = gson.toJson(dvt);
-        super.openPostConnection("dvt/addDVT");
+        String json = gson.toJson(thamso);
+        super.openPostConnection("thamso/addThamSo");
         response = "";
         super.writeObject(json);
         super.closeConnection();
-
         return response;
     }
-
-
 }
-

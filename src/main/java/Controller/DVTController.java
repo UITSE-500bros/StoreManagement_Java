@@ -15,5 +15,7 @@ public class DVTController {
         return dvtRepository.getAll();
     }
 
-
+    public String addNewDVT(dvt dvt){
+        return dvtRepository.createDVT(dvt);
+    }
 }
