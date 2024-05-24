@@ -114,7 +114,7 @@ public class importPanel extends JPanel {
 		// For components in row 1 and 2, you need to set GridBagConstraints for each
 		// component
 		GridBagConstraints gbc1 = new GridBagConstraints();
-		gbc1.insets = new Insets(0, 0, 5, 5);
+		gbc1.insets = new Insets(0, 20, 5, 5);
 
 		JLabel pnhLable = new JLabel("Phiếu Nhập Hàng");
 		pnhLable.setFont(new Font("Roboto", Font.BOLD, 30));
@@ -125,25 +125,15 @@ public class importPanel extends JPanel {
 		contentPane.add(pnhLable, gbc1);
 
 		Panel panelButtons = new Panel();
-		panelButtons.setLayout(new GridBagLayout());
-		GridBagConstraints gbcBtns = new GridBagConstraints();
-		gbcBtns.gridx = 0;
-		gbcBtns.gridy = 0;
-		gbcBtns.weightx = 0.1;
-		gbcBtns.insets = new Insets(10, 0, 0, 0);
-		gbcBtns.anchor = GridBagConstraints.WEST;
+		panelButtons.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 0));
 
 		datePicker = new DatePicker();
-		datePicker.setFont(new Font("Roboto", Font.PLAIN, 20));
+		datePicker.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0)); // Top, Left, Bottom, Right
+		datePicker.setFont(new Font("Roboto", Font.PLAIN, 12));
+		datePicker.setPreferredSize(new Dimension(150, 30));
+		datePicker.setMinimumSize(new Dimension(150, 30));
 
-		panelButtons.add(datePicker, gbcBtns);
-
-		gbcBtns = new GridBagConstraints();
-		gbcBtns.gridy = 0;
-		gbcBtns.gridx = 1;
-		gbcBtns.weightx = 0.1;
-		gbcBtns.insets = new Insets(0, 10, 0, 0);
-		gbcBtns.anchor = GridBagConstraints.WEST;
+		panelButtons.add(datePicker);
 		JButton themMatHangButton = new CustomButton("Thêm mặt hàng");
 		themMatHangButton.setPreferredSize(new Dimension(150, 30));
 		ImageIcon themMatHang = new ImageIcon("src/main/java/resource/themMatHangIcon.png");
@@ -321,7 +311,7 @@ public class importPanel extends JPanel {
 				JOptionPane.showOptionDialog(null, panel, "Thêm mặt hàng", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
 			}
 		});
-		panelButtons.add(themMatHangButton, gbcBtns);
+		panelButtons.add(themMatHangButton);
 
 		addButton = new CustomButton("Lập phiếu");
 		addButton.setPreferredSize(new Dimension(150, 30));  // Preferred size
@@ -386,13 +376,7 @@ public class importPanel extends JPanel {
 			}
 		});
 
-		gbcBtns = new GridBagConstraints();
-		gbcBtns.gridx = 2;
-		gbcBtns.gridy = 0;
-		gbcBtns.weightx = 0.1;
-		gbcBtns.insets = new Insets(0, 10, 0, 0);
-		gbcBtns.anchor = GridBagConstraints.WEST;
-		panelButtons.add(addButton, gbcBtns);
+		panelButtons.add(addButton);
 
 		gbc1_4 = new GridBagConstraints();
 		gbc1_4.gridx = 0;
@@ -419,7 +403,7 @@ public class importPanel extends JPanel {
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridwidth = 2;
-		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.insets = new Insets(5, 20, 5, 20);
 		gbcHeader.fill = GridBagConstraints.HORIZONTAL;
 		gbc_scrollPane.gridx = 0;
 		gbc_scrollPane.gridy = 2;
@@ -488,7 +472,7 @@ public class importPanel extends JPanel {
 		gbc1_3.gridy = 3;
 		gbc1_3.gridx = 1;
 		gbc1_3.weightx = 0.2;
-		gbc1_3.insets = new java.awt.Insets(10, 30, 0, 0);
+		gbc1_3.insets = new java.awt.Insets(10, 30, 0, 20);
 		contentPane.add(tongTienTextField, gbc1_3);
 
 		this.add(contentPane, gbc);

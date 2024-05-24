@@ -79,23 +79,6 @@ public class reportPanel extends CustomPanel {
 		panelHeader.add(headerLable, gbcHeader);
 		this.add(panelHeader, gbc);
 
-		JPanel panelSearch = new JPanel();
-		gbc.gridx = 0;
-		gbc.gridy = 1;
-		gbc.weightx = 1;
-		gbc.weighty = 0.1;
-		gbc.insets = new java.awt.Insets(10, 40, 0, 40);
-		gbc.fill = GridBagConstraints.BOTH;
-		panelSearch.setLayout(new FlowLayout());
-
-		JTextField searchField = new JTextField();
-		searchField.setPreferredSize(new Dimension(300, 30));
-		searchField.setMinimumSize(new Dimension(300, 30));
-		searchField.setFont(new Font("Roboto", Font.PLAIN, 14));
-		panelSearch.add(searchField);
-
-		this.add(panelSearch, gbc);
-
 		JPanel panel = new JPanel();
 
 		gbc = new GridBagConstraints();
@@ -103,29 +86,39 @@ public class reportPanel extends CustomPanel {
 		gbc.gridy = 2;
 		gbc.weightx = 1;
 		gbc.weighty = 0.1;
-		gbc.insets = new java.awt.Insets(5, 40, 0, 40);
-		gbc.fill = GridBagConstraints.BOTH;
+        gbc.insets = new java.awt.Insets(12, 30, 0, 0);
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.anchor = GridBagConstraints.WEST;
 
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
+		panel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 0));
+
+        CustomTextField searchField = new CustomTextField(20);
+        searchField.setPlaceholder("Tra cứu báo cáo");
+        searchField.setPreferredSize(new Dimension(300, 40));
+        searchField.setMinimumSize(new Dimension(300, 40));
+        searchField.setFont(new Font("Roboto", Font.PLAIN, 14));
+        panel.add(searchField);
 
 		comboboxThang = new CustomComboBox(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"});
-		comboboxThang.setMinimumSize(new Dimension(50, 30));
-		comboboxThang.setPreferredSize(new Dimension(50, 30));
+		comboboxThang.setMinimumSize(new Dimension(50, 40));
+		comboboxThang.setPreferredSize(new Dimension(50, 40));
+		comboboxThang.setBorder(new EmptyBorder(0, 2, 0, 0));
 		panel.add(comboboxThang);
 
 		textFieldNam = new CustomTextField(10);
 		textFieldNam.setPlaceholder("Năm");
-		textFieldNam.setMinimumSize(new Dimension(50, 30));
-		textFieldNam.setPreferredSize(new Dimension(50, 30));
+		textFieldNam.setMinimumSize(new Dimension(50, 40));
+		textFieldNam.setPreferredSize(new Dimension(50, 40));
+		textFieldNam.setBorder(new EmptyBorder(0, 2, 0, 0));
 		panel.add(textFieldNam);
 
 		String[] reportType = {"Báo cáo công nợ", "Báo cáo doanh số"};
 		comboBox = new CustomComboBox(reportType);
-		comboBox.setPreferredSize(new Dimension(150, 30));
+		comboBox.setPreferredSize(new Dimension(150, 40));
 		panel.add(comboBox);
 
 		CustomButton btnXem = new CustomButton("Thống kê");
-		btnXem.setPreferredSize(new Dimension(100, 30));
+		btnXem.setPreferredSize(new Dimension(130, 40));
 		btnXem.setFont(new Font("Roboto", Font.PLAIN, 12));
 		ImageIcon icon = new ImageIcon("src/main/java/resource/searchStoreIcon.png");
 		btnXem.setIcon(icon);
@@ -154,8 +147,8 @@ public class reportPanel extends CustomPanel {
 		gbc.gridx = 0;
 		gbc.gridy = 3;
 		gbc.weightx = 1;
-		gbc.weighty = 0.9;
-		gbc.insets = new java.awt.Insets(0, 40, 20, 40);
+		gbc.weighty = 0.8;
+		gbc.insets = new java.awt.Insets(0, 40, 30, 40);
 		gbc.fill = GridBagConstraints.BOTH;
 		this.add(scrollPane, gbc);
 		

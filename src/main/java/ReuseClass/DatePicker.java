@@ -37,7 +37,7 @@ public class DatePicker extends JDatePickerImpl {
 				return null;
 			}
 		});
-		setPreferredSize(new java.awt.Dimension(150, 40));
+		this.setMinimumSize(new java.awt.Dimension(150, 30));
 	}
 
 	private static Properties getProperties() {

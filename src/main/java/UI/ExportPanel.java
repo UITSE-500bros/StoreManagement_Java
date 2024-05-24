@@ -114,43 +114,32 @@ public class ExportPanel extends JPanel {
 		gbc1.gridy = 0;
 		gbc1.weightx = 0.8;
 		gbc1.anchor = GridBagConstraints.WEST;
+		gbc1.insets = new Insets(0, 15, 5, 0);
 		contentPane.add(pnhLable, gbc1);
 
 		JPanel pnaelHang2 = new JPanel();
 		pnaelHang2.setOpaque(false);
 		pnaelHang2.setBackground(new Color(255, 249, 243, 180));
-		pnaelHang2.setBorder(new EmptyBorder(0, 0, 0, 0));
-		pnaelHang2.setLayout(new GridBagLayout());
+		pnaelHang2.setLayout(new FlowLayout(FlowLayout.LEFT, 15, 0));
 		gbc1 = new GridBagConstraints();
 		gbc1.fill = GridBagConstraints.BOTH;
 		gbc1.gridy = 1;
 		gbc1.gridx = 0;
 		gbc1.gridwidth = 2;
-		gbc1.insets = new Insets(10, 0, 0, 0);
+		gbc1.insets = new Insets(0, 0, 0, 0);
 
-		GridBagConstraints gbc3 = new GridBagConstraints();
-		gbc3.anchor = GridBagConstraints.WEST;
 		daiLyCombobox = new FilterComboBox(daiLys.keySet().toArray(new String[0]));
 		daiLyCombobox.setPreferredSize(new Dimension(200, 30));
 		daiLyCombobox.setFont(new Font("Roboto", Font.PLAIN, 12));
-		gbc3.gridx = 0;
-		gbc3.insets = new Insets(0, 10, 0, 0);
-		gbc3.weightx = 0.2; // Adjusted weight
-		pnaelHang2.add(daiLyCombobox, gbc3);
+		pnaelHang2.add(daiLyCombobox);
 
-		gbc3 = new GridBagConstraints();
-		gbc3.anchor = GridBagConstraints.CENTER;
-		gbc3.insets = new Insets(10, 10, 0, 0);
 		datePicker = new DatePicker();
 		datePicker.setFont(new Font("Roboto", Font.PLAIN, 20));
+		datePicker.setBorder(new EmptyBorder(3, 0, 0, 0));
+		datePicker.setPreferredSize(new Dimension(150, 30));
 		datePicker.setMinimumSize(new Dimension(150, 30));
-		gbc3.gridx = 1;
-		gbc3.weightx = 0.2; // Adjusted weight
-		pnaelHang2.add(datePicker, gbc3);
+		pnaelHang2.add(datePicker);
 
-		// For tienConLaiTextField
-		gbc3 = new GridBagConstraints();
-		gbc3.anchor = GridBagConstraints.CENTER;
 		CustomButton themMatHangButton = new CustomButton("Thêm mặt hàng");
 		themMatHangButton.setPreferredSize(new Dimension(150, 30));
 		ImageIcon themMatHang = new ImageIcon("src/main/java/resource/themMatHangIcon.png");
@@ -333,10 +322,7 @@ public class ExportPanel extends JPanel {
 				JOptionPane.showOptionDialog(null, panel, "Thêm mặt hàng", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
 			}
 		});
-		gbc3.gridx = 2;
-		gbc3.weightx = 0.2;
-		gbc3.insets = new Insets(0, 10, 0, 0);
-		pnaelHang2.add(themMatHangButton, gbc3);
+		pnaelHang2.add(themMatHangButton);
 
 		addButton = new CustomButton("Lập phiếu");
 		addButton.setPreferredSize(new Dimension(150, 30));  // Preferred size
@@ -427,12 +413,8 @@ public class ExportPanel extends JPanel {
 				}
 			}
 		});
-		gbc3 = new GridBagConstraints();
-		gbc3.gridx = 3;
-		gbc3.weightx = 0.2;
-		gbc3.anchor = GridBagConstraints.EAST;
 		addButton.setFont(new Font("Roboto", Font.BOLD, 12));
-		pnaelHang2.add(addButton, gbc3);
+		pnaelHang2.add(addButton);
 
 		contentPane.add(pnaelHang2, gbc1);
 
@@ -464,7 +446,7 @@ public class ExportPanel extends JPanel {
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridwidth = 2;
-		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.insets = new Insets(0, 15, 0, 15);
 		gbcHeader.fill = GridBagConstraints.HORIZONTAL;
 		gbc_scrollPane.gridx = 0;
 		gbc_scrollPane.gridy = 2;
@@ -532,14 +514,14 @@ public class ExportPanel extends JPanel {
 		gbc1.gridy = 2;
 		gbc1.gridwidth = 2; // Span across 2 columns
 		gbc1.weightx = 1.0;
-		gbc1.insets = new java.awt.Insets(10, 0, 0, 0);
+		gbc1.insets = new java.awt.Insets(10, 15, 0, 15);
 		contentPane.add(scrollPane, gbc1);
 
 		// For tienTraTextField
 		JPanel panel2Tien = new JPanel();
 		panel2Tien.setOpaque(false);
 		panel2Tien.setBackground(new Color(255, 249, 243, 180));
-		panel2Tien.setBorder(new EmptyBorder(0, 0, 0, 0));
+		panel2Tien.setBorder(new EmptyBorder(0, 15, 0, 15));
 		panel2Tien.setLayout(new GridBagLayout());
 		gbc1 = new GridBagConstraints();
 		gbc1.fill = GridBagConstraints.BOTH;
