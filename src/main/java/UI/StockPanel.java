@@ -32,7 +32,7 @@ import Models.loaidaily;
 import Models.quan;
 import Models.mathang;
 
-public class StockPanel extends CustomPanel {
+public class StockPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 

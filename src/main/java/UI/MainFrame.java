@@ -168,6 +168,8 @@ public class MainFrame extends JFrame {
 		mainPanel.setLayout(mainGBL);
 		menuPanel = new JPanel();
 		menuPanel.setBackground(Color.BLACK);
+		menuPanel.setPreferredSize(new Dimension(200, 0)); 
+		menuPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		GridBagConstraints gbc = null;
 		gbc_menuPanel = new GridBagConstraints();
 		gbc_menuPanel.fill = GridBagConstraints.BOTH;
@@ -189,9 +191,12 @@ public class MainFrame extends JFrame {
 		gbc.weighty = 1;
 		mainPanel.add(containerPanel, gbc);
 		mainPanel.add(menuPanel, gbc_menuPanel);
-		// menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
 		initMenuPanel(menuPanel);
-		menuPanel.setLayout(new GridLayout(15, 1, 0, 0));
+		menuPanel.setLayout(new GridLayout(15, 1, 10, 0));
+		JPanel emptyPanel = new JPanel();
+		emptyPanel.setOpaque(false);
+		emptyPanel.setPreferredSize(new Dimension(0, 10));
+		//menuPanel.add(emptyPanel); // Empty panel
 		menuPanel.add(storesButton);
 		menuPanel.add(stockButton);
 		menuPanel.add(reportButton);
@@ -268,17 +273,16 @@ public class MainFrame extends JFrame {
 	}
 
 	private void initMenuPanel(JPanel menuPanel) {
-		storesButton = new JButton("Đại lý");
+		storesButton = new MenuItemsButton("Đại lý", new ImageIcon("src/main/java/resource/themMatHangIcon.png"));
 
-		stockButton = new JButton("Kho");
+		stockButton = new MenuItemsButton("Kho", new ImageIcon("src/main/java/resource/themMatHangIcon.png"));
 		
-		reportButton = new JButton("Báo cáo");
+		reportButton = new MenuItemsButton("Báo cáo", new ImageIcon("src/main/java/resource/themMatHangIcon.png"));		
+		importButton = new MenuItemsButton("Nhập hàng", new ImageIcon("src/main/java/resource/themMatHangIcon.png"));
 		
-		importButton = new JButton("Nhập hàng");
+		exportButton = new MenuItemsButton("Xuất hàng", new ImageIcon("src/main/java/resource/themMatHangIcon.png"));
 		
-		exportButton = new JButton("Xuất hàng");
-		
-		logoutButton = new JButton("Đăng xuất");
+		logoutButton = new MenuItemsButton("Đăng xuất", new ImageIcon("src/main/java/resource/themMatHangIcon.png"));
 		logoutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int dialogResult = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất?", "Warning",
