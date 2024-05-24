@@ -21,6 +21,7 @@ import javax.swing.table.TableRowSorter;
 public class reportPanel extends CustomPanel {
 
 	private static final long serialVersionUID = 1L;
+	private JTextField tongTienTextField;
 	private CustomComboBox comboboxThang;
 	private CustomTextField textFieldNam;
 	private CustomComboBox comboBox;
@@ -148,7 +149,7 @@ public class reportPanel extends CustomPanel {
 		gbc.gridy = 3;
 		gbc.weightx = 1;
 		gbc.weighty = 0.8;
-		gbc.insets = new java.awt.Insets(0, 40, 30, 40);
+		gbc.insets = new java.awt.Insets(0, 40, 5, 40);
 		gbc.fill = GridBagConstraints.BOTH;
 		this.add(scrollPane, gbc);
 		
@@ -183,5 +184,19 @@ public class reportPanel extends CustomPanel {
 				}
 			}
 		});
+
+		gbc = new GridBagConstraints();
+		gbc.anchor = GridBagConstraints.EAST;
+		tongTienTextField = new JTextField(15);
+		tongTienTextField.setEditable(false);
+		tongTienTextField.setText("Tổng tiền: 0 VND");
+		tongTienTextField.setPreferredSize(new Dimension(400, 30));
+		tongTienTextField.setMaximumSize(new Dimension(400, 30));
+		tongTienTextField.setMinimumSize(new Dimension(400, 30));
+		tongTienTextField.setFont(new Font("Roboto", Font.PLAIN, 15));
+		gbc.gridy = 4;
+		gbc.insets = new java.awt.Insets(5, 0, 10, 40);
+		this.add(tongTienTextField, gbc);
+
 	}
 }

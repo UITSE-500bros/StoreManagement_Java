@@ -461,17 +461,15 @@ public class importPanel extends JPanel {
 		contentPane.add(scrollPane, gbc_scrollPane);
 
 		gbc1_3 = new GridBagConstraints();
-		gbc1_3.fill = GridBagConstraints.HORIZONTAL;
 		gbc1_3.anchor = GridBagConstraints.EAST;
 		tongTienTextField = new JTextField(15);
 		tongTienTextField.setEditable(false);
 		tongTienTextField.setText("Tổng tiền: 0 VND");
-		tongTienTextField.setPreferredSize(new Dimension(350, 30));
-		tongTienTextField.setMinimumSize(new Dimension(350, 30));
+		tongTienTextField.setPreferredSize(new Dimension(400, 30));
+		tongTienTextField.setMaximumSize(new Dimension(400, 30));
+		tongTienTextField.setMinimumSize(new Dimension(400, 30));
 		tongTienTextField.setFont(new Font("Roboto", Font.PLAIN, 15));
 		gbc1_3.gridy = 3;
-		gbc1_3.gridx = 1;
-		gbc1_3.weightx = 0.2;
 		gbc1_3.insets = new java.awt.Insets(10, 30, 0, 20);
 		contentPane.add(tongTienTextField, gbc1_3);
 
