@@ -18,7 +18,7 @@ public class DVTRepository extends Connection{
 
     public List<dvt> getAll() throws IOException {
         super.openGetConnection("dvt/getALLDVT");
-        Gson gson = new Gson();
+        gson = new Gson();
         JsonReader reader = new JsonReader(new InputStreamReader(con.getInputStream()));
         Type listType = new TypeToken<List<dvt>>(){}.getType();
         List<dvt> dvtList = gson.fromJson(reader, listType);
