@@ -21,7 +21,8 @@ import javax.swing.table.TableRowSorter;
 public class reportPanel extends CustomPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JTextField tongTienTextField;
+    private GridBagConstraints gbc;
+    private JTextField tongTienTextField;
 	private CustomComboBox comboboxThang;
 	private CustomTextField textFieldNam;
 	private CustomComboBox comboBox;
@@ -55,7 +56,7 @@ public class reportPanel extends CustomPanel {
 
 ;
 		this.setLayout(new GridBagLayout());
-		GridBagConstraints gbc = new GridBagConstraints();
+        gbc = new GridBagConstraints();
 
 		JPanel panelHeader = new JPanel();
 		panelHeader.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(0, 0, 0)));
@@ -94,7 +95,7 @@ public class reportPanel extends CustomPanel {
 		panel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 0));
 
         CustomTextField searchField = new CustomTextField(20);
-        searchField.setPlaceholder("Tra cứu báo cáo");
+        searchField.setPlaceholder("Tìm kiếm");
         searchField.setPreferredSize(new Dimension(300, 40));
         searchField.setMinimumSize(new Dimension(300, 40));
         searchField.setFont(new Font("Roboto", Font.PLAIN, 14));
@@ -176,28 +177,40 @@ public class reportPanel extends CustomPanel {
 				DefaultTableModel model = (DefaultTableModel) table.getModel();
 				model.setRowCount(0); // Xóa tất cả các hàng hiện tại
 
-				if (selectedReportType.equals("Báo cáo công nợ")) {
-					model.setColumnIdentifiers(new String[] {"STT", "Đại lý", "Nợ đầu", "Phát sinh", "Nợ cuối"});
-					// Thêm dữ liệu cho báo cáo công nợ
-				} else if (selectedReportType.equals("Báo cáo doanh số")) {
-					model.setColumnIdentifiers(new String[] {"STT", "Đại lý", "Số phiếu xuất", "Tổng trị giá", "Tỷ lệ"});
-					// Thêm dữ liệu cho báo cáo hàng tồn
-				}
+                if (selectedReportType.equals("Báo cáo công nợ")) {
+                    model.setColumnIdentifiers(new String[] {"STT", "Đại lý", "Nợ đầu", "Phát sinh", "Nợ cuối"});
+                    // Thêm dữ liệu cho báo cáo công nợ
+                    if (tongTienTextField != null) {
+                        remove(tongTienTextField);
+                        tongTienTextField = null;
+                        revalidate();
+                        repaint();
+                    }
+                } else if (selectedReportType.equals("Báo cáo doanh số")) {
+                    model.setColumnIdentifiers(new String[] {"STT", "Đại lý", "Số phiếu xuất", "Tổng trị giá", "Tỷ lệ"});
+                    // Thêm dữ liệu cho báo cáo hàng tồn
+                    if (tongTienTextField == null) {
+                        addTongTienTextField();
+                        revalidate();
+                        repaint();
+                    }
+                }
 			}
-		});
-
-		gbc = new GridBagConstraints();
-		gbc.anchor = GridBagConstraints.EAST;
-		tongTienTextField = new JTextField(15);
-		tongTienTextField.setEditable(false);
-		tongTienTextField.setText("Tổng tiền: 0 VND");
-		tongTienTextField.setPreferredSize(new Dimension(400, 30));
-		tongTienTextField.setMaximumSize(new Dimension(400, 30));
-		tongTienTextField.setMinimumSize(new Dimension(400, 30));
-		tongTienTextField.setFont(new Font("Roboto", Font.PLAIN, 15));
-		gbc.gridy = 4;
-		gbc.insets = new java.awt.Insets(5, 0, 10, 40);
-		this.add(tongTienTextField, gbc);
+        });
 
 	}
+    public void addTongTienTextField(){
+        gbc = new GridBagConstraints();
+        gbc.anchor = GridBagConstraints.EAST;
+        tongTienTextField = new JTextField(15);
+        tongTienTextField.setEditable(false);
+        tongTienTextField.setText("Tổng tiền: 0 VND");
+        tongTienTextField.setPreferredSize(new Dimension(400, 30));
+        tongTienTextField.setMaximumSize(new Dimension(400, 30));
+        tongTienTextField.setMinimumSize(new Dimension(400, 30));
+        tongTienTextField.setFont(new Font("Roboto", Font.PLAIN, 15));
+        gbc.gridy = 4;
+        gbc.insets = new java.awt.Insets(5, 0, 10, 40);
+        this.add(tongTienTextField, gbc);
+    }
 }

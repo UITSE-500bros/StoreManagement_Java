@@ -11,7 +11,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.List;
-
+import java.io.*;
 public class DaiLyRepository extends Connection{
 
     public DaiLyRepository() {
@@ -34,5 +34,27 @@ public class DaiLyRepository extends Connection{
         List<daily> dailies = gson.fromJson(reader, listType);
         con.disconnect();
         return dailies;
+    }
+    
+    public int getSoNoDuocNoThem(int madaily) throws IOException {
+
+        openGetConnection("daily/getSoNoDuocNoThem/" + madaily);
+        response = "";
+        if (response.contains("201")) {
+            BufferedReader in = new BufferedReader(new InputStreamReader(getCon().getInputStream()));
+            String inputLine;
+            StringBuffer content = new StringBuffer();
+            while ((inputLine = in.readLine()) != null) {
+                content.append(inputLine);
+            }
+            in.close();
+            closeConnection();
+            return Integer.parseInt(content.toString()); // Convert the response body to int
+        } else {
+            closeConnection();
+
+            throw new IOException("Failed to create phieuxuathang. HTTP response code: " + response);
+        }
+
     }
 }
