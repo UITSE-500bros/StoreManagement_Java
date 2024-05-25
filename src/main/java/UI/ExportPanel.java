@@ -187,6 +187,7 @@ public class ExportPanel extends JPanel {
 
 				gbcContent = new GridBagConstraints();
 				CustomComboBox txtName = new CustomComboBox(matHangs.keySet().toArray(new String[0]));
+				txtName.setSelectedItem(null);
 				gbcContent.fill = GridBagConstraints.HORIZONTAL;
 				gbcContent.gridx = 0;
 				gbcContent.gridy = 1;
