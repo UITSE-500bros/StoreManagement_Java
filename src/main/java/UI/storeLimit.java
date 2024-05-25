@@ -1,5 +1,8 @@
 package UI;
 
+import Controller.ThamSoController;
+import Repository.ThamSoRepository;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
@@ -12,8 +15,8 @@ public class storeLimit extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-	private  int limit=1;
 	private JSpinner spinner;
+
 
 	/**
 	 * Launch the application.
@@ -27,9 +30,7 @@ public class storeLimit extends JDialog {
 			e.printStackTrace();
 		}
 	}
-	public int getLimit() {
-		return limit;
-	}
+
 
 
 	/**
@@ -47,7 +48,9 @@ public class storeLimit extends JDialog {
 			contentPanel.add(lblNewLabel);
 		}
 		{
-			 spinner = new JSpinner(new SpinnerNumberModel(limit, 1, 100, 1));
+
+
+			 spinner = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
 			contentPanel.add(spinner);
 		}
 		{
@@ -60,9 +63,14 @@ public class storeLimit extends JDialog {
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 				okButton.addActionListener(e->{
-					limit=(int)spinner.getValue();
-					spinner.setValue(limit);
-					dispose();
+					ThamSoController thamSoController = new ThamSoController(new ThamSoRepository());
+					int result = thamSoController.updateSoDaiLyToiDa((int) spinner.getValue());
+					if (result == 1) {
+						JOptionPane.showMessageDialog(null, "Cập nhật thành công");
+					} else {
+						JOptionPane.showMessageDialog(null, "Cập nhật thất bại");
+					}
+
 				});
 			}
 			{
