@@ -376,8 +376,7 @@ public class importPanel extends JPanel {
 				}
 				else {
 					JOptionPane.showMessageDialog(null, "Lập phiếu nhập hàng thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
-				}
-			}
+				}			}
 		});
 
 		panelButtons.add(addButton);

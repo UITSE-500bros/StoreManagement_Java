@@ -415,21 +415,10 @@ public class ExportPanel extends JPanel {
 					return;
 				}
 
-				int tienConLai = tongTien - tienTra;
-
-                try {
-                    if (new PhieuXuatHangController().checkTienNo(tienConLai, daiLys.get(Objects.requireNonNull(daiLyCombobox.getSelectedItem()).toString()).getFirst())) {
-                        JOptionPane.showMessageDialog(null, "Số tiền trả không được lớn hơn số nợ", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-
 				ArrayList<ctxh> ctxhs = new ArrayList<>();
 				for (int i = 0; i < model.getRowCount(); i++) {
 					String tenMatHang = (String) model.getValueAt(i, 1);
-					int soLuong = Integer.parseInt((String) model.getValueAt(i, 3));
+					int soLuong = Integer.parseInt(model.getValueAt(i, 3).toString());
 
 					try {
 						if (!new PhieuXuatHangController().checkSLT(soLuong, tenMatHang)) {
@@ -446,6 +435,17 @@ public class ExportPanel extends JPanel {
 
 					ctxhs.add(new ctxh(list.get(matHangs.get(tenMatHang).getFirst()), soLuong, donGia, thanhTien));
 				}
+
+				int tienConLai = tongTien - tienTra;
+
+                try {
+                    if (new PhieuXuatHangController().checkTienNo(tienConLai, daiLys.get(Objects.requireNonNull(daiLyCombobox.getSelectedItem()).toString()).getFirst())) {
+                        JOptionPane.showMessageDialog(null, "Số tiền trả không được lớn hơn số nợ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
 
                 PhieuXuatHangController phieuXuatHangController = new PhieuXuatHangController();
 
