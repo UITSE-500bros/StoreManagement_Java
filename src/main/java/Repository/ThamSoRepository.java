@@ -45,7 +45,12 @@ public class ThamSoRepository extends Connection{
         return response;
     }
 
-    public int getThamSoValue(String tenthamso){
-
+    public int getThamSoValue(String tenthamso) throws IOException {
+        super.openGetConnection("thamso/getThamSoValue?tenthamso=" + tenthamso);
+        gson = new Gson();
+        JsonReader reader = new JsonReader(new InputStreamReader(con.getInputStream()));
+        int value = gson.fromJson(reader, int.class);
+        super.closeConnection();
+        return value;
     }
 }
