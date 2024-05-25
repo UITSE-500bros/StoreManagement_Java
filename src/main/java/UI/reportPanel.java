@@ -136,7 +136,7 @@ public class reportPanel extends CustomPanel {
 				if(comboBox.getSelectedItem().equals("Báo cáo doanh số")){
 					List<ctbcds> list = null;
 					try {
-                        list = new BaoCaoDoanhSoController().getBaoCaoDoanhSo(Integer.parseInt(comboboxThang.getSelectedItem().toString()), Integer.parseInt(textFieldNam.getText()));
+                        list = new BaoCaoDoanhSoController().getBaoCaoDoanhSo(Integer.parseInt(comboboxThang.getSelectedItem().toString().replace("Tháng ", "")), Integer.parseInt(textFieldNam.getText()));
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
@@ -147,12 +147,12 @@ public class reportPanel extends CustomPanel {
 				else {
 					List<baocaocongno> list = null;
 					try {
-						list = new BaoCaoCongNoController().getBaoCaoCongNo(Integer.parseInt(comboboxThang.getSelectedItem().toString()), Integer.parseInt(textFieldNam.getText()));
+						list = new BaoCaoCongNoController().getBaoCaoCongNo(Integer.parseInt(comboboxThang.getSelectedItem().toString().replace("Tháng ", "")), Integer.parseInt(textFieldNam.getText()));
 					} catch (IOException ex) {
 						throw new RuntimeException(ex);
 					}
 					for (baocaocongno bc : list){
-						model.addRow(new Object[]{model.getRowCount() + 1, bc.getMadaily().getTendaily(), bc.getNodau(), bc.getPhatsinh(), bc.getNocuoi()
+						model.addRow(new Object[]{model.getRowCount() + 1, bc.getBaocaocongnoID().getMadaily().getTendaily(), bc.getNoDau(), bc.getPhatSinh(), bc.getNoCuoi()});
 					}
 				}
 			}
