@@ -289,20 +289,40 @@ public class ExportPanel extends JPanel {
 						}
 
 						int soLuong = Integer.parseInt(txtSoLuong.getText());
-                        try {
-                            if (!new PhieuXuatHangController().checkSLT(soLuong, txtName.getSelectedItem().toString())) {
-                                JOptionPane.showMessageDialog(null, "Số lượng tồn kho không đủ", "Lỗi",
-                                        JOptionPane.ERROR_MESSAGE);
-                                return;
-                            }
-                        } catch (IOException ex) {
-                            throw new RuntimeException(ex);
-                        }
 
-                        int sum= Integer.parseInt(txtSoLuong.getText()) * Integer.parseInt(txtDonGia.getText());
-						int num = model.getRowCount();
-						model.addRow(new Object[] { num + 1, txtName.getSelectedItem(), txtDVT.getText(),
-								txtSoLuong.getText(), txtDonGia.getText(), sum});
+						try {
+							if (!new PhieuXuatHangController().checkSLT(soLuong, txtName.getSelectedItem().toString())) {
+								JOptionPane.showMessageDialog(null, "Số lượng tồn kho không đủ", "Lỗi",
+										JOptionPane.ERROR_MESSAGE);
+								return;
+							}
+						} catch (IOException ex) {
+							throw new RuntimeException(ex);
+						}
+
+						int flag = -1;
+
+						for (int i = 0; i < model.getRowCount(); i++) {
+							if (model.getValueAt(i, 1).equals(txtName.getSelectedItem().toString())){
+								flag = i;
+								break;
+							}
+						}
+
+						int sum = Integer.parseInt(txtSoLuong.getText()) * Integer.parseInt(txtDonGia.getText());
+
+						if(flag != -1){
+							int soLuongMoi = Integer.parseInt(txtSoLuong.getText()) + Integer.parseInt(model.getValueAt(flag,3).toString());
+							model.setValueAt(soLuongMoi, flag, 3);
+							int thanhTienMoi = sum + (int)model.getValueAt(flag,5);
+							model.setValueAt(thanhTienMoi, flag, 5);
+						}
+						else{
+							int num = model.getRowCount();
+							model.addRow(new Object[] { num + 1, txtName.getSelectedItem(), txtDVT.getText(),
+									txtSoLuong.getText(), txtDonGia.getText(), sum});
+						}
+
 						String tongTienText = tongTienTextField.getText();
 						tongTienText = tongTienText.replace("Tổng tiền: ", "").replace(" VND", "");
 						int res = Integer.parseInt(tongTienText) + sum;
@@ -406,6 +426,27 @@ public class ExportPanel extends JPanel {
                     throw new RuntimeException(ex);
                 }
 
+				ArrayList<ctxh> ctxhs = new ArrayList<>();
+				for (int i = 0; i < model.getRowCount(); i++) {
+					String tenMatHang = (String) model.getValueAt(i, 1);
+					int soLuong = Integer.parseInt((String) model.getValueAt(i, 3));
+
+					try {
+						if (!new PhieuXuatHangController().checkSLT(soLuong, tenMatHang)) {
+							JOptionPane.showMessageDialog(null, "Số lượng tồn kho không đủ", "Lỗi",
+									JOptionPane.ERROR_MESSAGE);
+							return;
+						}
+					} catch (IOException ex) {
+						throw new RuntimeException(ex);
+					}
+
+					int donGia = Integer.parseInt((String) model.getValueAt(i, 4));
+					int thanhTien = (int) model.getValueAt(i, 5);
+
+					ctxhs.add(new ctxh(list.get(matHangs.get(tenMatHang).getFirst()), soLuong, donGia, thanhTien));
+				}
+
                 PhieuXuatHangController phieuXuatHangController = new PhieuXuatHangController();
 
 				try {
@@ -415,15 +456,6 @@ public class ExportPanel extends JPanel {
 					phieuXuatHangController.createPhieuXuatHang(phieuXuatHang);
 				} catch (IOException ex) {
 					throw new RuntimeException(ex);
-				}
-				ArrayList<ctxh> ctxhs = new ArrayList<>();
-				for (int i = 0; i < model.getRowCount(); i++) {
-					String tenMatHang = (String) model.getValueAt(i, 1);
-					int soLuong = Integer.parseInt((String) model.getValueAt(i, 3));
-					int donGia = Integer.parseInt((String) model.getValueAt(i, 4));
-					int thanhTien = (int) model.getValueAt(i, 5);
-
-					ctxhs.add(new ctxh(list.get(matHangs.get(tenMatHang).getFirst()), soLuong, donGia, thanhTien));
 				}
 
 				String result = phieuXuatHangController.addCTXH(ctxhs);
