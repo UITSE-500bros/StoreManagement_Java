@@ -16,7 +16,7 @@ import java.util.List;
 public class MatHangController {
     private final MatHangRepository connection;
     private final String link = "mathang/all";
-
+    private static List<mathang> mathangList;
 
     public MatHangController() {
         this.connection = new MatHangRepository();
@@ -28,6 +28,7 @@ public class MatHangController {
         JsonReader reader = new JsonReader(new InputStreamReader(connection.getCon().getInputStream()));
         Type listType = new TypeToken<List<mathang>>(){}.getType();
         List<mathang> mathang = gson.fromJson(reader, listType);
+        mathangList = mathang;
         connection.getCon().disconnect();
         return mathang;
     }
@@ -36,4 +37,16 @@ public class MatHangController {
         return connection.insertMatHang(mathang);
     }
 
+    public static List<mathang> getMathangList() {
+        return mathangList;
+    }
+
+    public int getSLT(String tenmh) {
+        for (mathang mathang : mathangList) {
+            if (mathang.getTenmh().equals(tenmh)) {
+                return mathang.getSoLuong();
+            }
+        }
+        return 0;
+    }
 }

@@ -34,7 +34,9 @@ public class PhieuXuatHangController {
     }
 
     public  Boolean checkSLT(int soluong, String tenmh) throws IOException{
-        int slton = matHangRepository.getSLTonKho(tenmh);
+
+        MatHangController matHangController = new MatHangController();
+        int slton = matHangController.getSLT(tenmh);
         if(slton < soluong){
             return false;
         }

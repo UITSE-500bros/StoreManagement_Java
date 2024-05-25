@@ -3,7 +3,9 @@ package Repository;
 import Models.mathang;
 import com.google.gson.Gson;
 
+import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
+import java.net.HttpURLConnection;
 
 public class MatHangRepository extends Connection{
 
@@ -22,13 +24,6 @@ public class MatHangRepository extends Connection{
         return response;
     }
 
-    public int getSLTonKho(String maMH) throws IOException {
 
-//        openGetConnection("matHang/getSLTonKho/" + maMH);
-//        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-//        String response = in.readLine(); // Read the response
-//        in.close();
-//        return Integer.parseInt(response); // Convert the response to an integer
-        return 10;
-    }
+
 }
