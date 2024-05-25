@@ -439,7 +439,8 @@ public class ExportPanel extends JPanel {
 				int tienConLai = tongTien - tienTra;
 
                 try {
-                    if (!new PhieuXuatHangController().checkTienNo(tienConLai, daiLys.get(Objects.requireNonNull(daiLyCombobox.getSelectedItem()).toString()).getFirst())) {
+					boolean checkTienNo = new PhieuXuatHangController().checkTienNo(tienConLai, daiLys.get(Objects.requireNonNull(daiLyCombobox.getSelectedItem()).toString()).getFirst());
+                    if (!checkTienNo) {
                         JOptionPane.showMessageDialog(null, "Số tiền trả không được lớn hơn số nợ", "Lỗi", JOptionPane.ERROR_MESSAGE);
                         return;
                     }

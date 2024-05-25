@@ -35,6 +35,4 @@ public class ThamSoController {
         thamSoRepository.getThamSoValue(tenthamso);
     }
 
-
-
 }
