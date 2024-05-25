@@ -290,7 +290,7 @@ public class ExportPanel extends JPanel {
 
 						int soLuong = Integer.parseInt(txtSoLuong.getText());
                         try {
-                            if (new PhieuXuatHangController().checkSLT(soLuong, txtName.getSelectedItem().toString())) {
+                            if (!new PhieuXuatHangController().checkSLT(soLuong, txtName.getSelectedItem().toString())) {
                                 JOptionPane.showMessageDialog(null, "Số lượng tồn kho không đủ", "Lỗi",
                                         JOptionPane.ERROR_MESSAGE);
                                 return;
@@ -398,7 +398,7 @@ public class ExportPanel extends JPanel {
 				int tienConLai = tongTien - tienTra;
 
                 try {
-                    if (new PhieuXuatHangController().checkTienNo(tienConLai, daiLys.get(Objects.requireNonNull(daiLyCombobox.getSelectedItem()).toString()).getFirst())) {
+                    if (!new PhieuXuatHangController().checkTienNo(tienConLai, daiLys.get(Objects.requireNonNull(daiLyCombobox.getSelectedItem()).toString()).getFirst())) {
                         JOptionPane.showMessageDialog(null, "Số tiền trả không được lớn hơn số nợ", "Lỗi", JOptionPane.ERROR_MESSAGE);
                         return;
                     }

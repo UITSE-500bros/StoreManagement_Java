@@ -19,6 +19,7 @@ public class PhieuXuatHangController {
     public PhieuXuatHangController() {
         phieuXuatHangRepository = new PhieuXuatHangRepository();
         matHangRepository = new MatHangRepository();
+        dailyRepository = new DaiLyRepository();
     }
     int mapxuat;
     public void createPhieuXuatHang(phieuxuathang phieuXuatHang) throws IOException {
@@ -32,7 +33,7 @@ public class PhieuXuatHangController {
         return phieuXuatHangRepository.createCTXH(ctxhList);
     }
 
-    public Boolean checkSLT(int soluong, String tenmh) throws IOException{
+    public  Boolean checkSLT(int soluong, String tenmh) throws IOException{
         int slton = matHangRepository.getSLTonKho(tenmh);
         if(slton < soluong){
             return false;
@@ -40,7 +41,7 @@ public class PhieuXuatHangController {
         return true;
     }
     
-    public Boolean checkTienNo(int tienConLai,int madaily) throws IOException{
+    public  Boolean checkTienNo(int tienConLai,int madaily) throws IOException{
         int tienno = dailyRepository.getSoNoDuocNoThem(madaily);
         if(tienno < tienConLai){
             return false;

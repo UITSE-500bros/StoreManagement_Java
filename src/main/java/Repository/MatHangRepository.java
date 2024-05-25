@@ -24,11 +24,11 @@ public class MatHangRepository extends Connection{
 
     public int getSLTonKho(String maMH) throws IOException {
 
-        openGetConnection("matHang/getSLTonKho/" + maMH);
-        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        String response = in.readLine(); // Read the response
-        in.close();
-        return Integer.parseInt(response); // Convert the response to an integer
-
+//        openGetConnection("matHang/getSLTonKho/" + maMH);
+//        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+//        String response = in.readLine(); // Read the response
+//        in.close();
+//        return Integer.parseInt(response); // Convert the response to an integer
+        return 10;
     }
 }
