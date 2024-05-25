@@ -6,17 +6,16 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+import java.util.ArrayList;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.Objects;
+import java.util.List;
+
 import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
 
+import Controller.BaoCaoDoanhSoController;
+import Models.ctbcds;
 import com.formdev.flatlaf.FlatLightLaf;
-
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 
 public class reportPanel extends CustomPanel {
 
@@ -51,10 +50,8 @@ public class reportPanel extends CustomPanel {
 	public reportPanel() {
 
 
-
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-;
 		this.setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
 
@@ -93,13 +90,6 @@ public class reportPanel extends CustomPanel {
         gbc.anchor = GridBagConstraints.WEST;
 
 		panel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 0));
-
-        CustomTextField searchField = new CustomTextField(20);
-        searchField.setPlaceholder("Tìm kiếm");
-        searchField.setPreferredSize(new Dimension(300, 40));
-        searchField.setMinimumSize(new Dimension(300, 40));
-        searchField.setFont(new Font("Roboto", Font.PLAIN, 14));
-        panel.add(searchField);
 
 		comboboxThang = new CustomComboBox(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"});
 		comboboxThang.setModel(new DefaultComboBoxModel(new String[] {"Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"}));
