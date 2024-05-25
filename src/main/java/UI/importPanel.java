@@ -176,6 +176,10 @@ public class importPanel extends JPanel {
 				txtDonGia.setEditable(false);
 				txtDonGia.setText("0");
 
+				CustomTextField txtDVT = new CustomTextField(10);
+				txtDVT.setFont(new Font("Roboto", Font.PLAIN, 15));
+				txtDVT.setEditable(false);
+
 				gbcContent = new GridBagConstraints();
 				CustomComboBox txtName = new CustomComboBox(matHangs.keySet().toArray(new String[0]));
                 gbcContent.fill = GridBagConstraints.HORIZONTAL;
@@ -189,8 +193,9 @@ public class importPanel extends JPanel {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						String tenMatHang = (String) txtName.getSelectedItem();
-						int donGia = matHangs.get(tenMatHang).getLast();
+						int donGia = matHangs.get(tenMatHang).get(1);
 						txtDonGia.setText(String.valueOf(donGia));
+						txtDVT.setText(dvMatHangs.get(matHangs.get(tenMatHang).getLast()));
 					}
 				});
 				gbcContent.anchor = GridBagConstraints.FIRST_LINE_START;
@@ -208,14 +213,12 @@ public class importPanel extends JPanel {
 				panelContent.add(labelDVT, gbcContent);
 
 				gbcContent = new GridBagConstraints();
-				CustomComboBox txtDVT = new CustomComboBox(dvMatHangs.toArray(new String[0]));
 				gbcContent.gridx = 1;
 				gbcContent.gridy = 1;
 				gbcContent.fill = GridBagConstraints.HORIZONTAL;
 				gbcContent.weightx = 0.5;
 				gbcContent.weighty = 0.4;
 				gbcContent.insets = new Insets(10, 20, 20, 0);
-				txtDVT.setFont(new Font("Roboto", Font.PLAIN, 15));
 				gbcContent.anchor = GridBagConstraints.FIRST_LINE_START;
 				panelContent.add(txtDVT, gbcContent);
 
@@ -267,7 +270,7 @@ public class importPanel extends JPanel {
 				CustomButton cancelButton = new CustomButton("Hủy bỏ");
 				newGoodButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if (txtName.getSelectedItem() == null || txtDVT.getSelectedItem() == null
+						if (txtName.getSelectedItem() == null || txtDVT.getText().equals("")
 								|| txtSoLuong.getText().equals("") || txtDonGia.getText().equals("")) {
 							JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin", "Lỗi",
 									JOptionPane.ERROR_MESSAGE);
@@ -280,7 +283,7 @@ public class importPanel extends JPanel {
 						}
 						int sum= Integer.parseInt(txtSoLuong.getText()) * Integer.parseInt(txtDonGia.getText());
 						int num = model.getRowCount();
-						model.addRow(new Object[] { num + 1, txtName.getSelectedItem(), txtDVT.getSelectedItem(),
+						model.addRow(new Object[] { num + 1, txtName.getSelectedItem(), txtDVT.getText(),
 								txtSoLuong.getText(), txtDonGia.getText(), sum});
 						String tongTienText = tongTienTextField.getText();
 						tongTienText = tongTienText.replace("Tổng tiền: ", "").replace(" VND", "");
@@ -489,13 +492,15 @@ public class importPanel extends JPanel {
 		dvMatHangs = new ArrayList<>();
 		matHangs = new HashMap<>();
 		int i = 0;
-		for(mathang mh : list) {
-			matHangs.put(mh.getTenmh(), new ArrayList<>(Arrays.asList(i, mh.getDongianhap())));
-			i++;
-		}
 		for (dvt dvt : list1) {
 			dvMatHangs.add(dvt.getTendvt());
 		}
+		for(mathang mh : list) {
+			int d = dvMatHangs.indexOf(mh.getDvt().getTendvt());
+			matHangs.put(mh.getTenmh(), new ArrayList<>(Arrays.asList(i , mh.getDongianhap(), d)));
+			i++;
+		}
+
 	}
 
 }
