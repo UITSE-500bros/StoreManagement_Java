@@ -173,7 +173,7 @@ public class StockPanel extends JPanel {
         // Create data
 		for (int i = 0; i < mathangList.size(); i++) {
 			mathang mh = mathangList.get(i);
-			Object[] rowData = { i + 1, mh.getTenmh(), mh.getSoLuong(), mh.getDvt(), mh.getDongianhap() };
+			Object[] rowData = { i + 1, mh.getTenmh(), mh.getSoLuong(), mh.getDvt().getTendvt(), mh.getDongianhap() };
 			model.addRow(rowData);
 		}
         // Create table

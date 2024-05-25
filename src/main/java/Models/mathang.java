@@ -6,7 +6,7 @@ public class mathang {
 
     private String tenmh;
 
-    private dvt madvt;
+    private dvt dvt;
 
 
     private int dongianhap;
@@ -21,7 +21,7 @@ public class mathang {
     public mathang(int mamh, String tenmh, dvt madvt, int dongianhap, double dongiaxuat, int slton) {
         this.mamh = mamh;
         this.tenmh = tenmh;
-        this.madvt = madvt;
+        this.dvt = madvt;
         this.dongianhap = dongianhap;
         this.dongiaxuat = dongiaxuat;
         this.slton = slton;
@@ -33,7 +33,7 @@ public class mathang {
     public mathang(String tenmh, dvt madvt, int dongianhap, double dongiaxuat, int slton) {
 
         this.tenmh = tenmh;
-        this.madvt = madvt;
+        this.dvt = madvt;
         this.dongianhap = dongianhap;
         this.dongiaxuat = dongiaxuat;
         this.slton = slton;
@@ -56,6 +56,6 @@ public class mathang {
 	}
 
 	public dvt getDvt() {
-		return madvt;
+		return dvt;
 	}
 }
