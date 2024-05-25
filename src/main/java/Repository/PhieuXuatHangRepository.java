@@ -3,6 +3,8 @@ package Repository;
 import Models.ctxh;
 import Models.phieunhaphang;
 import Models.phieuxuathang;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,6 +20,8 @@ public class PhieuXuatHangRepository extends Connection
     private int mapxuat;
     public int createPhieuXuatHang(phieuxuathang phieuXuatHang) throws IOException {
         openPostConnection("phieuxuathang/createpxh");
+        gson = new Gson();
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         String json = gson.toJson(phieuXuatHang);
         response ="";
         writeObject(json);

@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
 import java.util.List;
-
+import java.sql.Date;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
@@ -381,19 +381,19 @@ public class ExportPanel extends JPanel {
 				}
 
 
-				Date selectedDate = (Date) datePicker.getModel().getValue();
-				LocalDate todayLocalDate = LocalDate.now();
-				Date todayDate = Date.from(todayLocalDate.atStartOfDay().atZone(ZoneId.of("Asia/Ho_Chi_Minh")).toInstant());
+				Date selectedDate = Date.valueOf(datePicker.getDateString());
+//				LocalDate todayLocalDate = LocalDate.now();
+//				Date todayDate = Date.from(todayLocalDate.atStartOfDay().atZone(ZoneId.of("Asia/Ho_Chi_Minh")).toInstant());
 
 				if (selectedDate == null) {
 					JOptionPane.showMessageDialog(null, "Vui lòng chọn ngày nhập hàng", "Lỗi", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
 
-				if(selectedDate.after(todayDate) && (selectedDate.getDay() != todayDate.getDay() || selectedDate.getMonth() != todayDate.getMonth() || selectedDate.getYear() != todayDate.getYear())){
-					JOptionPane.showMessageDialog(null, "Ngày nhập hàng không thể lớn hơn ngày hiện tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
-					return;
-				}
+//				if(selectedDate.after(todayDate) && (selectedDate.getDay() != todayDate.getDay() || selectedDate.getMonth() != todayDate.getMonth() || selectedDate.getYear() != todayDate.getYear())){
+//					JOptionPane.showMessageDialog(null, "Ngày nhập hàng không thể lớn hơn ngày hiện tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+//					return;
+//				}
 
 				java.sql.Date date = new java.sql.Date(selectedDate.getTime());
 
@@ -450,9 +450,8 @@ public class ExportPanel extends JPanel {
                 PhieuXuatHangController phieuXuatHangController = new PhieuXuatHangController();
 
 				try {
-					daily existing = list1.get(daiLys.get(Objects.requireNonNull(daiLyCombobox.getSelectedItem()).toString()).getLast());
-					existing.setNgaytn(null);
-					phieuxuathang phieuXuatHang = new phieuxuathang(list1.get(daiLys.get(Objects.requireNonNull(daiLyCombobox.getSelectedItem()).toString()).getLast()), tongTien, tienTra, tienConLai);
+
+					phieuxuathang phieuXuatHang = new phieuxuathang(list1.get(daiLys.get(Objects.requireNonNull(daiLyCombobox.getSelectedItem()).toString()).getLast()),selectedDate, tongTien, tienTra, tienConLai);
 					phieuXuatHangController.createPhieuXuatHang(phieuXuatHang);
 				} catch (IOException ex) {
 					throw new RuntimeException(ex);

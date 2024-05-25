@@ -1,7 +1,7 @@
 package Models;
 
 
-import java.util.Date;
+import java.sql.Date;
 
 public class phieuxuathang {
 
@@ -20,8 +20,9 @@ public class phieuxuathang {
         this.mapxuat = mapxuat;
     }
 
-    public phieuxuathang(daily madaily, int tongtien, int sotientra, int conlai) {
+    public phieuxuathang(daily madaily,Date ngaylp, int tongtien, int sotientra, int conlai) {
         this.madaily = madaily;
+        this.ngaylp = ngaylp;
         this.tongtien = tongtien;
         this.sotientra = sotientra;
         this.conlai = conlai;
