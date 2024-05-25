@@ -17,6 +17,8 @@ import java.awt.Insets;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import java.awt.Font;
 
 
 
@@ -24,6 +26,7 @@ public class addNewStoreType extends JFrame {
 	java.util.List<loaidaily> loaidailyList;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+
 
 
 
@@ -79,11 +82,11 @@ public class addNewStoreType extends JFrame {
 		gbc_lblStoreType.gridy = 0;
 		contentPane.add(lblStoreType, gbc_lblStoreType);
 		JLabel txtStoreType = new JLabel();
-
-		txtStoreType.setText(String.valueOf(loaidailyList.size()+1));
+		txtStoreType.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		txtStoreType.setForeground(new Color(255, 0, 0));
+		txtStoreType.setText("Loại "+String.valueOf(loaidailyList.size()+1));
 
 		GridBagConstraints gbc_txtStoreType = new GridBagConstraints();
-		gbc_txtStoreType.anchor = GridBagConstraints.EAST;
 		gbc_txtStoreType.insets = new Insets(0, 0, 5, 0);
 		gbc_txtStoreType.gridx = 1;
 		gbc_txtStoreType.gridy = 0;
@@ -116,7 +119,15 @@ public class addNewStoreType extends JFrame {
 		JButton btnSave = new JButton("Lưu");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
+
+				loaidaily loaidaily = new loaidaily();
+				loaidaily.setTenloaidl("Loại "+String.valueOf(totaltype+1));
+				String maxLoan = txtMaxLoan.getText().replace(",", "");
+				loaidaily.setNotoida(Integer.parseInt(maxLoan));
+
+				LoaiDaiLyController loaidailyController = new LoaiDaiLyController();
+				loaidailyController.addNewLoaiDaiLy(loaidaily);
 				JOptionPane.showMessageDialog(null, "Đã lưu");
 				dispose();
 			}
