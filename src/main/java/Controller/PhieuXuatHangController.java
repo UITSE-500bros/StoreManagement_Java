@@ -14,12 +14,12 @@ import java.util.List;
 public class PhieuXuatHangController {
     static PhieuXuatHangRepository phieuXuatHangRepository;
     static MatHangRepository matHangRepository;
-    private DaiLyRepository dailyRepository;
+    private DaiLyController daiLyController;
 
     public PhieuXuatHangController() {
         phieuXuatHangRepository = new PhieuXuatHangRepository();
         matHangRepository = new MatHangRepository();
-        dailyRepository = new DaiLyRepository();
+        daiLyController = new DaiLyController();
     }
     int mapxuat;
     public void createPhieuXuatHang(phieuxuathang phieuXuatHang) throws IOException {
@@ -44,7 +44,7 @@ public class PhieuXuatHangController {
     }
     
     public  Boolean checkTienNo(int tienConLai,int madaily) throws IOException{
-        int tienno = dailyRepository.getSoNoDuocNoThem(madaily);
+        int tienno = daiLyController.getSoNoDuocNoThem(madaily);
         if(tienno < tienConLai){
             return false;
         }
