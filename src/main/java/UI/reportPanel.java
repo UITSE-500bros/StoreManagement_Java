@@ -101,8 +101,9 @@ public class reportPanel extends CustomPanel {
         panel.add(searchField);
 
 		comboboxThang = new CustomComboBox(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"});
+		comboboxThang.setModel(new DefaultComboBoxModel(new String[] {"Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"}));
 		comboboxThang.setMinimumSize(new Dimension(50, 40));
-		comboboxThang.setPreferredSize(new Dimension(50, 40));
+		comboboxThang.setPreferredSize(new Dimension(100, 40));
 		comboboxThang.setBorder(new EmptyBorder(0, 2, 0, 0));
 		panel.add(comboboxThang);
 
