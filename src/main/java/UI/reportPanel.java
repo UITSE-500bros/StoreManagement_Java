@@ -6,6 +6,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.List;
@@ -13,14 +14,17 @@ import java.util.List;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
 
+import Controller.BaoCaoCongNoController;
 import Controller.BaoCaoDoanhSoController;
+import Models.baocaocongno;
 import Models.ctbcds;
 import com.formdev.flatlaf.FlatLightLaf;
 
 public class reportPanel extends CustomPanel {
 
 	private static final long serialVersionUID = 1L;
-    private GridBagConstraints gbc;
+	private DefaultTableModel model;
+	private GridBagConstraints gbc;
     private JTextField tongTienTextField;
 	private CustomComboBox comboboxThang;
 	private CustomTextField textFieldNam;
@@ -129,6 +133,28 @@ public class reportPanel extends CustomPanel {
 					JOptionPane.showMessageDialog(null, "Năm không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
+				if(comboBox.getSelectedItem().equals("Báo cáo doanh số")){
+					List<ctbcds> list = null;
+					try {
+                        list = new BaoCaoDoanhSoController().getBaoCaoDoanhSo(Integer.parseInt(comboboxThang.getSelectedItem().toString()), Integer.parseInt(textFieldNam.getText()));
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+					for (ctbcds ct : list){
+						model.addRow(new Object[]{model.getRowCount() + 1, ct.getMadaily().getTendaily(), ct.getSophieuxuat(), ct.getTongtrigia(), ct.getTyle()});
+					}
+                }
+				else {
+					List<baocaocongno> list = null;
+					try {
+						list = new BaoCaoCongNoController().getBaoCaoCongNo(Integer.parseInt(comboboxThang.getSelectedItem().toString()), Integer.parseInt(textFieldNam.getText()));
+					} catch (IOException ex) {
+						throw new RuntimeException(ex);
+					}
+					for (baocaocongno bc : list){
+						model.addRow(new Object[]{model.getRowCount() + 1, bc.getMadaily().getTendaily(), bc.getNodau(), bc.getPhatsinh(), bc.getNocuoi()
+					}
+				}
 			}
 		});
 
@@ -160,11 +186,11 @@ public class reportPanel extends CustomPanel {
 				return columnEditables[column];
 			}
 		});
+		model = (DefaultTableModel) table.getModel();
 		scrollPane.setViewportView(table);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String selectedReportType = (String) comboBox.getSelectedItem();
-				DefaultTableModel model = (DefaultTableModel) table.getModel();
 				model.setRowCount(0); // Xóa tất cả các hàng hiện tại
 
                 if (selectedReportType.equals("Báo cáo công nợ")) {
