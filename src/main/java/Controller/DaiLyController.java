@@ -13,20 +13,32 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DaiLyController {
     private final DaiLyRepository connection;
-
+    private List<daily> dailyList;
     public DaiLyController() {
         connection = new DaiLyRepository();
+        dailyList = new ArrayList<>();
     }
     public List<daily> showDaiLy() throws IOException {
         String link = "daily/getAllDaiLy";
         connection.openGetConnection(link);
-        return connection.getAllDaiLy();
+        dailyList = connection.getAllDaiLy();
+         return dailyList;
     }
     public String addNewDaiLy(daily daily, quan quan, loaidaily loaidaily){
         return connection.insertDaiLy(daily);
+    }
+
+    public int getSoNoDuocNoThem(int madaily) {
+        for (daily daily : dailyList) {
+            if (daily.getMadaily() == madaily) {
+                return daily.getMaloaidl().getNotoida() - daily.getTienno();
+            }
+        }
+        return -1;
     }
 }
