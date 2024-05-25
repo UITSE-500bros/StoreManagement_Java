@@ -44,4 +44,8 @@ public class ThamSoRepository extends Connection{
         super.closeConnection();
         return response;
     }
+
+    public int getThamSoValue(String tenthamso){
+
+    }
 }

@@ -28,4 +28,11 @@ public class ThamSoController {
         }
     }
 
+    public int getSoDaiLyToiDa(String tenthamso){
+
+        thamSoRepository.getThamSoValue(tenthamso);
+    }
+
+
+
 }
