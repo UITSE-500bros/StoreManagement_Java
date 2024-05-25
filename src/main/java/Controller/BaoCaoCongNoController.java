@@ -1,15 +1,17 @@
 package Controller;
 
+import Models.baocaocongno;
 import Models.ctbcds;
+import Repository.BaoCaoCongNoRepository;
 import Repository.BaoCaoDoanhSoRepository;
 
 import java.io.IOException;
 import java.util.List;
 
 public class BaoCaoCongNoController {
-    private static BaoCaoDoanhSoRepository baoCaoDoanhSoRepository;
+    private static BaoCaoCongNoRepository baocaoCongNoRepository;
 
-    public List<ctbcds> getBaoCaoDoanhSo(int thang, int nam) throws IOException {
-        return baoCaoDoanhSoRepository.getBaoCaoDoanhSo(thang, nam);
+    public List<baocaocongno> getBaoCaoCongNo(int thang, int nam) throws IOException {
+        return baocaoCongNoRepository.getBaoCaoCongNo(thang, nam);
     }
 }
