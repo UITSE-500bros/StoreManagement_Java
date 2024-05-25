@@ -198,8 +198,8 @@ public class ExportPanel extends JPanel {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						String selectedName = txtName.getSelectedItem().toString();
-						txtDonGia.setText(matHangs.get(selectedName).getLast().toString());
-						String dvT = dvMatHangs.get(matHangs.get(selectedName).get(2));
+						txtDonGia.setText(matHangs.get(selectedName).get(1).toString());
+						String dvT = dvMatHangs.get(matHangs.get(selectedName).getLast());
 						txtDVT.setText(dvT);
 					}
 				});

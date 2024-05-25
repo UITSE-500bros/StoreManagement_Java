@@ -23,22 +23,12 @@ public class MatHangRepository extends Connection{
     }
 
     public int getSLTonKho(String maMH) throws IOException {
-        int sl = 0;
+
         openGetConnection("matHang/getSLTonKho/" + maMH);
-        response = "";
-        if (response.contains("201")) {
-            BufferedReader in = new BufferedReader(new InputStreamReader(getCon().getInputStream()));
-            String inputLine;
-            StringBuffer content = new StringBuffer();
-            while ((inputLine = in.readLine()) != null) {
-                content.append(inputLine);
-            }
-            in.close();
-            closeConnection();
-            return Integer.parseInt(content.toString()); // Convert the response body to int
-        } else {
-            closeConnection();
-            throw new IOException("Failed to create phieuxuathang. HTTP response code: " + response);
-        }
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String response = in.readLine(); // Read the response
+        in.close();
+        return Integer.parseInt(response); // Convert the response to an integer
+
     }
 }
