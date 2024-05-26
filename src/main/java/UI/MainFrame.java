@@ -62,8 +62,8 @@ public class MainFrame extends JFrame {
 	public MainFrame() {
 		setTitle("Store Management");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1100, 700);
-		setMinimumSize(new Dimension(1100, 700));
+		setBounds(100, 100, 1100, 600);
+		setMinimumSize(new Dimension(1100, 600));
 		
 		// Create menu bar
 		
