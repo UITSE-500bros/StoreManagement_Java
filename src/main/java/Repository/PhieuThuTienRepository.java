@@ -22,5 +22,4 @@ public class PhieuThuTienRepository extends Connection{
         System.out.println(response);
         return response;
     }
-
 }

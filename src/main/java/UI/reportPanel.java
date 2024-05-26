@@ -140,9 +140,12 @@ public class reportPanel extends CustomPanel {
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
+					int tongTien = 0;
 					for (ctbcds ct : list){
 						model.addRow(new Object[]{model.getRowCount() + 1, ct.getMadaily().getTendaily(), ct.getSophieuxuat(), ct.getTongtrigia(), ct.getTyle()});
+						tongTien += ct.getTongtrigia();
 					}
+					tongTienTextField.setText("Tổng tiền: " + tongTien + " VND");
                 }
 				else {
 					List<baocaocongno> list = null;

@@ -17,11 +17,11 @@ public class BaoCaoCongNoRepository extends Connection{
     }
 
     public List<baocaocongno> getBaoCaoCongNo(int thang, int nam) throws IOException {
-        super.openGetConnection("baocaocongno/bcdsbythangandnam?thang=" + thang + "&nam=" + nam);
+        super.openGetConnection("congno/getCongNo?thang=" + thang + "&nam=" + nam);
         gson = new Gson();
 
         JsonReader reader = new JsonReader(new InputStreamReader(con.getInputStream()));
-        Type listType = new TypeToken<List<quan>>(){}.getType();
+        Type listType = new TypeToken<List<baocaocongno>>(){}.getType();
         List<baocaocongno> bccnList = gson.fromJson(reader, listType);
         con.disconnect();
         return bccnList;
