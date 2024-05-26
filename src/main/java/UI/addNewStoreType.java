@@ -142,6 +142,9 @@ public class addNewStoreType extends JFrame {
 		});
 		panel.add(btnCancel);
 		
+
+
+		
 	}
 
 }
