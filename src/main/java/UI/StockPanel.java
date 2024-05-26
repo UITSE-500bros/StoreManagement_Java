@@ -46,6 +46,13 @@ public class StockPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public StockPanel() {
+	     initComponents();
+		
+		
+		
+
+	}
+	public void initComponents() {
 		matHangController = new MatHangController();
 		try {
 			mathangList = matHangController.showMatHang();
@@ -258,11 +265,6 @@ public class StockPanel extends JPanel {
         	});
     
     // Add action listener for the "Tiếp nhận đại lý" button     
-         
-		
-		
-		
-
 	}
 
 }

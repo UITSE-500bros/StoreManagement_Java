@@ -8,8 +8,8 @@ import java.io.IOException;
 public class ThamSoController {
     private final ThamSoRepository thamSoRepository;
 
-    public ThamSoController(ThamSoRepository connection) {
-        this.thamSoRepository = connection;
+    public ThamSoController(ThamSoRepository thamSoRepository) {
+        this.thamSoRepository = thamSoRepository;
     }
 
     public int updateSoDaiLyToiDa(int newMaximum) {
