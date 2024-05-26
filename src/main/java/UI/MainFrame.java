@@ -35,6 +35,8 @@ public class MainFrame extends JFrame {
 	private JButton importButton;
 	private JButton exportButton;
 	private JButton logoutButton;
+	private UI.importPanel importPanel;
+	private ExportPanel exportPanel;
 
 	/**
 	 * Launch the application.
@@ -226,12 +228,12 @@ public class MainFrame extends JFrame {
 		containerPanel.add(reportPanel, "name_240836198139600");
 
 		// thay new JPanel() bang Panel do ae tao
-		JPanel importPanel = new importPanel();
+		importPanel = new importPanel();
 		importPanel.setOpaque(false);
 		containerPanel.add(importPanel, "name_240836231205200");
 
 		// thay new JPanel() bang Panel do ae tao
-		JPanel exportPanel = new ExportPanel();
+		exportPanel = new ExportPanel();
 		exportPanel.setOpaque(false);
 		containerPanel.add(exportPanel, "name_240836258641200");
 		
@@ -262,11 +264,13 @@ public class MainFrame extends JFrame {
 		importButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 cardLayout.show(containerPanel, "name_240836231205200");
+				importPanel.loadData();
             }
         });
 		exportButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(containerPanel, "name_240836258641200");
+				exportPanel.loadData();
 			}
 		});
 		

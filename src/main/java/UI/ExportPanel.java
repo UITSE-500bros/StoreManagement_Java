@@ -42,6 +42,7 @@ public class ExportPanel extends JPanel {
 	private List<daily> list1;
 	private List<mathang> list;
 	private ArrayList<String> dvMatHangs;
+	private List<dvt> list2;
 
 
 	public static void main(String[] args) {
@@ -440,7 +441,7 @@ public class ExportPanel extends JPanel {
 
                 try {
 					boolean checkTienNo = new PhieuXuatHangController().checkTienNo(tienConLai, daiLys.get(Objects.requireNonNull(daiLyCombobox.getSelectedItem()).toString()).getFirst());
-                    if (!checkTienNo) {
+                    if (checkTienNo) {
                         JOptionPane.showMessageDialog(null, "Số tiền trả không được lớn hơn số nợ", "Lỗi", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
@@ -650,7 +651,10 @@ public class ExportPanel extends JPanel {
 	public void loadData(){
 		list = null;
 		list1 = null;
-		List<dvt> list2 = new ArrayList<>();
+		list2 = new ArrayList<>();
+		matHangs = new HashMap<>();
+		daiLys = new HashMap<>();
+		dvMatHangs = new ArrayList<>();
 		try {
 			list1 = new DaiLyController().showDaiLy();
 			list = new MatHangController().showMatHang();
@@ -658,23 +662,19 @@ public class ExportPanel extends JPanel {
 		} catch (IOException ex) {
 			throw new RuntimeException(ex);
 		}
-		matHangs = new HashMap<>();
-		daiLys = new HashMap<>();
-		dvMatHangs = new ArrayList<>();
 		int  i = 0;
+		for (daily dl : list1) {
+			daiLys.put(dl.getTendaily(), new ArrayList<>(Arrays.asList(dl.getMadaily(), i)));
+			i++;
+		}
 		for (dvt dvt : list2) {
 			dvMatHangs.add(dvt.getTendvt());
 		}
+		i = 0;
 		for(mathang mh : list) {
 			int d = dvMatHangs.indexOf(mh.getDvt().getTendvt());
 			matHangs.put(mh.getTenmh(), new ArrayList<>(Arrays.asList(i , mh.getDongianhap(), d)));
 			i++;
 		}
-		i = 0;
-		for (daily dl : list1) {
-			daiLys.put(dl.getTendaily(), new ArrayList<>(Arrays.asList(dl.getMadaily(), i)));
-			i++;
-		}
 	}
-
 }
