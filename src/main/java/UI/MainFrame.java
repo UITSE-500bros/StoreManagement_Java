@@ -21,7 +21,11 @@ import java.awt.event.ActionEvent;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+
+import java.io.IOException;
+
 import java.awt.Image;
+
 
 public class MainFrame extends JFrame {
 
@@ -111,8 +115,13 @@ public class MainFrame extends JFrame {
 		JMenuItem mntm_StoreType = new JMenuItem("Cài đặt loại đại lý");
 		mntm_StoreType.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				StoreTypeSetting storeTypeSetting = new StoreTypeSetting();
-				storeTypeSetting.setVisible(true);
+                StoreTypeSetting storeTypeSetting = null;
+                try {
+                    storeTypeSetting = new StoreTypeSetting();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                storeTypeSetting.setVisible(true);
 				storeTypeSetting.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				storeTypeSetting.setLocationRelativeTo(null);
 			}
