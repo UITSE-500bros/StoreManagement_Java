@@ -46,15 +46,6 @@ public class importPanel extends JPanel {
 	private List<mathang> list;
 	private List<dvt> list1;
 
-	public static void main(String[] args) {
-		JFrame frame = new JFrame();
-		frame.setSize(1000, 800);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		importPanel im = new importPanel();
-		frame.getContentPane().add(im);
-		frame.setVisible(true);
-	}
-
 	/**
 	 * @wbp.nonvisual location=-70,284
 	 */
@@ -63,6 +54,10 @@ public class importPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public importPanel() {
+		initComponet();
+	}
+
+	public void initComponet(){
 		this.setLayout(new GridBagLayout());
 
 		matHangController = new MatHangController();
@@ -184,7 +179,7 @@ public class importPanel extends JPanel {
 				gbcContent = new GridBagConstraints();
 				CustomComboBox txtName = new CustomComboBox(matHangs.keySet().toArray(new String[0]));
 				txtName.setSelectedItem(null);
-                gbcContent.fill = GridBagConstraints.HORIZONTAL;
+				gbcContent.fill = GridBagConstraints.HORIZONTAL;
 				gbcContent.gridx = 0;
 				gbcContent.gridy = 1;
 				gbcContent.weightx = 0.5;
@@ -478,7 +473,6 @@ public class importPanel extends JPanel {
 		contentPane.add(tongTienTextField, gbc1_3);
 
 		this.add(contentPane, gbc);
-
 	}
 
 	public void loadData(){

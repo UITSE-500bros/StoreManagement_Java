@@ -274,13 +274,13 @@ public class MainFrame extends JFrame {
 		importButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 cardLayout.show(containerPanel, "name_240836231205200");
-				importPanel.loadData();
+				importPanel.initComponet();
             }
         });
 		exportButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(containerPanel, "name_240836258641200");
-				exportPanel.loadData();
+				exportPanel.initComponent();
 			}
 		});
 		

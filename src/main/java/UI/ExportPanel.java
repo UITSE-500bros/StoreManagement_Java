@@ -29,8 +29,8 @@ import ReuseClass.DatePicker;
 public class ExportPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private final JButton addButton;
-	private final DefaultTableModel model;
+	private JButton addButton;
+	private DefaultTableModel model;
 	private JTextField tienConLaiTextField;
 	private CustomTextField tienTraTextField;
 	private JTextField tongTienTextField;
@@ -58,6 +58,10 @@ public class ExportPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public ExportPanel() {
+		initComponent();
+	}
+
+	public void initComponent(){
 		this.setLayout(new GridBagLayout());
 
 		loadData();
@@ -383,18 +387,18 @@ public class ExportPanel extends JPanel {
 
 
 				Date selectedDate = Date.valueOf(datePicker.getDateString());
-//				LocalDate todayLocalDate = LocalDate.now();
-//				Date todayDate = Date.from(todayLocalDate.atStartOfDay().atZone(ZoneId.of("Asia/Ho_Chi_Minh")).toInstant());
+				LocalDate todayLocalDate = LocalDate.now();
+				Date todayDate = (Date) Date.from(todayLocalDate.atStartOfDay().atZone(ZoneId.of("Asia/Ho_Chi_Minh")).toInstant());
 
 				if (selectedDate == null) {
 					JOptionPane.showMessageDialog(null, "Vui lòng chọn ngày nhập hàng", "Lỗi", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
 
-//				if(selectedDate.after(todayDate) && (selectedDate.getDay() != todayDate.getDay() || selectedDate.getMonth() != todayDate.getMonth() || selectedDate.getYear() != todayDate.getYear())){
-//					JOptionPane.showMessageDialog(null, "Ngày nhập hàng không thể lớn hơn ngày hiện tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
-//					return;
-//				}
+				if(selectedDate.after(todayDate) && (selectedDate.getDay() != todayDate.getDay() || selectedDate.getMonth() != todayDate.getMonth() || selectedDate.getYear() != todayDate.getYear())){
+					JOptionPane.showMessageDialog(null, "Ngày nhập hàng không thể lớn hơn ngày hiện tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
 
 				java.sql.Date date = new java.sql.Date(selectedDate.getTime());
 
@@ -439,17 +443,17 @@ public class ExportPanel extends JPanel {
 
 				int tienConLai = tongTien - tienTra;
 
-                try {
+				try {
 					boolean checkTienNo = new PhieuXuatHangController().checkTienNo(tienConLai, daiLys.get(Objects.requireNonNull(daiLyCombobox.getSelectedItem()).toString()).getFirst());
-                    if (checkTienNo) {
-                        JOptionPane.showMessageDialog(null, "Số tiền trả không được lớn hơn số nợ", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
+					if (checkTienNo) {
+						JOptionPane.showMessageDialog(null, "Số tiền trả không được lớn hơn số nợ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+				} catch (IOException ex) {
+					throw new RuntimeException(ex);
+				}
 
-                PhieuXuatHangController phieuXuatHangController = new PhieuXuatHangController();
+				PhieuXuatHangController phieuXuatHangController = new PhieuXuatHangController();
 
 				try {
 
@@ -645,7 +649,6 @@ public class ExportPanel extends JPanel {
 		contentPane.add(panel2Tien, gbc1);
 
 		this.add(contentPane, gbc);
-
 	}
 
 	public void loadData(){
@@ -673,7 +676,7 @@ public class ExportPanel extends JPanel {
 		i = 0;
 		for(mathang mh : list) {
 			int d = dvMatHangs.indexOf(mh.getDvt().getTendvt());
-			matHangs.put(mh.getTenmh(), new ArrayList<>(Arrays.asList(i , mh.getDongianhap(), d)));
+			matHangs.put(mh.getTenmh(), new ArrayList<>(Arrays.asList(i , mh.getDongiaxuat(), d)));
 			i++;
 		}
 	}

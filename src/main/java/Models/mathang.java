@@ -59,5 +59,9 @@ public class mathang {
 		return dvt;
 	}
 
+    public int getDongiaxuat() {
+        return (int) dongiaxuat;
+    }
+
 
 }
