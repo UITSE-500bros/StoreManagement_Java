@@ -12,6 +12,11 @@ public class phieuthutien {
     public phieuthutien() {
     }
 
+    public phieuthutien(int tienthu, daily madaily) {
+        this.tienthu = tienthu;
+        this.madaily = madaily;
+    }
+
     public phieuthutien(int maphieuthu, Date ngaythutien, int tienthu, daily madaily) {
         this.maphieuthu = maphieuthu;
         this.ngaythutien = ngaythutien;
