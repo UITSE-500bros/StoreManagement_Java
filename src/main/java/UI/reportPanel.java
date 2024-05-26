@@ -109,7 +109,7 @@ public class reportPanel extends CustomPanel {
 		textFieldNam.setBorder(new EmptyBorder(0, 2, 0, 0));
 		panel.add(textFieldNam);
 
-		String[] reportType = {"Báo cáo công nợ", "Báo cáo doanh số"};
+		String[] reportType = {"Báo cáo doanh số", "Báo cáo công nợ"};
 		comboBox = new CustomComboBox(reportType);
 		comboBox.setPreferredSize(new Dimension(150, 40));
 		panel.add(comboBox);
@@ -200,6 +200,7 @@ public class reportPanel extends CustomPanel {
                     model.setColumnIdentifiers(new String[] {"STT", "Đại lý", "Nợ đầu", "Phát sinh", "Nợ cuối"});
                     // Thêm dữ liệu cho báo cáo công nợ
                     if (tongTienTextField != null) {
+						model.setRowCount(0);
                         remove(tongTienTextField);
                         tongTienTextField = null;
                         revalidate();
@@ -209,13 +210,15 @@ public class reportPanel extends CustomPanel {
                     model.setColumnIdentifiers(new String[] {"STT", "Đại lý", "Số phiếu xuất", "Tổng trị giá", "Tỷ lệ"});
                     // Thêm dữ liệu cho báo cáo hàng tồn
                     if (tongTienTextField == null) {
-                        addTongTienTextField();
+						model.setRowCount(0);
+						addTongTienTextField();
                         revalidate();
                         repaint();
                     }
                 }
 			}
         });
+		addTongTienTextField();
 
 	}
     public void addTongTienTextField(){
