@@ -51,8 +51,6 @@ public class StoresPanel extends JPanel {
 	 */
 	public StoresPanel() {
 		initComponents();
-		loadData();
-         
 	}
 	public void initComponents() {
 		daiLyController = new DaiLyController();
@@ -452,20 +450,21 @@ public class StoresPanel extends JPanel {
 							daily.setTienno(0);
 							daily.setMaloaidl(loaidaily);
 							daily.setEmail(values[5]);
-							
-							if (daiLyController.addNewDaiLy(daily, quan, loaidaily).contains("200")) {
-								JOptionPane.showMessageDialog(null, "Thêm đại lý thành công");
-								model.addRow(
-										new Object[] { model.getRowCount() + 1, values[0], values[1], values[4], 0 });
-								dailyList.add(daily);
-								((Window) SwingUtilities.getRoot(popupPanel)).dispose();
-
+							try {
+								daily callbackDaily = daiLyController.addNewDaiLy(daily, quan, loaidaily);
+								if (callbackDaily == null) {
+                                    JOptionPane.showMessageDialog(null, "Số lượng đại lý của quận đã đạt tối đa");
+                                }
+								else {
+									JOptionPane.showMessageDialog(null, "Thêm đại lý thành công");
+                                    model.addRow(new Object[] { model.getRowCount() + 1, values[0], values[1], values[4], 0 });
+                                    dailyList.add(callbackDaily);
+                                    ((Window) SwingUtilities.getRoot(popupPanel)).dispose();
+								}
 							}
-							else {
-								JOptionPane.showMessageDialog(null, "Số lượng đại lý của quận đã đạt tối đa");
-							}
-							
-							// Hide the popup
+                            catch (Exception ex) {
+                                JOptionPane.showMessageDialog(null, "Thêm đại lý thất bại");
+                            }
 						}
 					});
         	        
