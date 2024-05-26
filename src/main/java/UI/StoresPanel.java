@@ -156,6 +156,7 @@ public class StoresPanel extends JPanel {
         
 		JButton makeReceiptButton = new CustomButton("Thu tiền");
 	 makeReceiptButton.setPreferredSize(new Dimension(150, 40));
+	 makeReceiptButton.setMinimumSize(new Dimension(150, 40));
 		ImageIcon themMatHang = new ImageIcon("src/main/java/resource/makereceipt.png");
 		img = themMatHang.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
 		themMatHang = new ImageIcon(img);
