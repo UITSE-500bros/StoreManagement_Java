@@ -131,7 +131,9 @@ public class StoresPanel extends JPanel {
 		gbc1_1 = new GridBagConstraints();
 		gbc1_1.gridy = 0;
 		addButton = new CustomButton("Tiếp nhận đại lý");
-		ImageIcon lapPhieuIcon = new ImageIcon("src/main/java/resource/lapPhieuIcon.png");
+		ImageIcon lapPhieuIcon = new ImageIcon("src/main/java/resource/addStore.png");
+		Image img = lapPhieuIcon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
+		lapPhieuIcon = new ImageIcon(img);
 		addButton.setIcon(lapPhieuIcon);
 		addButton.setPreferredSize(new Dimension(150, 40));
 		addButton.setMinimumSize(new Dimension(150, 40));
@@ -141,6 +143,8 @@ public class StoresPanel extends JPanel {
 		addButton.setIconTextGap(15);
 		addButton.setHorizontalAlignment(JButton.LEFT);
 		addButton.setHorizontalTextPosition(JButton.RIGHT);
+		
+		
 		gbc1_1.gridx = 1;
 		gbc1_1.weightx = 1;
 		gbc1_1.anchor = GridBagConstraints.WEST;
@@ -152,12 +156,14 @@ public class StoresPanel extends JPanel {
         
 		JButton makeReceiptButton = new CustomButton("Thu tiền");
 	 makeReceiptButton.setPreferredSize(new Dimension(150, 40));
-		ImageIcon themMatHang = new ImageIcon("src/main/java/resource/themMatHangIcon.png");
+		ImageIcon themMatHang = new ImageIcon("src/main/java/resource/makereceipt.png");
+		img = themMatHang.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
+		themMatHang = new ImageIcon(img);
      makeReceiptButton.setIcon(themMatHang);
 	 makeReceiptButton.setFont(new Font("Roboto", Font.BOLD, 12));
 	 makeReceiptButton.setForeground(Color.WHITE);
 	 makeReceiptButton.setBackground(Color.BLACK);
-	 makeReceiptButton.setIconTextGap(15);
+	 makeReceiptButton.setIconTextGap(30);
 		makeReceiptButton.setHorizontalAlignment(JButton.LEFT);
 		makeReceiptButton.setHorizontalTextPosition(JButton.RIGHT);
 		
