@@ -30,9 +30,9 @@ public class ThamSoController {
         }
     }
 
-    public int getSoDaiLyToiDa(String tenthamso) throws IOException {
+    public int getSoDaiLyToiDa() throws IOException {
 
-        thamSoRepository.getThamSoValue(tenthamso);
+        return thamSoRepository.getThamSoValue();
     }
 
 }
