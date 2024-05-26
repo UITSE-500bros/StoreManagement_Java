@@ -14,14 +14,17 @@ public class DaiLyRepository extends Connection{
         super();
     }
 
-    public String insertDaiLy(daily daily) {
+    public daily insertDaiLy(daily daily) throws IOException {
         gson = new Gson();
         String json = gson.toJson(daily);
         openPostConnection("daily/addDaiLy");
         response = "";
         writeObject(json);
+        JsonReader reader = new JsonReader(new InputStreamReader(con.getInputStream()));
+        Type listType = new TypeToken<daily>(){}.getType();
+        daily dailies = gson.fromJson(reader, listType);
         closeConnection();
-        return response;
+        return dailies;
     }
     public List<daily> getAllDaiLy() throws IOException {
         gson = new Gson();

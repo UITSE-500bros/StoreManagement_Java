@@ -29,7 +29,7 @@ public class DaiLyController {
         dailyList = connection.getAllDaiLy();
          return dailyList;
     }
-    public String addNewDaiLy(daily daily, quan quan, loaidaily loaidaily){
+    public daily addNewDaiLy(daily daily, quan quan, loaidaily loaidaily) throws IOException {
         return connection.insertDaiLy(daily);
     }
 
