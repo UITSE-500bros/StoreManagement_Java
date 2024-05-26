@@ -40,7 +40,7 @@ public class MainFrame extends JFrame {
 	private JButton importButton;
 	private JButton exportButton;
 	private JButton logoutButton;
-	private UI.importPanel importPanel;
+	private importPanel importPanel;
 	private ExportPanel exportPanel;
 
 	/**
@@ -231,7 +231,7 @@ public class MainFrame extends JFrame {
 		containerPanel.add(stockPanel, "name_240836138693900");
 
 		// thay new JPanel() bang Panel do ae tao
-		JPanel reportPanel = new reportPanel();
+		reportPanel reportPanel = new reportPanel();
 
 		reportPanel.setOpaque(false);
 
@@ -271,6 +271,8 @@ public class MainFrame extends JFrame {
 		reportButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(containerPanel, "name_240836198139600");
+				reportPanel.removeAll();
+				reportPanel.initComponet();
 			}
 		});
 		
@@ -278,12 +280,14 @@ public class MainFrame extends JFrame {
 		importButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 cardLayout.show(containerPanel, "name_240836231205200");
+				importPanel.removeAll();
 				importPanel.initComponet();
             }
         });
 		exportButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(containerPanel, "name_240836258641200");
+				exportPanel.removeAll();
 				exportPanel.initComponent();
 			}
 		});

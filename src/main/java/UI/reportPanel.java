@@ -34,30 +34,19 @@ public class reportPanel extends CustomPanel {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					UIManager.setLookAndFeel(new FlatLightLaf());
-					reportPanel frame = new reportPanel();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
 	 */
 	public reportPanel() {
+		initComponet();
+	}
 
-
+	public void initComponet(){
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		this.setLayout(new GridBagLayout());
-        gbc = new GridBagConstraints();
+		gbc = new GridBagConstraints();
 
 		JPanel panelHeader = new JPanel();
 		panelHeader.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(0, 0, 0)));
@@ -89,9 +78,9 @@ public class reportPanel extends CustomPanel {
 		gbc.gridy = 2;
 		gbc.weightx = 1;
 		gbc.weighty = 0.1;
-        gbc.insets = new java.awt.Insets(12, 30, 0, 0);
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.anchor = GridBagConstraints.WEST;
+		gbc.insets = new java.awt.Insets(12, 30, 0, 0);
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.anchor = GridBagConstraints.WEST;
 
 		panel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 0));
 
@@ -136,17 +125,17 @@ public class reportPanel extends CustomPanel {
 				if(comboBox.getSelectedItem().equals("Báo cáo doanh số")){
 					List<ctbcds> list = null;
 					try {
-                        list = new BaoCaoDoanhSoController().getBaoCaoDoanhSo(Integer.parseInt(comboboxThang.getSelectedItem().toString().replace("Tháng ", "")), Integer.parseInt(textFieldNam.getText()));
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
+						list = new BaoCaoDoanhSoController().getBaoCaoDoanhSo(Integer.parseInt(comboboxThang.getSelectedItem().toString().replace("Tháng ", "")), Integer.parseInt(textFieldNam.getText()));
+					} catch (IOException ex) {
+						throw new RuntimeException(ex);
+					}
 					int tongTien = 0;
 					for (ctbcds ct : list){
 						model.addRow(new Object[]{model.getRowCount() + 1, ct.getMadaily().getTendaily(), ct.getSophieuxuat(), ct.getTongtrigia(), ct.getTyle()});
 						tongTien += ct.getTongtrigia();
 					}
 					tongTienTextField.setText("Tổng tiền: " + tongTien + " VND");
-                }
+				}
 				else {
 					List<baocaocongno> list = null;
 					try {
@@ -173,17 +162,17 @@ public class reportPanel extends CustomPanel {
 		gbc.insets = new java.awt.Insets(0, 40, 5, 40);
 		gbc.fill = GridBagConstraints.BOTH;
 		this.add(scrollPane, gbc);
-		
+
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"STT", "\u0110\u1EA1i l\u00FD", "S\u1ED1 phi\u1EBFu xu\u1EA5t", "T\u1ED5ng gi\u00E1 tr\u1ECB", "T\u1EF7 l\u1EC7"
-			}
+				new Object[][] {
+				},
+				new String[] {
+						"STT", "\u0110\u1EA1i l\u00FD", "S\u1ED1 phi\u1EBFu xu\u1EA5t", "T\u1ED5ng gi\u00E1 tr\u1ECB", "T\u1EF7 l\u1EC7"
+				}
 		) {
 			boolean[] columnEditables = new boolean[] {
-				true, false, true, true, true
+					true, false, true, true, true
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
@@ -196,30 +185,29 @@ public class reportPanel extends CustomPanel {
 				String selectedReportType = (String) comboBox.getSelectedItem();
 				model.setRowCount(0); // Xóa tất cả các hàng hiện tại
 
-                if (selectedReportType.equals("Báo cáo công nợ")) {
-                    model.setColumnIdentifiers(new String[] {"STT", "Đại lý", "Nợ đầu", "Phát sinh", "Nợ cuối"});
-                    // Thêm dữ liệu cho báo cáo công nợ
-                    if (tongTienTextField != null) {
+				if (selectedReportType.equals("Báo cáo công nợ")) {
+					model.setColumnIdentifiers(new String[] {"STT", "Đại lý", "Nợ đầu", "Phát sinh", "Nợ cuối"});
+					// Thêm dữ liệu cho báo cáo công nợ
+					if (tongTienTextField != null) {
 						model.setRowCount(0);
-                        remove(tongTienTextField);
-                        tongTienTextField = null;
-                        revalidate();
-                        repaint();
-                    }
-                } else if (selectedReportType.equals("Báo cáo doanh số")) {
-                    model.setColumnIdentifiers(new String[] {"STT", "Đại lý", "Số phiếu xuất", "Tổng trị giá", "Tỷ lệ"});
-                    // Thêm dữ liệu cho báo cáo hàng tồn
-                    if (tongTienTextField == null) {
+						remove(tongTienTextField);
+						tongTienTextField = null;
+						revalidate();
+						repaint();
+					}
+				} else if (selectedReportType.equals("Báo cáo doanh số")) {
+					model.setColumnIdentifiers(new String[] {"STT", "Đại lý", "Số phiếu xuất", "Tổng trị giá", "Tỷ lệ"});
+					// Thêm dữ liệu cho báo cáo hàng tồn
+					if (tongTienTextField == null) {
 						model.setRowCount(0);
 						addTongTienTextField();
-                        revalidate();
-                        repaint();
-                    }
-                }
+						revalidate();
+						repaint();
+					}
+				}
 			}
-        });
+		});
 		addTongTienTextField();
-
 	}
     public void addTongTienTextField(){
         gbc = new GridBagConstraints();
