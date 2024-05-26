@@ -17,7 +17,7 @@ public class BaoCaoCongNoRepository extends Connection{
     }
 
     public List<baocaocongno> getBaoCaoCongNo(int thang, int nam) throws IOException {
-        super.openGetConnection("baocaocongno/getCongNo?thang=" + thang + "&nam=" + nam);
+        super.openGetConnection("congno/getCongNo?thang=" + thang + "&nam=" + nam);
         gson = new Gson();
 
         JsonReader reader = new JsonReader(new InputStreamReader(con.getInputStream()));
