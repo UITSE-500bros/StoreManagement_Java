@@ -621,10 +621,8 @@ public class StoresPanel extends JPanel {
             	                    .orElse(null);
             	                if (selectedAgent != null) {
             	                    selectedAgent.setTienno(selectedAgent.getTienno() - Integer.parseInt(values[5]));
-            	                    phieuthutien phieuThuTien = new phieuthutien();
-            	                    phieuThuTien.setMadaily(selectedAgent);            	                    
-            	                    phieuThuTien.setTienthu(Integer.parseInt(values[5]));
-            	                    //phieuThuTien.setNgaythutien("ac");
+
+									phieuthutien phieuThuTien = new phieuthutien(Integer.parseInt(values[5]), selectedAgent);
             	                    if(phieuThuTienController.createPhieuThuTien(phieuThuTien).contains("201")) {
             	                    	for (int i = 0; i < model.getRowCount(); i++) {
         									if (model.getValueAt(i, 1).equals(selectedAgent.getTendaily())) {
@@ -634,9 +632,6 @@ public class StoresPanel extends JPanel {
         								}
             	                    	((Window) SwingUtilities.getRoot(popupPanel)).dispose();
             	                    	JOptionPane.showMessageDialog(null, "Lập phiếu thu tiền thành công");
-                	                    
-                	                    
-                	                   
             	                    }
             	                    else {
             	                    	JOptionPane.showMessageDialog(null, "Lập phiếu thu tiền thất bại");
