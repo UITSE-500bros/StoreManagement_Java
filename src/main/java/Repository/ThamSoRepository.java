@@ -44,4 +44,13 @@ public class ThamSoRepository extends Connection{
         super.closeConnection();
         return response;
     }
+
+    public int getThamSoValue() throws IOException {
+        super.openGetConnection("thamso/getThamSoValue?tenthamso=Số đại lý tối đa trong một quận");
+        gson = new Gson();
+        JsonReader reader = new JsonReader(new InputStreamReader(con.getInputStream()));
+        int value = gson.fromJson(reader, int.class);
+        super.closeConnection();
+        return value;
+    }
 }

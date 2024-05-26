@@ -3,6 +3,8 @@ package Controller;
 import Models.thamso;
 import Repository.ThamSoRepository;
 
+import java.io.IOException;
+
 public class ThamSoController {
     private final ThamSoRepository thamSoRepository;
 
@@ -26,6 +28,11 @@ public class ThamSoController {
         } else {
             return -1;
         }
+    }
+
+    public int getSoDaiLyToiDa() throws IOException {
+
+        return thamSoRepository.getThamSoValue();
     }
 
 }

@@ -130,14 +130,21 @@ public class StoresPanel extends JPanel {
 
 		gbc1_1 = new GridBagConstraints();
 		gbc1_1.gridy = 0;
-		addButton = new JButton("Tiếp nhận đại lý");
-		ImageIcon lapPhieuIcon = new ImageIcon("src/main/java/resource/lapPhieuIcon.png");
+		addButton = new CustomButton("Tiếp nhận đại lý");
+		ImageIcon lapPhieuIcon = new ImageIcon("src/main/java/resource/addStore.png");
+		Image img = lapPhieuIcon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
+		lapPhieuIcon = new ImageIcon(img);
 		addButton.setIcon(lapPhieuIcon);
-		addButton.setBorderPainted(false);
-		addButton.setBackground(Color.BLACK);
-		addButton.setForeground(Color.ORANGE);
-		addButton.setFont(new Font("Roboto", Font.BOLD, 20));
 		addButton.setPreferredSize(new Dimension(150, 40));
+		addButton.setMinimumSize(new Dimension(150, 40));
+		addButton.setFont(new Font("Roboto", Font.BOLD, 12));
+		addButton.setForeground(Color.WHITE);
+		addButton.setBackground(Color.BLACK);
+		addButton.setIconTextGap(15);
+		addButton.setHorizontalAlignment(JButton.LEFT);
+		addButton.setHorizontalTextPosition(JButton.RIGHT);
+		
+		
 		gbc1_1.gridx = 1;
 		gbc1_1.weightx = 1;
 		gbc1_1.anchor = GridBagConstraints.WEST;
@@ -147,13 +154,19 @@ public class StoresPanel extends JPanel {
 
 		
         
-		JButton makeReceiptButton = new JButton("Lập phiếu thu tiền");
+		JButton makeReceiptButton = new CustomButton("Thu tiền");
 	 makeReceiptButton.setPreferredSize(new Dimension(150, 40));
-		ImageIcon themMatHang = new ImageIcon("src/main/java/resource/themMatHangIcon.png");
+	 makeReceiptButton.setMinimumSize(new Dimension(150, 40));
+		ImageIcon themMatHang = new ImageIcon("src/main/java/resource/makereceipt.png");
+		img = themMatHang.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
+		themMatHang = new ImageIcon(img);
      makeReceiptButton.setIcon(themMatHang);
 	 makeReceiptButton.setFont(new Font("Roboto", Font.BOLD, 12));
 	 makeReceiptButton.setForeground(Color.WHITE);
 	 makeReceiptButton.setBackground(Color.BLACK);
+	 makeReceiptButton.setIconTextGap(30);
+		makeReceiptButton.setHorizontalAlignment(JButton.LEFT);
+		makeReceiptButton.setHorizontalTextPosition(JButton.RIGHT);
 		
 		gbc1_2 = new GridBagConstraints();
 		gbc1_2.gridy = 0;
@@ -384,8 +397,8 @@ public class StoresPanel extends JPanel {
         	            popupPanel.add(inputs[i], gbc);
         	        }
         	        // Add the buttons
-        	        JButton cancelButton = new JButton("Hủy bỏ");
-        	        JButton confirmButton = new JButton("Thêm mới");
+        	        JButton cancelButton = new CustomButton("Hủy bỏ");
+        	        JButton confirmButton = new CustomButton("Thêm mới");
 					confirmButton.addActionListener(new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e) {
@@ -571,8 +584,8 @@ public class StoresPanel extends JPanel {
 					}
         	        
         	     // Add the buttons
-        	        JButton cancelButton = new JButton("Hủy bỏ");
-        	        JButton confirmButton = new JButton("Thêm mới");
+        	        JButton cancelButton = new CustomButton("Hủy bỏ");
+        	        JButton confirmButton = new CustomButton("Thêm mới");
         	        // Add action listeners for the buttons
         	        confirmButton.addActionListener(new ActionListener() {
         	        	            	            @Override
@@ -615,10 +628,8 @@ public class StoresPanel extends JPanel {
             	                    .orElse(null);
             	                if (selectedAgent != null) {
             	                    selectedAgent.setTienno(selectedAgent.getTienno() - Integer.parseInt(values[5]));
-            	                    phieuthutien phieuThuTien = new phieuthutien();
-            	                    phieuThuTien.setMadaily(selectedAgent);            	                    
-            	                    phieuThuTien.setNgaythutien(Date.valueOf(LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
-            	                    phieuThuTien.setTienthu(Integer.parseInt(values[5]));
+
+									phieuthutien phieuThuTien = new phieuthutien(Integer.parseInt(values[5]), selectedAgent);
             	                    if(phieuThuTienController.createPhieuThuTien(phieuThuTien).contains("201")) {
             	                    	for (int i = 0; i < model.getRowCount(); i++) {
         									if (model.getValueAt(i, 1).equals(selectedAgent.getTendaily())) {
@@ -628,9 +639,6 @@ public class StoresPanel extends JPanel {
         								}
             	                    	((Window) SwingUtilities.getRoot(popupPanel)).dispose();
             	                    	JOptionPane.showMessageDialog(null, "Lập phiếu thu tiền thành công");
-                	                    
-                	                    
-                	                   
             	                    }
             	                    else {
             	                    	JOptionPane.showMessageDialog(null, "Lập phiếu thu tiền thất bại");

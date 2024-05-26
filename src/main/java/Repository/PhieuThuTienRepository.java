@@ -13,12 +13,13 @@ public class PhieuThuTienRepository extends Connection{
     }
     public String insertPhieuThuTien(phieuthutien phieuThuTien) {
         gson = new Gson();
+        phieuThuTien.getMadaily().setNgaytn(null);
         String json = gson.toJson(phieuThuTien);
         openPostConnection("phieuthutien/addPhieuThuTien");
         response = "";
         writeObject(json);
         closeConnection();
+        System.out.println(response);
         return response;
     }
-
 }

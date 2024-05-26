@@ -44,6 +44,7 @@ public class importPanel extends JPanel {
 	private DefaultTableModel model;
 	private MatHangController matHangController;
 	private List<mathang> list;
+	private List<dvt> list1;
 
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
@@ -482,25 +483,24 @@ public class importPanel extends JPanel {
 
 	public void loadData(){
 		list = null;
-		List<dvt> list1 = new ArrayList<>();
+		list1 = new ArrayList<>();
+		dvMatHangs = new ArrayList<>();
+		matHangs = new HashMap<>();
 		try {
 			list = new MatHangController().showMatHang();
 			list1 = new DVTController().showDVT();
 		} catch (IOException ex) {
 			throw new RuntimeException(ex);
 		}
-		dvMatHangs = new ArrayList<>();
-		matHangs = new HashMap<>();
 		int i = 0;
 		for (dvt dvt : list1) {
 			dvMatHangs.add(dvt.getTendvt());
 		}
-		for(mathang mh : list) {
+		for (mathang mh : list) {
 			int d = dvMatHangs.indexOf(mh.getDvt().getTendvt());
-			matHangs.put(mh.getTenmh(), new ArrayList<>(Arrays.asList(i , mh.getDongianhap(), d)));
+			matHangs.put(mh.getTenmh(), new ArrayList<>(Arrays.asList(i, mh.getDongianhap(), d)));
 			i++;
 		}
-
 	}
 
 }

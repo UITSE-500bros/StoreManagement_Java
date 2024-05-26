@@ -21,7 +21,11 @@ import java.awt.event.ActionEvent;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+
 import java.io.IOException;
+
+import java.awt.Image;
+
 
 public class MainFrame extends JFrame {
 
@@ -36,6 +40,8 @@ public class MainFrame extends JFrame {
 	private JButton importButton;
 	private JButton exportButton;
 	private JButton logoutButton;
+	private UI.importPanel importPanel;
+	private ExportPanel exportPanel;
 
 	/**
 	 * Launch the application.
@@ -61,8 +67,8 @@ public class MainFrame extends JFrame {
 	public MainFrame() {
 		setTitle("Store Management");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1100, 700);
-		setMinimumSize(new Dimension(1100, 700));
+		setBounds(100, 100, 1100, 600);
+		setMinimumSize(new Dimension(1100, 600));
 		
 		// Create menu bar
 		
@@ -199,11 +205,11 @@ public class MainFrame extends JFrame {
 		mainPanel.add(containerPanel, gbc);
 		mainPanel.add(menuPanel, gbc_menuPanel);
 		initMenuPanel(menuPanel);
-		menuPanel.setLayout(new GridLayout(15, 1, 10, 0));
+		menuPanel.setLayout(new GridLayout(15, 1, 15, 0));
 		JPanel emptyPanel = new JPanel();
 		emptyPanel.setOpaque(false);
 		emptyPanel.setPreferredSize(new Dimension(0, 10));
-		//menuPanel.add(emptyPanel); // Empty panel
+		menuPanel.add(emptyPanel); // Empty panel
 		menuPanel.add(storesButton);
 		menuPanel.add(stockButton);
 		menuPanel.add(reportButton);
@@ -232,12 +238,12 @@ public class MainFrame extends JFrame {
 		containerPanel.add(reportPanel, "name_240836198139600");
 
 		// thay new JPanel() bang Panel do ae tao
-		JPanel importPanel = new importPanel();
+		importPanel = new importPanel();
 		importPanel.setOpaque(false);
 		containerPanel.add(importPanel, "name_240836231205200");
 
 		// thay new JPanel() bang Panel do ae tao
-		JPanel exportPanel = new ExportPanel();
+		exportPanel = new ExportPanel();
 		exportPanel.setOpaque(false);
 		containerPanel.add(exportPanel, "name_240836258641200");
 		
@@ -268,11 +274,13 @@ public class MainFrame extends JFrame {
 		importButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 cardLayout.show(containerPanel, "name_240836231205200");
+				importPanel.loadData();
             }
         });
 		exportButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(containerPanel, "name_240836258641200");
+				exportPanel.loadData();
 			}
 		});
 		
@@ -280,16 +288,36 @@ public class MainFrame extends JFrame {
 	}
 
 	private void initMenuPanel(JPanel menuPanel) {
-		storesButton = new MenuItemsButton("Đại lý", new ImageIcon("src/main/java/resource/themMatHangIcon.png"));
-
-		stockButton = new MenuItemsButton("Kho", new ImageIcon("src/main/java/resource/themMatHangIcon.png"));
+		ImageIcon logo = new ImageIcon("src/main/java/resource/store.png");
+		Image scaledLogo = logo.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
+		logo = new ImageIcon(scaledLogo);
 		
-		reportButton = new MenuItemsButton("Báo cáo", new ImageIcon("src/main/java/resource/themMatHangIcon.png"));		
-		importButton = new MenuItemsButton("Nhập hàng", new ImageIcon("src/main/java/resource/themMatHangIcon.png"));
 		
-		exportButton = new MenuItemsButton("Xuất hàng", new ImageIcon("src/main/java/resource/themMatHangIcon.png"));
+		storesButton = new MenuItemsButton("Đại lý", logo);
+		logo = new ImageIcon("src/main/java/resource/stock.png");
+		scaledLogo = logo.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
+		logo = new ImageIcon(scaledLogo);
+		stockButton = new MenuItemsButton("Kho", logo);
 		
-		logoutButton = new MenuItemsButton("Đăng xuất", new ImageIcon("src/main/java/resource/themMatHangIcon.png"));
+		logo = new ImageIcon("src/main/java/resource/report.png");
+		scaledLogo = logo.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
+		logo = new ImageIcon(scaledLogo);
+		reportButton = new MenuItemsButton("Báo cáo", logo);
+		
+		logo = new ImageIcon("src/main/java/resource/import.png");
+		scaledLogo = logo.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
+		logo = new ImageIcon(scaledLogo);
+		importButton = new MenuItemsButton("Nhập hàng", logo);
+		
+		logo = new ImageIcon("src/main/java/resource/export.png");
+		scaledLogo = logo.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
+		logo = new ImageIcon(scaledLogo);
+		exportButton = new MenuItemsButton("Xuất hàng", logo);
+		
+		logo = new ImageIcon("src/main/java/resource/signout.png");
+		scaledLogo = logo.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
+		logo = new ImageIcon(scaledLogo);
+		logoutButton = new MenuItemsButton("Đăng xuất", logo);
 		logoutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int dialogResult = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất?", "Warning",
