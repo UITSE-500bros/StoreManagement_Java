@@ -6,10 +6,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.*;
 
+import Repository.ThamSoRepository;
 import Controller.DaiLyController;
 import Controller.LoaiDaiLyController;
 import Controller.QuanController;
 import Controller.PhieuThuTienController;
+import Controller.ThamSoController;
 import Models.daily;
 import Models.loaidaily;
 import Models.quan;
@@ -40,6 +42,7 @@ public class StoresPanel extends JPanel {
 	private LoaiDaiLyController loaiDaiLyController;
 	private QuanController quanController;
 	private PhieuThuTienController phieuThuTienController;
+	private ThamSoController thamSoController;
 	java.util.List<daily> dailyList;
 	java.util.List<loaidaily> loaidailyList;
 	java.util.List<quan> quanList;
@@ -47,17 +50,17 @@ public class StoresPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public StoresPanel() {
+		initComponents();
+		loadData();
+         
+	}
+	public void initComponents() {
 		daiLyController = new DaiLyController();
 		loaiDaiLyController = new LoaiDaiLyController();
 		quanController = new QuanController();
 		phieuThuTienController = new PhieuThuTienController();
-		try {
-			dailyList = daiLyController.showDaiLy();
-			loaidailyList = loaiDaiLyController.showLoaiDaiLy();
-			quanList = quanController.showQuan();
-		}catch (Exception e){
-			e.printStackTrace();
-		}
+		thamSoController = new ThamSoController(new ThamSoRepository());
+		loadData();
         String[] labels = {"Tên đại lý", "Loại đại lý", "Số điện thoại", "Địa chỉ", "Quận", "Email"};
         String[] districtItems = new String[quanList.size() + 1];
         String[] categoryItems = new String[loaidailyList.size() + 1];
@@ -455,11 +458,14 @@ public class StoresPanel extends JPanel {
 								model.addRow(
 										new Object[] { model.getRowCount() + 1, values[0], values[1], values[4], 0 });
 								dailyList.add(daily);
+								((Window) SwingUtilities.getRoot(popupPanel)).dispose();
+
 							}
-							// Add the new row to the table
+							else {
+								JOptionPane.showMessageDialog(null, "Số lượng đại lý của quận đã đạt tối đa");
+							}
 							
 							// Hide the popup
-							((Window) SwingUtilities.getRoot(popupPanel)).dispose();
 						}
 					});
         	        
@@ -668,7 +674,16 @@ public class StoresPanel extends JPanel {
         	        JOptionPane.showOptionDialog(null, popupPanel, "Phiếu thu tiền", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
         	        	            	            }
         	    });
-         
+	}
+
+	public void loadData() {
+		try {
+			dailyList = daiLyController.showDaiLy();
+			loaidailyList = loaiDaiLyController.showLoaiDaiLy();
+			quanList = quanController.showQuan();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 	}
 
 }

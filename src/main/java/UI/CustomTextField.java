@@ -11,6 +11,9 @@ public class CustomTextField extends JTextField{
         setPreferredSize(new Dimension(getPreferredSize().width, 40)); // Increase height
         setBorder(BorderFactory.createLineBorder(new Color(72, 71, 71), 1));
         setBackground(Color.WHITE);
+        //setMargin(new Insets(0, 20, 0, 5)); // Add some padding but not working
+        //setFont(new Font("Roboto", Font.PLAIN, 12)); // Change font
+
     }
 	public void setPlaceholder(String placeholder) {
         this.placeholder = placeholder;

@@ -9,7 +9,7 @@ public class SearchTextField extends JTextField {
         super(columns);
         setOpaque(false); // Make it transparent
         setPreferredSize(new Dimension(getPreferredSize().width, 35)); // Increase height
-        setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); // Add some padding
+        setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 5)); // Add some padding
     }
 
     public void setPlaceholder(String placeholder) {

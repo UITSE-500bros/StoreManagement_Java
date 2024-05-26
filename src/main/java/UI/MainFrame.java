@@ -213,11 +213,11 @@ public class MainFrame extends JFrame {
 		
 		
 
-		JPanel storesPanel = new StoresPanel();
+		StoresPanel storesPanel = new StoresPanel();
 		storesPanel.setOpaque(false);
 		containerPanel.add(storesPanel, "name_240836109219200");
 
-		JPanel stockPanel = new StockPanel();
+		StockPanel stockPanel = new StockPanel();
 		stockPanel.setOpaque(false);
 		containerPanel.add(stockPanel, "name_240836138693900");
 
@@ -246,12 +246,16 @@ public class MainFrame extends JFrame {
 		storesButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(containerPanel, "name_240836109219200");
+				storesPanel.removeAll();
+				storesPanel.initComponents();
 			}
 		});
 		
 		stockButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cardLayout.show(containerPanel, "name_240836138693900");
+				stockPanel.removeAll();
+				stockPanel.initComponents();
 			}
 		});
 		
@@ -275,7 +279,8 @@ public class MainFrame extends JFrame {
 			}
 		});
 		
-		
+		storesButton.setSelected(true);
+		MenuItemsButton.setCurrentSelected((MenuItemsButton)storesButton);
 	}
 
 	private void initMenuPanel(JPanel menuPanel) {

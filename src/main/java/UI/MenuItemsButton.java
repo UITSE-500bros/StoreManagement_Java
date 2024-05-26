@@ -31,11 +31,11 @@ public class MenuItemsButton extends JButton {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (currentSelected != null) {
-                    currentSelected.setSelected(false); // Deselect the previous button
+                if (getCurrentSelected() != null) {
+                    getCurrentSelected().setSelected(false); // Deselect the previous button
                 }
                 setSelected(true);
-                currentSelected = MenuItemsButton.this; // Update the current selected button
+                setCurrentSelected(MenuItemsButton.this); // Update the current selected button
             }
         });
         }
@@ -53,4 +53,10 @@ public class MenuItemsButton extends JButton {
     public boolean isSelected() {
         return selected;
     }
+	public static MenuItemsButton getCurrentSelected() {
+		return currentSelected;
+	}
+	public static void setCurrentSelected(MenuItemsButton currentSelected) {
+		MenuItemsButton.currentSelected = currentSelected;
+	}
 }
