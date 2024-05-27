@@ -1,17 +1,23 @@
 package UI;
 
+import Controller.DVTController;
+import Models.dvt;
+
 import java.awt.EventQueue;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.BorderLayout;
+import java.io.IOException;
+import java.util.List;
 
 public class Unit extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
+	private List<dvt> units;
 
 	/**
 	 * Launch the application.
@@ -32,7 +38,7 @@ public class Unit extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Unit() {
+	public Unit() throws IOException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -45,13 +51,15 @@ public class Unit extends JFrame {
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"STT", "\u0110\u01A1n v\u1ECB t\u00EDnh"
-			}
-		));
+		DVTController dvtController = new DVTController();
+		DefaultTableModel model = new DefaultTableModel();
+		model.addColumn("STT");
+		model.addColumn("Đơn vị tính");
+		units = dvtController.showDVT();
+		for (dvt unit : units) {
+			model.addRow(new Object[] {model.getRowCount()+1, unit.getTendvt()});
+		}
+		table.setModel(model);
 		scrollPane.setViewportView(table);
 		
 		JPanel panel = new JPanel();
@@ -60,10 +68,10 @@ public class Unit extends JFrame {
 		JButton btnAdd = new JButton("Thêm");
 		btnAdd.addActionListener(e -> {
 			String unit = JOptionPane.showInputDialog("Nhập đơn vị tính");
-			DefaultTableModel model = (DefaultTableModel) table.getModel();
-			model.addRow(new Object[] {model.getRowCount() + 1, unit});
-
-
+			if (unit != null) {
+				dvtController.addNewDVT(new dvt(unit));
+				model.addRow(new Object[] {model.getRowCount()+1, unit});
+			}
 		});
 		panel.add(btnAdd);
 		
