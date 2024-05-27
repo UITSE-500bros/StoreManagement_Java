@@ -58,6 +58,7 @@ public class ExportPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public ExportPanel() {
+
 		initComponent();
 	}
 
