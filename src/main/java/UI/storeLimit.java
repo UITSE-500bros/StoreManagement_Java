@@ -52,11 +52,11 @@ public class storeLimit extends JDialog {
 		{
 			thamSoController = new ThamSoController();
 			int soDaiLyToiDa= 1;
-			try {
-                 soDaiLyToiDa = thamSoController.getSoDaiLyToiDa();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+//			try {
+//                 soDaiLyToiDa = thamSoController.getSoDaiLyToiDa();
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
             spinner = new JSpinner(new SpinnerNumberModel(soDaiLyToiDa, 1, 100, 1));
 			contentPanel.add(spinner);
 		}
