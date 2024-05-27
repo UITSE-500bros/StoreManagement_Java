@@ -80,16 +80,8 @@ public class MainFrame extends JFrame {
 		JMenu MainMenu = new JMenu("Cài đặt");
 		menuBar.add(MainMenu);
 		// Create menu items
-		JMenuItem mntm_userinfo = new JMenuItem("Thông tin cá nhân");
-		mntm_userinfo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				GeneralSetting generalSetting = new GeneralSetting();
-				generalSetting.setVisible(true);
-				generalSetting.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				generalSetting.setLocationRelativeTo(null);
-			}
-		});
-		MainMenu.add(mntm_userinfo);
+
+
 		
 		JMenuItem mntm_NewStore = new JMenuItem("Thêm loại đại lý mới\r\n");
 		mntm_NewStore.addActionListener(new ActionListener() {

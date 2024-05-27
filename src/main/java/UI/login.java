@@ -141,7 +141,7 @@ public class login extends JFrame {
 		password_panel.setLayout(new BorderLayout(0, 0));
 		
 
-		
+
 		
 		JButton btn_login = new JButton("Đăng nhập");
 		btn_login.addActionListener(new ActionListener() {
