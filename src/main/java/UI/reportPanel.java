@@ -181,6 +181,7 @@ public class reportPanel extends JPanel {
 		((DefaultTableCellRenderer)table.getTableHeader().getDefaultRenderer()).setOpaque(false);
 		table.getTableHeader().setOpaque(false);
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		
 		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 		for (int i = 0; i < table.getColumnCount(); i++) {
 			table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
@@ -200,12 +201,7 @@ public class reportPanel extends JPanel {
 			}
 		});
 		model = (DefaultTableModel) table.getModel();
-		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-		centerRenderer.setHorizontalAlignment( JLabel.CENTER );
-		table.setDefaultRenderer(String.class, centerRenderer);
-		table.setDefaultRenderer(Integer.class, centerRenderer);
-		table.setDefaultRenderer(Double.class, centerRenderer);
-
+	
 		scrollPane.setViewportView(table);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
