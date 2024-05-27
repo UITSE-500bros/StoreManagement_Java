@@ -40,7 +40,7 @@ public class StoreTypeSetting extends JDialog {
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[]{149, 33,  0};
 		gbl_contentPanel.rowHeights = new int[]{13, 0, 0, 0, 0, 0};
-		gbl_contentPanel.columnWeights = new double[]{0.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPanel.columnWeights = new double[]{0.0, 1.0, 1.0};
 		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		// Get all store types
@@ -58,6 +58,7 @@ public class StoreTypeSetting extends JDialog {
 		LoaiDaiLyController loaidailyController = new LoaiDaiLyController();
 		List<loaidaily> loaidailyList = loaidailyController.showLoaiDaiLy();
 		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+
 		for (loaidaily loaidaily : loaidailyList) {
 			model.addElement(loaidaily.getTenloaidl());
 		}
@@ -65,7 +66,7 @@ public class StoreTypeSetting extends JDialog {
 		comboBox.setModel(model);
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.insets = new Insets(0, 0, 0, 5);
-		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBox.fill = GridBagConstraints.BOTH;
 		gbc_comboBox.gridx = 0;
 		gbc_comboBox.gridy = 2;
 		contentPanel.add(comboBox, gbc_comboBox);

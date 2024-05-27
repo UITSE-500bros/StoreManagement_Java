@@ -55,6 +55,7 @@ public class ExportPanel extends JPanel {
 		matHangController = new MatHangController();
 		dvtController = new DVTController();
 		daiLyController = new DaiLyController();
+
 		initComponent();
 	}
 

@@ -10,12 +10,14 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridLayout;
 import java.awt.Font;
+import java.io.IOException;
 
 public class storeLimit extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JSpinner spinner;
+	private  ThamSoController thamSoController;
 
 
 	/**
@@ -36,7 +38,7 @@ public class storeLimit extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public storeLimit() {
+	public storeLimit() throws IOException {
 		setBounds(100, 100, 461, 129);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -48,9 +50,14 @@ public class storeLimit extends JDialog {
 			contentPanel.add(lblNewLabel);
 		}
 		{
-
-
-			 spinner = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
+			thamSoController = new ThamSoController();
+			int soDaiLyToiDa= 1;
+//			try {
+//                 soDaiLyToiDa = thamSoController.getSoDaiLyToiDa();
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+            spinner = new JSpinner(new SpinnerNumberModel(soDaiLyToiDa, 1, 100, 1));
 			contentPanel.add(spinner);
 		}
 		{
