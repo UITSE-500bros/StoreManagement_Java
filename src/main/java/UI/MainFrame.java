@@ -166,19 +166,14 @@ public class MainFrame extends JFrame {
 		JMenuItem mntm_Ratio = new JMenuItem("Tỉ lệ tính đơn vị xuất");
 		mntm_Ratio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ThamSoController thamSoController = new ThamSoController();
-				Ratio ratio = null;
-                try {
-                     ratio = new Ratio(thamSoController.getTyLeDGX());
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-				ratio.setVisible(true);
-				ratio.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				ratio.setLocationRelativeTo(null);
-
-
-
+//				ThamSoController thamSoController = new ThamSoController();
+//				int currentRatio = 0;
+//                try {
+//					 currentRatio = thamSoController.getTyLeDGX();
+//                } catch (IOException ex) {
+//                    throw new RuntimeException(ex);
+//                }
+				String ratio = JOptionPane.showInputDialog("Nhập tỉ lệ đơn giá xuất (hiện tại: " + 100+" )");
 
             }
 		});
