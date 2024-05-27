@@ -387,8 +387,7 @@ public class ExportPanel extends JPanel {
 
 
 				Date selectedDate = Date.valueOf(datePicker.getDateString());
-				LocalDate todayLocalDate = LocalDate.now();
-				Date todayDate = (Date) Date.from(todayLocalDate.atStartOfDay().atZone(ZoneId.of("Asia/Ho_Chi_Minh")).toInstant());
+				Date todayDate = Date.valueOf(LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh")));
 
 				if (selectedDate == null) {
 					JOptionPane.showMessageDialog(null, "Vui lòng chọn ngày nhập hàng", "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -399,8 +398,6 @@ public class ExportPanel extends JPanel {
 					JOptionPane.showMessageDialog(null, "Ngày nhập hàng không thể lớn hơn ngày hiện tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-
-				java.sql.Date date = new java.sql.Date(selectedDate.getTime());
 
 				if (tienTraTextField.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, "Vui lòng nhập số tiền trả", "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -445,7 +442,7 @@ public class ExportPanel extends JPanel {
 
 				try {
 					boolean checkTienNo = new PhieuXuatHangController().checkTienNo(tienConLai, daiLys.get(Objects.requireNonNull(daiLyCombobox.getSelectedItem()).toString()).getFirst());
-					if (checkTienNo) {
+					if (checkTienNo == false) {
 						JOptionPane.showMessageDialog(null, "Số tiền trả không được lớn hơn số nợ", "Lỗi", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
@@ -456,7 +453,6 @@ public class ExportPanel extends JPanel {
 				PhieuXuatHangController phieuXuatHangController = new PhieuXuatHangController();
 
 				try {
-
 					phieuxuathang phieuXuatHang = new phieuxuathang(list1.get(daiLys.get(Objects.requireNonNull(daiLyCombobox.getSelectedItem()).toString()).getLast()),selectedDate, tongTien, tienTra, tienConLai);
 					phieuXuatHangController.createPhieuXuatHang(phieuXuatHang);
 				} catch (IOException ex) {
