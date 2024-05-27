@@ -1,5 +1,8 @@
 package UI;
 
+import Controller.MatHangController;
+import Models.mathang;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -16,6 +19,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.util.List;
 
 public class Items extends JFrame {
 
@@ -43,7 +48,7 @@ public class Items extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Items() {
+	public Items() throws IOException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -56,26 +61,16 @@ public class Items extends JFrame {
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"STT", "M\u1EB7t h\u00E0ng", "\u0110\u01A1n gi\u00E1 nh\u1EADp", "\u0110\u01A1n v\u1ECB t\u00EDnh"
-			}
-		) {
-			Class[] columnTypes = new Class[] {
-				Integer.class, Object.class, Object.class, Object.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
+		// Tạo một DefaultTableModel
+		String[] columnNames = {"STT", "Mặt hàng", "Đơn giá nhập", "Đơn vị tính"};
+		DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+
+		MatHangController matHangController = new MatHangController();
+		List<mathang> mathangList = matHangController.showMatHang();
+		for (mathang mathang : mathangList) {
+			tableModel.addRow(new Object[]{tableModel.getRowCount() + 1, mathang.getTenmh(), mathang.getDongianhap(), mathang.getDvt().getTendvt()});
+		}
+		table.setModel(tableModel);
 		table.getColumnModel().getColumn(0).setResizable(false);
 		table.getColumnModel().getColumn(1).setResizable(false);
 		table.getColumnModel().getColumn(2).setResizable(false);
@@ -88,8 +83,13 @@ public class Items extends JFrame {
 		JButton btnAdd = new JButton("Thêm");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				addItem dialog = new addItem();
-				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                addItem dialog = null;
+                try {
+                    dialog = new addItem();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				dialog.setLocationRelativeTo(null);
 				dialog.setVisible(true);
 
@@ -101,6 +101,8 @@ public class Items extends JFrame {
 		JButton btnOk = new JButton("Ok");
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+
 				dispose();
 			}
 			

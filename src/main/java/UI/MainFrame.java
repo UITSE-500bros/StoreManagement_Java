@@ -131,8 +131,13 @@ public class MainFrame extends JFrame {
 		JMenuItem mntm_ItemQuantity = new JMenuItem("Thêm mặt hàng mới");
 		mntm_ItemQuantity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Items items = new Items();
-				items.setVisible(true);
+                Items items = null;
+                try {
+                    items = new Items();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                items.setVisible(true);
 				items.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				items.setLocationRelativeTo(null);
 				

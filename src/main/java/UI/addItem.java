@@ -1,5 +1,10 @@
 package UI;
 
+import Controller.DVTController;
+import Controller.MatHangController;
+import Models.dvt;
+import Models.mathang;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
@@ -8,8 +13,10 @@ import javax.swing.border.EmptyBorder;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.List;
 import java.util.Locale;
 import java.awt.GridLayout;
 
@@ -37,9 +44,9 @@ public class addItem extends JDialog {
 
 		return textField_name.getText();
 	}
-	public double getImportPrice() {
+	public int getImportPrice() {
 		try{
-		return Double.parseDouble(textField_importPrice.getText());
+		return Integer.parseInt(textField_importPrice.getText());
 		}catch(Exception e) {
 			JOptionPane.showMessageDialog(null, "Đơn giá nhập không hợp lệ");
 			return -1;
@@ -55,7 +62,7 @@ public class addItem extends JDialog {
 	 * Create the dialog.
 	 */
 
-	public addItem() {
+	public addItem() throws IOException {
 		setBounds(100, 100, 451, 201);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -115,8 +122,18 @@ public class addItem extends JDialog {
 		}
 		{
 			 cmb_units = new JComboBox();
-			 cmb_units.setModel(new DefaultComboBoxModel(new String[] {"gói", "hộp", "cái"}));
-			GridBagConstraints gbc_cmb_units = new GridBagConstraints();
+			DVTController dvtController = new DVTController();
+			List<dvt> dvtList = null;
+            try {
+				dvtList = dvtController.showDVT();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+			for (dvt dvt : dvtList) {
+			cmb_units.addItem(dvt.getTendvt());
+		}
+
+            GridBagConstraints gbc_cmb_units = new GridBagConstraints();
 			gbc_cmb_units.fill = GridBagConstraints.BOTH;
 			gbc_cmb_units.gridx = 1;
 			gbc_cmb_units.gridy = 2;
@@ -140,17 +157,20 @@ public class addItem extends JDialog {
 						JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin");
 						return;
 					}
-					
-				
-				
+
+					mathang mathang = new mathang();
+					mathang.setTenmh(name);
+					mathang.setDongianhap(getImportPrice());
+					mathang.setDvt(new dvt(unit));
+
+
 		            // add item to table
 					Items.addItemToTable(name, importPrice, unit);
+					MatHangController matHangController = new MatHangController();
+					String result = matHangController.addNewMatHang(mathang);
+					JOptionPane.showMessageDialog(null, result);
+
 					this.dispose();
-					
-					
-		
-
-
 				});
 			}
 			{
@@ -163,5 +183,6 @@ public class addItem extends JDialog {
 			}
 		}
 	}
+
 
 }

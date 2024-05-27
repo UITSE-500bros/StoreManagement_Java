@@ -59,6 +59,18 @@ public class mathang {
 		return dvt;
 	}
 
+    public void setDongianhap(int dongianhap) {
+        this.dongianhap = dongianhap;
+    }
+
+    public void setDvt(Models.dvt dvt) {
+        this.dvt = dvt;
+    }
+
+    public void setTenmh(String tenmh) {
+        this.tenmh = tenmh;
+    }
+
     public int getDongiaxuat() {
         return (int) dongiaxuat;
     }
