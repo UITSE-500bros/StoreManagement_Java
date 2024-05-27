@@ -57,7 +57,7 @@ public class StoresPanel extends JPanel {
 		loaiDaiLyController = new LoaiDaiLyController();
 		quanController = new QuanController();
 		phieuThuTienController = new PhieuThuTienController();
-		thamSoController = new ThamSoController(new ThamSoRepository());
+		thamSoController = new ThamSoController();
 		loadData();
         String[] labels = {"Tên đại lý", "Loại đại lý", "Số điện thoại", "Địa chỉ", "Quận", "Email"};
         String[] districtItems = new String[quanList.size() + 1];

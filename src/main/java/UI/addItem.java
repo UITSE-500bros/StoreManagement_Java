@@ -172,7 +172,7 @@ public class addItem extends JDialog {
 					}else{
 
 					}
-					
+
 					this.dispose();
 				});
 			}
