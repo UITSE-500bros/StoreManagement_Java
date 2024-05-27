@@ -22,6 +22,7 @@ public class daily {
 
 
     public daily() {
+    	
     }
 
     public daily(String tendaily, String diachi, String sdt, String email, loaidaily maloaidl, quan maquan, Date ngaytn, int tienno) {

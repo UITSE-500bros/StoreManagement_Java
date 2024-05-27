@@ -73,7 +73,7 @@ public class MainFrame extends JFrame {
 		setMinimumSize(new Dimension(1100, 600));
 		
 		// Create menu bar
-		
+		this.setResizable(false);
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		// Create menu

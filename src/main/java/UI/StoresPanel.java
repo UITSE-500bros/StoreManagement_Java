@@ -21,6 +21,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.regex.Pattern;
 
 import ReuseClass.DatePicker;
 import UI.CustomTextField;
@@ -290,10 +291,11 @@ public class StoresPanel extends JPanel {
         	    }
 
         	    public void filter() {
-        	        String filterText = searchField.getText();
-    	            TableRowSorter<DefaultTableModel> sorter = (TableRowSorter<DefaultTableModel>) ((DefaultRowSorter)table.getRowSorter());
-        	        sorter.setRowFilter(RowFilter.regexFilter("(?i)" + filterText)); // (?i) enables case insensitive matching
-        	        table.setRowSorter(sorter);
+        	    	 String filterText = searchField.getText();
+        	    	    String escapedFilterText = Pattern.quote(filterText); // Escape special characters
+        	    	    TableRowSorter<DefaultTableModel> sorter = (TableRowSorter<DefaultTableModel>) ((DefaultRowSorter)table.getRowSorter());
+        	    	    sorter.setRowFilter(RowFilter.regexFilter("(?i)^" + escapedFilterText)); // (?i) enables case insensitive matching, ^ ensures the match starts at the beginning
+        	    	    table.setRowSorter(sorter);
         	    }
         	});
          
@@ -469,7 +471,7 @@ public class StoresPanel extends JPanel {
 								}
 							}
                             catch (Exception ex) {
-                                JOptionPane.showMessageDialog(null, ex.getMessage());
+                                JOptionPane.showMessageDialog(null, "Thêm đại lý thất bại");
                             }
 						}
 					});
@@ -616,10 +618,14 @@ public class StoresPanel extends JPanel {
             	                            return;
             	                        }
             	                        if (labels[i].equals("Số tiền thu (VND)")) {
-            	                            if (!values[i].matches("\\d+")) { // regex cho sdt
+            	                            if (!values[i].matches("\\d+")) {
             	                                JOptionPane.showMessageDialog(null, "Số tiền thu không hợp lệ");
             	                                return;
             	                            }
+										else if (Integer.parseInt(values[i]) == 0) {
+											JOptionPane.showMessageDialog(null, "Số tiền thu phải lớn hơn 0");
+											return;
+										}
             	                            int money = Integer.parseInt(values[i]);
             	                            daily selectedAgent = dailyList.stream()
             	                                .filter(agent -> agent.getTendaily().equals((String)((CustomComboBox) inputs[0]).getSelectedItem()))
@@ -696,7 +702,7 @@ public class StoresPanel extends JPanel {
 				quanList = new ArrayList<>();
 			}
 		}catch (Exception e){
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Lỗi kết nối");
 		}
 	}
 
