@@ -21,7 +21,6 @@ import javax.swing.table.TableColumnModel;
 import Controller.DVTController;
 import Controller.MatHangController;
 import Controller.PhieuNhapHangController;
-import Controller.PhieuXuatHangController;
 import Models.ctnh;
 import Models.dvt;
 import Models.mathang;
@@ -31,6 +30,7 @@ import ReuseClass.DatePicker;
 public class importPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private  DVTController donViTinhController;
 	private JTextField tongTienTextField;
 	private Map<String, ArrayList<Integer>> matHangs;
 	private ArrayList<String> dvMatHangs;
@@ -54,13 +54,13 @@ public class importPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public importPanel() {
+		matHangController = new MatHangController();
+		donViTinhController = new DVTController();
 		initComponet();
 	}
 
 	public void initComponet(){
 		this.setLayout(new GridBagLayout());
-
-		matHangController = new MatHangController();
 
 		loadData();
 
@@ -481,8 +481,8 @@ public class importPanel extends JPanel {
 		dvMatHangs = new ArrayList<>();
 		matHangs = new HashMap<>();
 		try {
-			list = new MatHangController().showMatHang();
-			list1 = new DVTController().showDVT();
+			list = matHangController.showMatHang();
+			list1 = donViTinhController.showDVT();
 		} catch (IOException ex) {
 			throw new RuntimeException(ex);
 		}

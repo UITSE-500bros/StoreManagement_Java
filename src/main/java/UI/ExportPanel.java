@@ -29,6 +29,9 @@ import ReuseClass.DatePicker;
 public class ExportPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private DaiLyController daiLyController;
+	private  DVTController dvtController;
+	private MatHangController matHangController;
 	private JButton addButton;
 	private DefaultTableModel model;
 	private JTextField tienConLaiTextField;
@@ -45,19 +48,13 @@ public class ExportPanel extends JPanel {
 	private List<dvt> list2;
 
 
-	public static void main(String[] args) {
-		JFrame frame = new JFrame();
-		frame.setSize(1000, 800);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		ExportPanel ex = new ExportPanel();
-		frame.getContentPane().add(ex);
-		frame.setVisible(true);
-	}
-
 	/**
 	 * Create the panel.
 	 */
 	public ExportPanel() {
+		matHangController = new MatHangController();
+		dvtController = new DVTController();
+		daiLyController = new DaiLyController();
 		initComponent();
 	}
 
@@ -654,9 +651,9 @@ public class ExportPanel extends JPanel {
 		daiLys = new HashMap<>();
 		dvMatHangs = new ArrayList<>();
 		try {
-			list1 = new DaiLyController().showDaiLy();
-			list = new MatHangController().showMatHang();
-			list2 = new DVTController().showDVT();
+			list1 = daiLyController.showDaiLy();
+			list = matHangController.showMatHang();
+			list2 = dvtController.showDVT();
 		} catch (IOException ex) {
 			throw new RuntimeException(ex);
 		}
