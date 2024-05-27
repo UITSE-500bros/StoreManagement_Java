@@ -13,6 +13,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import Repository.ThamSoRepository;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -148,8 +149,13 @@ public class MainFrame extends JFrame {
 		JMenuItem mntm_Unit = new JMenuItem("Đơn vị tính");
 		mntm_Unit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Unit unit = new Unit();
-				unit.setVisible(true);
+                Unit unit = null;
+                try {
+                    unit = new Unit();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                unit.setVisible(true);
 				unit.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				unit.setLocationRelativeTo(null);
 			}
@@ -159,18 +165,6 @@ public class MainFrame extends JFrame {
 		JMenuItem mntm_Ratio = new JMenuItem("Tỉ lệ tính đơn vị xuất");
 		mntm_Ratio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				double ratioValue = 0;
-				boolean validInput = false;
-				do {
-					String ratio = JOptionPane.showInputDialog("Nhập tỷ giá đơn giá xuất:");
-					try {
-						ratioValue = Double.parseDouble(ratio);
-						validInput = true;
-					} catch (NumberFormatException ex) {
-						JOptionPane.showMessageDialog(null, "Vui lòng nhập số");
-					}
-				} while (!validInput);
-				JOptionPane.showMessageDialog(null, "Tỉ lệ đã được cập nhật");
 
 			}
 		});
