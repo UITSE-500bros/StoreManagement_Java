@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import javax.swing.border.MatteBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import Controller.BaoCaoCongNoController;
@@ -180,6 +181,12 @@ public class reportPanel extends JPanel {
 			}
 		});
 		model = (DefaultTableModel) table.getModel();
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+		table.setDefaultRenderer(String.class, centerRenderer);
+		table.setDefaultRenderer(Integer.class, centerRenderer);
+		table.setDefaultRenderer(Double.class, centerRenderer);
+
 		scrollPane.setViewportView(table);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
