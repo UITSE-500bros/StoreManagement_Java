@@ -46,14 +46,15 @@ public class StockPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public StockPanel() {
-	     initComponents();
+		matHangController = new MatHangController();
+ 
+		initComponents();
 		
 		
 		
 
 	}
 	public void initComponents() {
-		matHangController = new MatHangController();
 		try {
 			mathangList = matHangController.showMatHang();
 		} catch (Exception e) {
