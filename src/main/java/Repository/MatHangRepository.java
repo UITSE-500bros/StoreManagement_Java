@@ -17,7 +17,7 @@ public class MatHangRepository extends Connection{
         gson = new Gson();
         String json = gson.toJson(mathang);
 
-        openPostConnection("matHang/addMatHang");
+        openPostConnection("matHang/createmh");
         response = "";
         writeObject(json);
         closeConnection();
