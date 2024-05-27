@@ -54,13 +54,14 @@ public class importPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public importPanel() {
+		matHangController = new MatHangController();
 		initComponet();
 	}
 
 	public void initComponet(){
 		this.setLayout(new GridBagLayout());
 
-		matHangController = new MatHangController();
+
 
 		loadData();
 

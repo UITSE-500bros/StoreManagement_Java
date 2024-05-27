@@ -132,13 +132,10 @@ public class reportPanel extends JPanel {
 					try {
 						list = new BaoCaoDoanhSoController().getBaoCaoDoanhSo(Integer.parseInt(comboboxThang.getSelectedItem().toString().replace("Tháng ", "")), Integer.parseInt(textFieldNam.getText()));
 					} catch (IOException ex) {
-						throw new RuntimeException(ex);
+						JOptionPane.showMessageDialog(null, "Không có dữ liệu");
 					}
 					int tongTien = 0;
-					if (list == null) {
-						JOptionPane.showMessageDialog(null, "Không có dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
-						return;
-					}
+					
 					for (ctbcds ct : list){
 						model.addRow(new Object[]{model.getRowCount() + 1, ct.getMadaily().getTendaily(), ct.getSophieuxuat(), ct.getTongtrigia(), ct.getTyle()});
 						tongTien += ct.getTongtrigia();
@@ -150,12 +147,7 @@ public class reportPanel extends JPanel {
 					try {
 						list = new BaoCaoCongNoController().getBaoCaoCongNo(Integer.parseInt(comboboxThang.getSelectedItem().toString().replace("Tháng ", "")), Integer.parseInt(textFieldNam.getText()));
 					} catch (IOException ex) {
-						throw new RuntimeException(ex);
-					}
-					if (list == null) {
-						JOptionPane.showMessageDialog(null, "Không có dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
-						return;
-					}
+						JOptionPane.showMessageDialog(null, "Không có dữ liệu"); }
 					for (baocaocongno bc : list){
 						model.addRow(new Object[]{model.getRowCount() + 1, bc.getBaocaocongnoID().getMadaily().getTendaily(), bc.getNoDau(), bc.getPhatSinh(), bc.getNoCuoi()});
 					}
