@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import javax.swing.border.MatteBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import Controller.BaoCaoCongNoController;
@@ -115,6 +116,9 @@ public class reportPanel extends JPanel {
 
 		btnXem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(model.getRowCount() > 0){
+					return;
+				}
 				if (textFieldNam.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Vui lòng nhập năm", "Lỗi", JOptionPane.ERROR_MESSAGE);
 					return;
@@ -131,6 +135,10 @@ public class reportPanel extends JPanel {
 						throw new RuntimeException(ex);
 					}
 					int tongTien = 0;
+					if (list == null) {
+						JOptionPane.showMessageDialog(null, "Không có dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
 					for (ctbcds ct : list){
 						model.addRow(new Object[]{model.getRowCount() + 1, ct.getMadaily().getTendaily(), ct.getSophieuxuat(), ct.getTongtrigia(), ct.getTyle()});
 						tongTien += ct.getTongtrigia();
@@ -143,6 +151,10 @@ public class reportPanel extends JPanel {
 						list = new BaoCaoCongNoController().getBaoCaoCongNo(Integer.parseInt(comboboxThang.getSelectedItem().toString().replace("Tháng ", "")), Integer.parseInt(textFieldNam.getText()));
 					} catch (IOException ex) {
 						throw new RuntimeException(ex);
+					}
+					if (list == null) {
+						JOptionPane.showMessageDialog(null, "Không có dữ liệu", "Lỗi", JOptionPane.ERROR_MESSAGE);
+						return;
 					}
 					for (baocaocongno bc : list){
 						model.addRow(new Object[]{model.getRowCount() + 1, bc.getBaocaocongnoID().getMadaily().getTendaily(), bc.getNoDau(), bc.getPhatSinh(), bc.getNoCuoi()});
@@ -165,6 +177,14 @@ public class reportPanel extends JPanel {
 		this.add(scrollPane, gbc);
 
 		table = new JTable();
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		((DefaultTableCellRenderer)table.getTableHeader().getDefaultRenderer()).setOpaque(false);
+		table.getTableHeader().setOpaque(false);
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+		for (int i = 0; i < table.getColumnCount(); i++) {
+			table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+		}
 		table.setModel(new DefaultTableModel(
 				new Object[][] {
 				},
