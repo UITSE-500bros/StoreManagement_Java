@@ -44,8 +44,7 @@ public class StoreTypeSetting extends JDialog {
 		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		// Get all store types
-		LoaiDaiLyController loaidailyController = new LoaiDaiLyController();
-		List<loaidaily> loaidailyList = loaidailyController.showLoaiDaiLy();
+
 
 		JLabel lblNewLabel = new JLabel("Loại đại lý");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
@@ -56,6 +55,8 @@ public class StoreTypeSetting extends JDialog {
 		contentPanel.add(lblNewLabel, gbc_lblNewLabel);
 
 
+		LoaiDaiLyController loaidailyController = new LoaiDaiLyController();
+		List<loaidaily> loaidailyList = loaidailyController.showLoaiDaiLy();
 		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
 		for (loaidaily loaidaily : loaidailyList) {
 			model.addElement(loaidaily.getTenloaidl());
