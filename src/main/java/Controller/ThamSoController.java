@@ -35,4 +35,9 @@ public class ThamSoController {
         return thamSoRepository.getThamSoValue();
     }
 
+    public int getTyLeDGX() throws IOException {
+
+        return thamSoRepository.getThamSoValue2();
+    }
+
 }

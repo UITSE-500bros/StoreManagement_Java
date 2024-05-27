@@ -53,4 +53,13 @@ public class ThamSoRepository extends Connection{
         super.closeConnection();
         return value;
     }
+
+    public int getThamSoValue2() throws IOException {
+        super.openGetConnection("thamso/getThamSoValue?tenthamso=Tỷ lệ đơn giá xuất");
+        gson = new Gson();
+        JsonReader reader = new JsonReader(new InputStreamReader(con.getInputStream()));
+        int value = gson.fromJson(reader, int.class);
+        super.closeConnection();
+        return value;
+    }
 }
