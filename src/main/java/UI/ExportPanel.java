@@ -612,8 +612,7 @@ public class ExportPanel extends JPanel {
 			public void keyReleased(java.awt.event.KeyEvent evt) {
 				String tienTraText = tienTraTextField.getText();
 				if (!tienTraText.matches("[0-9]+")) {
-					tienTraTextField.setText("");
-					tienConLaiTextField.setText("Còn lại: 0 VND");
+					tienConLaiTextField.setText(tongTienTextField.getText());
 					return;
 				}
 				String tongTienText = tongTienTextField.getText();
