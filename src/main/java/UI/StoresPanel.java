@@ -51,14 +51,15 @@ public class StoresPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public StoresPanel() {
-		initComponents();
-	}
-	public void initComponents() {
 		daiLyController = new DaiLyController();
 		loaiDaiLyController = new LoaiDaiLyController();
 		quanController = new QuanController();
 		phieuThuTienController = new PhieuThuTienController();
 		thamSoController = new ThamSoController();
+		initComponents();
+	}
+	public void initComponents() {
+		
 		loadData();
         String[] labels = {"Tên đại lý", "Loại đại lý", "Số điện thoại", "Địa chỉ", "Quận", "Email"};
         String[] districtItems = new String[quanList.size() + 1];
