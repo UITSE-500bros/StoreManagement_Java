@@ -37,7 +37,7 @@ public class DaiLyRepository extends Connection{
 
     public int getSoNoDuocNoThem(int madaily) {
         gson = new Gson();
-        openGetConnection("daily/max_debt?madaily=" + madaily);
+        openGetConnection("daily/checkingdebt?madaily=" + madaily);
         try {
             JsonReader reader = new JsonReader(new InputStreamReader(con.getInputStream()));
             Type listType = new TypeToken<Integer>(){}.getType();
