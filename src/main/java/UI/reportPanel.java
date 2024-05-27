@@ -20,7 +20,7 @@ import Models.baocaocongno;
 import Models.ctbcds;
 import com.formdev.flatlaf.FlatLightLaf;
 
-public class reportPanel extends CustomPanel {
+public class reportPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private DefaultTableModel model;
@@ -72,6 +72,7 @@ public class reportPanel extends CustomPanel {
 		this.add(panelHeader, gbc);
 
 		JPanel panel = new JPanel();
+		panel.setOpaque(false);
 
 		gbc = new GridBagConstraints();
 		gbc.gridx = 0;

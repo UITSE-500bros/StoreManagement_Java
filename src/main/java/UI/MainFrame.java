@@ -142,7 +142,6 @@ public class MainFrame extends JFrame {
                 items.setVisible(true);
 				items.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				items.setLocationRelativeTo(null);
-				
 			}
 		});
 		MainMenu.add(mntm_ItemQuantity);
