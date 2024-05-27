@@ -141,9 +141,7 @@ public class login extends JFrame {
 		password_panel.setLayout(new BorderLayout(0, 0));
 		
 
-		JButton btn_forgot = new JButton("Quên mật khẩu");
-		btn_forgot.setBackground(new Color(238, 230, 224));
-		password_panel.add(btn_forgot, BorderLayout.EAST);
+
 		
 		JButton btn_login = new JButton("Đăng nhập");
 		btn_login.addActionListener(new ActionListener() {
