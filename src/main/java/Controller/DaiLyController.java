@@ -34,11 +34,6 @@ public class DaiLyController {
     }
 
     public int getSoNoDuocNoThem(int madaily) {
-        for (daily daily : dailyList) {
-            if (daily.getMadaily() == madaily) {
-                return daily.getMaloaidl().getNotoida() - daily.getTienno();
-            }
-        }
-        return -1;
+        return connection.getSoNoDuocNoThem(madaily);
     }
 }

@@ -34,4 +34,19 @@ public class DaiLyRepository extends Connection{
         con.disconnect();
         return dailies;
     }
+
+    public int getSoNoDuocNoThem(int madaily) {
+        gson = new Gson();
+        openGetConnection("daily/max_debt?madaily=" + madaily);
+        try {
+            JsonReader reader = new JsonReader(new InputStreamReader(con.getInputStream()));
+            Type listType = new TypeToken<Integer>(){}.getType();
+            int tienno = gson.fromJson(reader, listType);
+            con.disconnect();
+            return tienno;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
 }
