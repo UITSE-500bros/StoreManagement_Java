@@ -164,10 +164,6 @@ public class StockPanel extends JPanel {
 		
 		// Create column names
         String[] columnNames = {"STT", "Tên mặt hàng", "Số lượng", "Đơn vị tính", "Đơn giá (VND)"};
-
-        
-       
-
      // Create table model
 		DefaultTableModel model = new DefaultTableModel(columnNames, 0) {
 			private static final long serialVersionUID = 1L;
@@ -176,6 +172,18 @@ public class StockPanel extends JPanel {
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
+			
+			@Override
+		    public Class<?> getColumnClass(int column) {
+		        switch (column) {
+		            case 0: return Integer.class; // STT
+		            case 1: return String.class; // Tên mặt hàng
+		            case 2: return Integer.class; // Số lượng
+		            case 3: return String.class; // Đơn vị tính
+		            case 4: return Integer.class; // Đơn giá (VND)
+		            default: return String.class;
+		        }
+		    }
 		};
         // Create data
 		for (int i = 0; i < mathangList.size(); i++) {
@@ -249,14 +257,14 @@ public class StockPanel extends JPanel {
         	        if (e.getStateChange() == ItemEvent.SELECTED) {
         	            String selected = (String) e.getItem();
         	            TableRowSorter<DefaultTableModel> sorter = (TableRowSorter<DefaultTableModel>) ((DefaultRowSorter)table.getRowSorter());
-        	            if (selected.equals("Số lượng tăng dần")) {
+        	            if (selected.equals(sortItems[1])) {
         	                sorter.setSortKeys(Arrays.asList(new RowSorter.SortKey(2, SortOrder.ASCENDING))); // 2 is the column index for quantity
-        	            } else if (selected.equals("Số lượng giảm dần")) {
+        	            } else if (selected.equals(sortItems[2])) {
         	                sorter.setSortKeys(Arrays.asList(new RowSorter.SortKey(2, SortOrder.DESCENDING))); // 2 is the column index for quantity
         	            }
-        	            else if (selected.equals("Đơn giá tăng dần")) {
+        	            else if (selected.equals(sortItems[3])) {
         	                sorter.setSortKeys(Arrays.asList(new RowSorter.SortKey(4, SortOrder.ASCENDING))); // 4 is the column index for price
-        	            } else if (selected.equals("Đơn giá giảm dần")) {
+        	            } else if (selected.equals(sortItems[4])) {
         	                sorter.setSortKeys(Arrays.asList(new RowSorter.SortKey(4, SortOrder.DESCENDING))); // 4 is the column index for price
         	            }
         	            table.setRowSorter(sorter);

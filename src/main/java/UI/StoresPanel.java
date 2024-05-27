@@ -330,8 +330,14 @@ public class StoresPanel extends JPanel {
         	sortFilterComboBox.addItemListener(new ItemListener() {
         	    public void itemStateChanged(ItemEvent e) {
         	        if (e.getStateChange() == ItemEvent.SELECTED) {
-        	            String selected = (String) e.getItem();
-        	            TableRowSorter<DefaultTableModel> sorter = (TableRowSorter<DefaultTableModel>) ((DefaultRowSorter)table.getRowSorter());
+        	        	String selected = String.valueOf(e.getItem());
+        	        	TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+        	            sorter.setComparator(4, new Comparator<Integer>() { // 4 is the column index for debt
+        	                @Override
+        	                public int compare(Integer o1, Integer o2) {
+        	                    return o1.compareTo(o2);
+        	                }
+        	            });
         	            if (selected.equals("Tiền nợ tăng dần")) {
         	                sorter.setSortKeys(Arrays.asList(new RowSorter.SortKey(4, SortOrder.ASCENDING))); // 4 is the column index for debt
         	            } else if (selected.equals("Tiền nợ giảm dần")) {
