@@ -167,9 +167,12 @@ public class addItem extends JDialog {
 		            // add item to table
 					Items.addItemToTable(name, importPrice, unit);
 					MatHangController matHangController = new MatHangController();
-					String result = matHangController.addNewMatHang(mathang);
-					JOptionPane.showMessageDialog(null, result);
+					if(matHangController.addNewMatHang(mathang).contains("201")){
 
+					}else{
+
+					}
+					
 					this.dispose();
 				});
 			}
