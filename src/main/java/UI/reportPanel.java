@@ -127,12 +127,17 @@ public class reportPanel extends JPanel {
 					JOptionPane.showMessageDialog(null, "Năm không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
+				if(Integer.parseInt(textFieldNam.getText()) == LocalDate.now().getYear() && Integer.parseInt(comboboxThang.getSelectedItem().toString().replace("Tháng ", "")) > LocalDate.now().getMonthValue()){
+					JOptionPane.showMessageDialog(null, "Tháng không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
 				if(comboBox.getSelectedItem().equals("Báo cáo doanh số")){
 					List<ctbcds> list = null;
 					try {
 						list = new BaoCaoDoanhSoController().getBaoCaoDoanhSo(Integer.parseInt(comboboxThang.getSelectedItem().toString().replace("Tháng ", "")), Integer.parseInt(textFieldNam.getText()));
 					} catch (IOException ex) {
 						JOptionPane.showMessageDialog(null, "Không có dữ liệu");
+						return;
 					}
 					int tongTien = 0;
 					
@@ -147,7 +152,9 @@ public class reportPanel extends JPanel {
 					try {
 						list = new BaoCaoCongNoController().getBaoCaoCongNo(Integer.parseInt(comboboxThang.getSelectedItem().toString().replace("Tháng ", "")), Integer.parseInt(textFieldNam.getText()));
 					} catch (IOException ex) {
-						JOptionPane.showMessageDialog(null, "Không có dữ liệu"); }
+						JOptionPane.showMessageDialog(null, "Không có dữ liệu");
+						return;
+					}
 					for (baocaocongno bc : list){
 						model.addRow(new Object[]{model.getRowCount() + 1, bc.getBaocaocongnoID().getMadaily().getTendaily(), bc.getNoDau(), bc.getPhatSinh(), bc.getNoCuoi()});
 					}
