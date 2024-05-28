@@ -83,7 +83,7 @@ public class importPanel extends JPanel {
 		gbcHeader.weighty = 1;
 		gbcHeader.fill = GridBagConstraints.HORIZONTAL;
 		gbcHeader.anchor = GridBagConstraints.WEST;
-		JLabel headerLable = new JLabel("NHẬP HÀNG");
+		JLabel headerLable = new JLabel("Nhập Hàng");
 		headerLable.setBorder(new EmptyBorder(0, 20, 0, 0));
 		headerLable.setFont(new Font("Roboto", Font.BOLD, 44));
 		panelHeader.add(headerLable, gbcHeader);

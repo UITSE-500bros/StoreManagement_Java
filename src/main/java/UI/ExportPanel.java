@@ -83,7 +83,7 @@ public class ExportPanel extends JPanel {
 		gbcHeader.weighty = 1;
 		gbcHeader.fill = GridBagConstraints.BOTH;
 		gbcHeader.anchor = GridBagConstraints.WEST;
-		JLabel headerLable = new JLabel("XUẤT HÀNG");
+		JLabel headerLable = new JLabel("Xuất Hàng");
 		headerLable.setBorder(new EmptyBorder(0, 20, 0, 0));
 		headerLable.setFont(new Font("Roboto", Font.BOLD, 44));
 		panelHeader.add(headerLable, gbcHeader);
