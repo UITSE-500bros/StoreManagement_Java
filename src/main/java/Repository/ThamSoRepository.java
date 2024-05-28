@@ -35,14 +35,18 @@ public class ThamSoRepository extends Connection{
         return response;
     }
 
-    public String updateThamSo(thamso thamso){
+    public Boolean updateThamSo(thamso thamso) throws IOException {
         Gson gson = new Gson();
         String json = gson.toJson(thamso);
         super.openPostConnection("thamso/updateThamSo");
         response = "";
         super.writeObject(json);
+        JsonReader reader = new JsonReader(new InputStreamReader(con.getInputStream()));
+        Type listType = new TypeToken<Boolean>(){}.getType();
+        boolean bool = gson.fromJson(reader, listType);
+
         super.closeConnection();
-        return response;
+        return bool;
     }
 
     public int getThamSoValue() throws IOException {

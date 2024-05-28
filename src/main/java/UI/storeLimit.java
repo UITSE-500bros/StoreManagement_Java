@@ -71,8 +71,13 @@ public class storeLimit extends JDialog {
 				getRootPane().setDefaultButton(okButton);
 				okButton.addActionListener(e->{
 					ThamSoController thamSoController = new ThamSoController();
-					int result = thamSoController.updateSoDaiLyToiDa((int) spinner.getValue());
-					if (result == 1) {
+                    int result = 0;
+                    try {
+                        result = thamSoController.updateSoDaiLyToiDa((int) spinner.getValue());
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    if (result == 1) {
 						JOptionPane.showMessageDialog(null, "Cập nhật thành công");
 					} else {
 						JOptionPane.showMessageDialog(null, "Cập nhật thất bại");

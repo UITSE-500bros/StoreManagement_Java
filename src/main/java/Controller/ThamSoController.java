@@ -12,9 +12,9 @@ public class ThamSoController {
         this.thamSoRepository = new ThamSoRepository();
     }
 
-    public int updateSoDaiLyToiDa(int newMaximum) {
+    public int updateSoDaiLyToiDa(int newMaximum) throws IOException {
         thamso thamso = new thamso("Số đại lý tối đa trong một quận", newMaximum);
-        if (thamSoRepository.updateThamSo(thamso).contains("200")) {
+        if (thamSoRepository.updateThamSo(thamso)) {
             return 1;
         } else {
             return -1;
