@@ -472,7 +472,7 @@ public class StoresPanel extends JPanel {
 								}
 							}
                             catch (Exception ex) {
-                                JOptionPane.showMessageDialog(null, "Thêm đại lý thất bại");
+                                JOptionPane.showMessageDialog(null, "Số lượng đại lý của quận đã đạt tối đa");
                             }
 						}
 					});
