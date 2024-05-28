@@ -224,7 +224,7 @@ public class login extends JFrame {
 		Image scaledImage = new ImageIcon("src/main/java/resource/login.png").getImage().getScaledInstance(453, 550, Image.SCALE_SMOOTH);
 		ImageIcon icon = new ImageIcon(scaledImage);
 		// Đặt ImageIcon cho JLabel
-		label.setIcon(new ImageIcon(login.class.getResource("/resource/login.png")));
+		label.setIcon(new ImageIcon("src/main/java/resource/login.png"));
 	}
 
 
