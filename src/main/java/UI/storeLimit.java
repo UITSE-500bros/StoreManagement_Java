@@ -71,7 +71,8 @@ public class storeLimit extends JDialog {
 				getRootPane().setDefaultButton(okButton);
 				okButton.addActionListener(e->{
 					ThamSoController thamSoController = new ThamSoController();
-                    int result = 0;
+
+					int result = 0;
                     try {
                         result = thamSoController.updateSoDaiLyToiDa((int) spinner.getValue());
                     } catch (IOException ex) {

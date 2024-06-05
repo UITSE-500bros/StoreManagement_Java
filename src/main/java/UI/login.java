@@ -175,16 +175,13 @@ public class login extends JFrame {
 					UserLoginController userLoginController;
 					try {
 						userLoginController = new UserLoginController(login.this);
-						userLoginController.getUserByEmail(getTextField_email(),getPasswordField());
-						if(userLoginController.isLoginSuccess()) {
+
+						if(userLoginController.getUserByEmail(getTextField_email(),getPasswordField()).equals("Đăng nhập thành công")) {
 							MainFrame mainFrame = new MainFrame();
 							mainFrame.setVisible(true);
 							mainFrame.setLocationRelativeTo(null);
 							mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-							
-							
 							dispose();
-							
 						}
                            
 					} catch (IOException e1) {
