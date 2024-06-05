@@ -278,6 +278,10 @@ public class importPanel extends JPanel {
 									JOptionPane.ERROR_MESSAGE);
 							return;
 						}
+						if(Integer.parseInt(txtSoLuong.getText()) == 0){
+							JOptionPane.showMessageDialog(null, "Số lượng phải lớn hơn 0", "Lỗi",
+									JOptionPane.ERROR_MESSAGE);
+						}
 						int sum= Integer.parseInt(txtSoLuong.getText()) * Integer.parseInt(txtDonGia.getText());
 						int num = model.getRowCount();
 						model.addRow(new Object[] { num + 1, txtName.getSelectedItem(), txtDVT.getText(),

@@ -291,6 +291,11 @@ public class ExportPanel extends JPanel {
 							return;
 						}
 
+						if(Integer.parseInt(txtSoLuong.getText()) == 0){
+							JOptionPane.showMessageDialog(null, "Số lượng phải lớn hơn 0", "Lỗi",
+									JOptionPane.ERROR_MESSAGE);
+						}
+
 						int soLuong = Integer.parseInt(txtSoLuong.getText());
 
 						try {
