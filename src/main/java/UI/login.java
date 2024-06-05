@@ -174,8 +174,9 @@ public class login extends JFrame {
 					 // call controller to get user by email
 					UserLoginController userLoginController;
 					try {
-						userLoginController = new UserLoginController(login.this);
-
+						userLoginController = new UserLoginController();
+						System.out.println(getTextField_email());
+						System.out.println(getPasswordField());
 						if(userLoginController.getUserByEmail(getTextField_email(),getPasswordField()).equals("Đăng nhập thành công")) {
 							MainFrame mainFrame = new MainFrame();
 							mainFrame.setVisible(true);

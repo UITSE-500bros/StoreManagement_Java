@@ -7,7 +7,7 @@ import java.io.*;
 
 public class UserLoginController {
 	private final Connection connection;
-    public UserLoginController(login login) throws IOException {
+    public UserLoginController() throws IOException {
 		connection = new Connection();
     }
 

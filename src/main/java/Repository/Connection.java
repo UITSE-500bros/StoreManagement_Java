@@ -19,16 +19,15 @@ public class Connection {
     }
 
     public void openGetConnection(String link) {
-    try {
-
-        URL url = new URL("https://still-cliffs-55450-6c9d6b2dff57.herokuapp.com/" +link);
-        con = (HttpsURLConnection) url.openConnection();
-        con.setRequestProperty("Content-Type", "application/json");
-        con.setRequestProperty("Accept", "application/json");
-        con.setRequestMethod("GET");
-        con.setDoOutput(true);
-        con.setDoInput(true);
-        con.connect();
+        try {
+            URL url = new URL("https://still-cliffs-55450-6c9d6b2dff57.herokuapp.com/" +link);
+            con = (HttpsURLConnection) url.openConnection();
+            con.setRequestProperty("Content-Type", "application/json");
+            con.setRequestProperty("Accept", "application/json");
+            con.setRequestMethod("GET");
+            con.setDoOutput(true);
+            con.setDoInput(true);
+            con.connect();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -87,20 +86,26 @@ public class Connection {
     }
 
     public String loginUser(String email, String pass){
-        openGetConnection("user/getLoginUser?personemail=" + email + "&personpassword=" + pass);
+        int responseCode = 0;
         try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            String inputLine;
-            StringBuffer content = new StringBuffer();
-            while ((inputLine = in.readLine()) != null) {
-                content.append(inputLine);
-            }
-            in.close();
-            return content.toString();
+            URL url = new URL("https://still-cliffs-55450-6c9d6b2dff57.herokuapp.com/" + "user/getLoginUser?personemail="+email+"&personpassword="+pass);
+            con = (HttpsURLConnection) url.openConnection();
+            con.setRequestProperty("Content-Type", "application/json");
+            con.setRequestProperty("Accept", "application/json");
+            con.setRequestMethod("GET");
+            con.setDoOutput(true);
+            con.setDoInput(true);
+            con.connect();
+            responseCode = con.getResponseCode();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        if(responseCode == 200){
+            return "Đăng nhập thành công";
+        } else {
+            return "Đăng nhập thất bại";
+        }
+
     }
 
 }
