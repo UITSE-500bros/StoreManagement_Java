@@ -86,4 +86,21 @@ public class Connection {
         }
     }
 
+    public String loginUser(String email, String pass){
+        openGetConnection("user/getLoginUser?personemail=" + email + "&personpassword=" + pass);
+        try {
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuffer content = new StringBuffer();
+            while ((inputLine = in.readLine()) != null) {
+                content.append(inputLine);
+            }
+            in.close();
+            return content.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

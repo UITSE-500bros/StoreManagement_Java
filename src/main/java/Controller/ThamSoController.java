@@ -13,11 +13,9 @@ public class ThamSoController {
     }
 
     public int updateSoDaiLyToiDa(int newMaximum) throws IOException {
-        if (newMaximum < getSoDaiLyToiDa()) {
-            return -1;
-        }
+
         thamso thamso = new thamso("Số đại lý tối đa trong một quận", newMaximum);
-        if (thamSoRepository.updateThamSo(thamso)) {
+        if (thamSoRepository.updateThamSo(thamso).contains("200")) {
             return 1;
         } else {
             return -1;
@@ -26,21 +24,20 @@ public class ThamSoController {
 
     public int updateTyLeDonGiaXuat(int percentage) throws IOException {
         thamso thamso = new thamso("Tỷ lệ đơn giá xuất", percentage);
-        if (thamSoRepository.updateThamSo(thamso)) {
+        if (thamSoRepository.updateThamSo(thamso).contains("200")) {
             return 1;
         } else {
             return -1;
         }
+
     }
 
-    public int getSoDaiLyToiDa() throws IOException {
-
-        return thamSoRepository.getThamSoValue();
+    public int getTLDGX() throws IOException {
+        thamso thamso = thamSoRepository.getThamSo("Tỷ lệ đơn giá xuất");
+        if (thamso != null) {
+            return thamso.getGiatri();
+        } else {
+            return -1;
+        }
     }
-
-    public int getTyLeDGX() throws IOException {
-
-        return thamSoRepository.getThamSoValue2();
-    }
-
 }
