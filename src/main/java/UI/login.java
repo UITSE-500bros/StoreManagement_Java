@@ -221,6 +221,7 @@ public class login extends JFrame {
 		contentPane.add(label, gbc_label);
 		label.setPreferredSize(new java.awt.Dimension(453, 550));
 		// Tạo ImageIcon từ đường dẫn của ảnh
+		ImageIcon imageIcon = new ImageIcon("src/main/java/resource/login.png");
 		Image scaledImage = new ImageIcon("src/main/java/resource/login.png").getImage().getScaledInstance(453, 550, Image.SCALE_SMOOTH);
 		ImageIcon icon = new ImageIcon(scaledImage);
 		// Đặt ImageIcon cho JLabel
