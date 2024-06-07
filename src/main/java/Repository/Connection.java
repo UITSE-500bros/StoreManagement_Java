@@ -2,6 +2,7 @@ package Repository;
 
 import Models.*;
 import com.google.gson.Gson;
+
 import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -9,7 +10,7 @@ import java.net.URL;
 
 public class Connection {
     private URL url;
-    public HttpsURLConnection con;
+    public HttpURLConnection con;
 
     protected static Gson gson ;
     protected static String response;
@@ -20,8 +21,8 @@ public class Connection {
 
     public void openGetConnection(String link) {
         try {
-            URL url = new URL("https://still-cliffs-55450-6c9d6b2dff57.herokuapp.com/" +link);
-            con = (HttpsURLConnection) url.openConnection();
+            URL url = new URL("http://localhost:8080/" +link);
+            con = (HttpURLConnection) url.openConnection();
             con.setRequestProperty("Content-Type", "application/json");
             con.setRequestProperty("Accept", "application/json");
             con.setRequestMethod("GET");
@@ -56,8 +57,8 @@ public class Connection {
 
     public void openPostConnection(String link) {
         try {
-            URL url = new URL("https://still-cliffs-55450-6c9d6b2dff57.herokuapp.com/" +link);
-            con = (HttpsURLConnection) url.openConnection();
+            URL url = new URL("http://localhost:8080/" +link);
+            con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
             con.setRequestProperty("Content-Type", "application/json; utf-8");
             con.setRequestProperty("Accept", "application/json");
@@ -88,8 +89,8 @@ public class Connection {
     public String loginUser(String email, String pass){
         int responseCode = 0;
         try {
-            URL url = new URL("https://still-cliffs-55450-6c9d6b2dff57.herokuapp.com/" + "user/getLoginUser?personemail="+email+"&personpassword="+pass);
-            con = (HttpsURLConnection) url.openConnection();
+            URL url = new URL("http://localhost:8080/" + "user/getLoginUser?personemail="+email+"&personpassword="+pass);
+            con = (HttpURLConnection) url.openConnection();
             con.setRequestProperty("Content-Type", "application/json");
             con.setRequestProperty("Accept", "application/json");
             con.setRequestMethod("GET");
@@ -105,7 +106,5 @@ public class Connection {
         } else {
             return "Đăng nhập thất bại";
         }
-
     }
-
 }
