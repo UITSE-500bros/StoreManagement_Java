@@ -109,29 +109,6 @@ public class Items extends JFrame {
 		});
 		panel.add(btnOk);
 		// Trong class Items
-		JButton btnEdit = new JButton("Sửa");
-		btnEdit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int selectedRow = table.getSelectedRow();
-				if (selectedRow != -1) {
-					String currentPrice = (String) table.getValueAt(selectedRow, 2);
-					EditPriceDialog dialog = new EditPriceDialog(currentPrice);
-					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					dialog.setLocationRelativeTo(null);
-					dialog.setVisible(true);
-					dialog.addWindowListener(new WindowAdapter() {
-						@Override
-						public void windowClosed(WindowEvent e) {
-							String newPrice = dialog.getNewPrice();
-							if (newPrice != null) {
-								table.setValueAt(newPrice, selectedRow, 3);
-							}
-						}
-					});
-				}
-			}
-		});
-		panel.add(btnEdit);
 		
 		
 	}
