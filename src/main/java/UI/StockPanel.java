@@ -85,7 +85,7 @@ public class StockPanel extends JPanel {
 		gbcHeader.anchor = GridBagConstraints.WEST;
 		JLabel headerLable = new JLabel("Tồn Kho");
 		headerLable.setBorder(new EmptyBorder(0, 20, 0, 0));
-		headerLable.setFont(new Font("Roboto", Font.BOLD, 24));
+		headerLable.setFont(new Font("Dialog", Font.BOLD, 44));
 
 		panelHeader.add(headerLable, gbcHeader);
 		this.add(panelHeader, gbc);
