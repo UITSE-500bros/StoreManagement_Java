@@ -21,7 +21,7 @@ public class Connection {
 
     public void openGetConnection(String link) {
         try {
-            URL url = new URL("http://localhost:8080/" +link);
+            URL url = new URL("https://backendagency-b3d3838beaba.herokuapp.com/" +link);
             con = (HttpURLConnection) url.openConnection();
             con.setRequestProperty("Content-Type", "application/json");
             con.setRequestProperty("Accept", "application/json");
@@ -57,7 +57,7 @@ public class Connection {
 
     public void openPostConnection(String link) {
         try {
-            URL url = new URL("http://localhost:8080/" +link);
+            URL url = new URL("https://backendagency-b3d3838beaba.herokuapp.com/" +link);
             con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
             con.setRequestProperty("Content-Type", "application/json; utf-8");
@@ -66,7 +66,6 @@ public class Connection {
             e.printStackTrace();
         }
     }
-
 
     protected void writeObject(String json){
         try {
@@ -89,7 +88,7 @@ public class Connection {
     public String loginUser(String email, String pass){
         int responseCode = 0;
         try {
-            URL url = new URL("http://localhost:8080/" + "user/getLoginUser?personemail="+email+"&personpassword="+pass);
+            URL url = new URL("https://backendagency-b3d3838beaba.herokuapp.com/" + "user/getLoginUser?personemail="+email+"&personpassword="+pass);
             con = (HttpURLConnection) url.openConnection();
             con.setRequestProperty("Content-Type", "application/json");
             con.setRequestProperty("Accept", "application/json");
