@@ -13,7 +13,6 @@ public class ThamSoController {
     }
 
     public int updateSoDaiLyToiDa(int newMaximum) throws IOException {
-
         thamso thamso = new thamso("Số đại lý tối đa trong một quận", newMaximum);
         if (thamSoRepository.updateThamSo(thamso).contains("200")) {
             return 1;
