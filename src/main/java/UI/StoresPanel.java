@@ -96,7 +96,7 @@ public class StoresPanel extends JPanel {
 		gbcHeader.anchor = GridBagConstraints.WEST;
 		JLabel headerLable = new JLabel("Đại lý");
 		headerLable.setBorder(new EmptyBorder(0, 20, 0, 0));
-		headerLable.setFont(new Font("Roboto", Font.BOLD, 28));
+		headerLable.setFont(new Font("Roboto", Font.BOLD, 44));
 		panelHeader.add(headerLable, gbcHeader);
 		this.add(panelHeader, gbc);
 
